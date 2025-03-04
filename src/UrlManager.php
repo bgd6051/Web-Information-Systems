@@ -26,7 +26,7 @@ class UrlManager
                 $source = ($method === 'GET') ? $_GET : $_POST;
                 if (isset($source[$required_param])) {
                     is_array($source[$required_param])
-                        ? $params[$required_param] = $source[$required_param];
+                        ? $params[$required_param] = $source[$required_param]
                         : $params[$required_param] = $source[$required_param];
                 }
             }
