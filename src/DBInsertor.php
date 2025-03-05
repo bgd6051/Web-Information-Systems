@@ -1,32 +1,53 @@
 <?php
 class DBInsertor extends DBHandler {
     public function insertCoin($coin) {
-        $query = "INSERT INTO FINAL_COINS (id, symbol, name) VALUES (?, ?, ?)";
-        return $this->executeQuery($query, ["sss", $coin->getId(), $coin->getSymbol(), $coin->getName()]);
+        $query = "INSERT INTO FINAL_COINS (id, symbol, name, 
+        image, current_price, market_cap, price_change_percentage_24h) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return $this->executeQuery($query,
+        ["ssssiid", $coin->getId(),
+                    $coin->getSymbol(),
+                    $coin->getName(),
+                    $coin->getImage(),
+                    $coin->getCurrentPrice(),
+                    $coin->getMarketCap(),
+                    $coin->getPriceChangePercentage24h()]);
     }
     public function insertAdminLog($adminLog) {
         $query = "INSERT INTO FINAL_ADMIN_LOG (ID_ADMIN, action, fecha) VALUES (?, ?, ?)";
         return $this->executeQuery($query, 
             ["iss", $adminLog->getID_ADMIN(), 
-                        $adminLog->getAction(), 
-                        $adminLog->getFecha()] );
+                    $adminLog->getAction(), 
+                    $adminLog->getFecha()] );
     }
-    public function insertExchangeRate($exchangeRate) {
-        $query = "INSERT INTO FINAL_EXCHANGE_RATE (ID_COIN_FORM, ID_COIN_TO, date, price) VALUES (?, ?, ?, ?)";
-        return $this->executeQuery($query, ["iisd", $exchangeRate->getID_COIN_FORM(), 
-                    $exchangeRate->getID_COIN_TO(), 
-                    $exchangeRate->getDate(), 
-                    $exchangeRate->getPrice()] );
-    }
-    public function insertSupportedCoin($supportedCoin) {
-        $query = "INSERT INTO FINAL_SUPPORTED_COINS (ID_COIN) VALUES (?)";
-        return $this->executeQuery($query, ["i", $supportedCoin->getID_COIN()]);
+    public function insertExchanges($exchanges) {
+        $query = "INSERT INTO FINAL_EXCHANGES (id, name, year_established, 
+        country, image, trust_score, trade_volume_24h_btc) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return $this->executeQuery($query, 
+            ["ssissid", $exchanges->getId(), 
+                    $exchanges->getName(), 
+                    $exchanges->getYearEstablished(), 
+                    $exchanges->getCountry(), 
+                    $exchanges->getImage(), 
+                    $exchanges->getTrustScore(), 
+                    $exchanges->getTradeVolume24hBtc()]);
     }
     public function insertTrendingCoin($trendingCoin) {
         $query = "INSERT INTO FINAL_TRENDING_COINS (ID_COIN, date) VALUES (?, ?)";
         return $this->executeQuery($query, ["is", $trendingCoin->getID_COIN(), 
                     $trendingCoin->getDate()] );
     }
+    public function insertTrendingNft($trendingNft) {
+        $query = "INSERT INTO FINAL_TRENDING_NFTS (id, name, symbol, 
+        thumb, native_currency_symbol, floor_price_in_native_currency, floor_price_24h_percentage_change) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return $this->executeQuery($query, 
+            ["sssssdd", $trendingNft->getId(), 
+                    $trendingNft->getName(), 
+                    $trendingNft->getSymbol(), 
+                    $trendingNft->getThumb(), 
+                    $trendingNft->getNativeCurrencySymbol(), 
+                    $trendingNft->getFloorPriceInNativeCurrency(), 
+                    $trendingNft->getFloorPrice24hPercentageChange()]);
+    }					
     public function insertUserRegistration($userRegistration) {
         $query = "INSERT INTO FINAL_USER_REGISTRATION (username, password, role) VALUES (?, ?, ?)";
         return $this->executeQuery($query,
@@ -34,15 +55,15 @@ class DBInsertor extends DBHandler {
                     $userRegistration->getPassword(), 
                     $userRegistration->getRole()] );
     }
-    public function insertExchanges($exchanges) {
-        $query = "INSERT INTO FINAL_EXCHANGES (id, name, year_established, 
-        country, trust_score, trade_volume_24h_btc) VALUES (?, ?, ?, ?, ?, ?)";
-        return $this->executeQuery($query,
-         ["ssisid", $exchanges->getId(),
-                    $exchanges->getName(), 
-                    $exchanges->getYear_established(), 
-                    $exchanges->getCountry(), 
-                    $exchanges->getTrust_score(), 
-                    $exchanges->getTrade_volume_24h_btc()] );
+    public function insertCoinsChart($coinsChart) {
+        $query = "INSERT INTO FINAL_COINS_CHART (ID_COIN, unix_time, price, 
+        market_cap, total_volume) VALUES (?, ?, ?, ?, ?)";
+        return $this->executeQuery($query, 
+            ["iiddd", $coinsChart->getID_COIN(), 
+                    $coinsChart->getUnixTime(), 
+                    $coinsChart->getPrice(), 
+                    $coinsChart->getMarketCap(), 
+                    $coinsChart->getTotalVolume()] );
     }
+
 }
