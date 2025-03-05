@@ -62,4 +62,21 @@ class DBUpdater extends DBHandler {
                    $exchanges->getTrade_volume_24h_btc(),
                    $exchanges->getID_EXCHANGE()]);
     }
+
+    public function updateAllTables() {
+        $query = "DELETE FROM FINAL_ADMIN_LOG";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_EXCHANGE_RATE";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_SUPPORTED_COINS";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_TRENDING_COINS";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_COINS";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_USER_REGISTRATION";
+        $this->executeQuery($query);
+        $query = "DELETE FROM FINAL_EXCHANGES";
+        $this->executeQuery($query);
+    }
 }
