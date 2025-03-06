@@ -1,5 +1,4 @@
 <?php
-
 class Coin
 {
     private string $Id;
