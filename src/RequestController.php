@@ -2,7 +2,7 @@
 
 class RequestController
 {
-    private function get_configurated_curl(string $url) : CurlHandle
+    private static function get_configurated_curl(string $url) : CurlHandle
     {
         $curl = curl_init();
         curl_setopt($curl,CURLOPT_POST, false);
@@ -12,9 +12,9 @@ class RequestController
         return $curl;
     }
 
-    public function get_response_from_domain(string $url)
+    public static function get_response_from_domain(string $url)
     {
-        $curl = $this->get_configurated_curl( $url);
+        $curl = self::get_configurated_curl($url);
         $response = curl_exec($curl);
         curl_close($curl);
         return json_decode($response);
