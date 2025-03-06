@@ -1,61 +1,60 @@
 <?php
-class Coin
+class TrendingNft
 {
     private string $Id;
-    private string $Symbol;
     private string $Name;
-    private string $Image;
-    private int $CurrentPrice;
-    private int $MarketCap;
-    private float $PriceChangePercentage24h;
-    private int $ID_COIN;
+    private string $Symbol;
+    private string $Thumb;
+    private string $NativeCurrencySymbol;
+    private float $FloorPriceInNativeCurrency;
+    private float $FloorPrice24hPercentageChange;
+    private int $ID_TRENDING_NFT;
 
-    public function __construct(string $Id, string $Symbol, string $Name,
-    string $Image, int $CurrentPrice, int $MarketCap, 
-    float $PriceChangePercentage24h, int|null $ID_COIN)  
+    public function __construct(string $Id, string $Name, string $Symbol,
+    string $Thumb, string $NativeCurrencySymbol, float $FloorPriceInNativeCurrency, 
+    float $FloorPrice24hPercentageChange, int|null $ID_TRENDING_NFT)  
     {
         $this->$Id = $Id;
-        $this->$Symbol = $Symbol;
         $this->$Name = $Name;
-        $this->$Image = $Image;
-        $this->$CurrentPrice = $CurrentPrice;
-        $this->$MarketCap = $MarketCap;
-        $this->$PriceChangePercentage24h = $PriceChangePercentage24h;
-        $this->$ID_COIN = $ID_COIN;
+        $this->$Symbol = $Symbol;
+        $this->$Thumb = $Thumb;
+        $this->$NativeCurrencySymbol = $NativeCurrencySymbol;
+        $this->$FloorPriceInNativeCurrency = $FloorPriceInNativeCurrency;
+        $this->$FloorPrice24hPercentageChange = $FloorPrice24hPercentageChange;
+        $this->$ID_TRENDING_NFT = $ID_TRENDING_NFT;
     }
 
     public static function constructList($result){
         for($i = 0; $i < count($result); $i++){
             $line = $result[$i];
             //obtener los parametros de $line
-            $coin = new Coin(/*poner los parametros de $line*/);
-            $list[$i] = $coin;
+            $trendingNft = new TrendingNft(/*poner los parametros de $line*/);
+            $list[$i] = $trendingNft;
         }
         return $list;
     }
-    
     public function getId() {
         return $this->Id;
-    }
-    public function getSymbol() {
-        return $this->Symbol;
     }
     public function getName() {
         return $this->Name;
     }
-    public function getImage() {
-        return $this->Image;
+    public function getSymbol() {
+        return $this->Symbol;
     }
-    public function getCurrentPrice() {
-        return $this->CurrentPrice;
+    public function getThumb() {
+        return $this->Thumb;
     }
-    public function getMarketCap() {
-        return $this->MarketCap;
+    public function getNativeCurrencySymbol() {
+        return $this->NativeCurrencySymbol;
     }
-    public function getPriceChangePercentage24h() {
-        return $this->PriceChangePercentage24h;
+    public function getFloorPriceInNativeCurrency() {
+        return $this->FloorPriceInNativeCurrency;
     }
-    public function getID_COIN() {
-        return $this->ID_COIN;
+    public function getFloorPrice24hPercentageChange() {
+        return $this->FloorPrice24hPercentageChange;
+    }
+    public function getID_TRENDING_NFT() {
+        return $this->ID_TRENDING_NFT;
     }
 }   

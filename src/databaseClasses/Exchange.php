@@ -1,35 +1,34 @@
 <?php
-class Coin
+class Exchange
 {
     private string $Id;
-    private string $Symbol;
     private string $Name;
+    private int $YearEstablished;
+    private string $Country;
     private string $Image;
-    private int $CurrentPrice;
-    private int $MarketCap;
-    private float $PriceChangePercentage24h;
-    private int $ID_COIN;
-
-    public function __construct(string $Id, string $Symbol, string $Name,
-    string $Image, int $CurrentPrice, int $MarketCap, 
-    float $PriceChangePercentage24h, int|null $ID_COIN)  
+    private int $TrustScore;
+    private float $TradeVolume24hBtc;
+    private int $ID_EXCHANGE;
+    public function __construct(string $Id, string $Name, int $YearEstablished,
+    string $Country, string $Image, int $TrustScore, 
+    float $TradeVolume24hBtc, int|null $ID_EXCHANGE)  
     {
         $this->$Id = $Id;
-        $this->$Symbol = $Symbol;
         $this->$Name = $Name;
+        $this->$YearEstablished = $YearEstablished;
+        $this->$Country = $Country;
         $this->$Image = $Image;
-        $this->$CurrentPrice = $CurrentPrice;
-        $this->$MarketCap = $MarketCap;
-        $this->$PriceChangePercentage24h = $PriceChangePercentage24h;
-        $this->$ID_COIN = $ID_COIN;
+        $this->$TrustScore = $TrustScore;
+        $this->$TradeVolume24hBtc = $TradeVolume24hBtc;
+        $this->$ID_EXCHANGE = $ID_EXCHANGE;
     }
 
     public static function constructList($result){
         for($i = 0; $i < count($result); $i++){
             $line = $result[$i];
             //obtener los parametros de $line
-            $coin = new Coin(/*poner los parametros de $line*/);
-            $list[$i] = $coin;
+            $exchange = new Exchange(/*poner los parametros de $line*/);
+            $list[$i] = $exchange;
         }
         return $list;
     }
@@ -37,25 +36,25 @@ class Coin
     public function getId() {
         return $this->Id;
     }
-    public function getSymbol() {
-        return $this->Symbol;
-    }
     public function getName() {
         return $this->Name;
+    }
+    public function getYearEstablished() {
+        return $this->YearEstablished;
+    }
+    public function getCountry() {
+        return $this->Country;
     }
     public function getImage() {
         return $this->Image;
     }
-    public function getCurrentPrice() {
-        return $this->CurrentPrice;
+    public function getTrustScore() {
+        return $this->TrustScore;
     }
-    public function getMarketCap() {
-        return $this->MarketCap;
+    public function getTradeVolume24hBtc() {
+        return $this->TradeVolume24hBtc;
     }
-    public function getPriceChangePercentage24h() {
-        return $this->PriceChangePercentage24h;
-    }
-    public function getID_COIN() {
-        return $this->ID_COIN;
+    public function getID_EXCHANGE() {
+        return $this->ID_EXCHANGE;
     }
 }   

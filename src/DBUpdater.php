@@ -1,7 +1,7 @@
 <?php
 
 class DBUpdater extends DBHandler {
-    public function updateCoin($coin) {
+    public function updateCoin(Coin $coin) {
         $query = "UPDATE FINAL_COINS SET id = ?, symbol = ?, name = ?, 
         image = ?, current_price = ?, market_cap = ?, 
         price_change_percentage_24h = ? WHERE ID_COIN = ?";
@@ -16,16 +16,16 @@ class DBUpdater extends DBHandler {
                     $coin->getID_COIN()]);
     }
     
-    public function updateAdminLog($adminLog) {
+    public function updateAdminLog(AdminLog $adminLog) {
         $query = "UPDATE FINAL_ADMIN_LOG SET ID_ADMIN = ?, action = ?, fecha = ? WHERE ID_LOG = ?";
         return $this->executeQuery($query, 
             ["issi", $adminLog->getID_ADMIN(), 
                     $adminLog->getAction(), 
                     $adminLog->getFecha(),
-                    $adminLog->getID_LOG()] );
+                    $adminLog->getID_LOG()]);
     }
     
-    public function updateCoinsChart($coinsChart) {
+    public function updateCoinsChart(CoinChart $coinsChart) {
         $query = "UPDATE FINAL_COINS_CHART SET ID_COIN = ?, unix_time = ?, 
         price = ?, market_cap = ?, total_volume = ? WHERE ID_COINS_CHART  = ?";
         return $this->executeQuery($query, 
@@ -37,14 +37,18 @@ class DBUpdater extends DBHandler {
                     $coinsChart->getID_COINS_CHART()] );
     }
     
-    public function updateTrendingCoin($trendingCoin) {
-        $query = "UPDATE FINAL_TRENDING_COINS SET ID_COIN = ?, date = ? WHERE ID_TRENDING_COIN = ?";
-        return $this->executeQuery($query, ["isi", $trendingCoin->getID_COIN(), 
-                    $trendingCoin->getDate(),
+    public function updateTrendingCoin(TrendingCoin $trendingCoin) {
+        $query = "UPDATE FINAL_TRENDING_COINS SET id = ?, name = ?, thumbnail = ?, 
+        price = ?, price_change_percentage_24h = ? WHERE ID_TRENDING_COIN = ?";
+        return $this->executeQuery($query, ["sssddi", $trendingCoin->getId(), 
+                    $trendingCoin->getName(), 
+                    $trendingCoin->getThumbnail(), 
+                    $trendingCoin->getPrice(), 
+                    $trendingCoin->getPriceChangePercentage24h(),
                     $trendingCoin->getID_TRENDING_COIN()] );
     }
     
-    public function updateTrendingNft($trendingNft) {
+    public function updateTrendingNft(TrendingNft $trendingNft) {
         $query = "UPDATE FINAL_TRENDING_NFTS SET id = ?, name = ?, symbol = ?, 
         thumb = ?, native_currency_symbol = ?, floor_price_in_native_currency = ?
         , floor_price_24h_percentage_change = ? WHERE ID_TRENDING_NFT = ?";
@@ -59,16 +63,16 @@ class DBUpdater extends DBHandler {
                     $trendingNft->getID_TRENDING_NFT()] );
     }
     
-    public function updateUserRegistration($userRegistration) {
+    public function updateUserRegistration(UserRegistration $userRegistration) {
         $query = "UPDATE FINAL_USER_REGISTRATION SET username = ?, password = ?, role = ? WHERE ID_USER = ?";
         return $this->executeQuery($query,
          ["sssi", $userRegistration->getUsername(), 
                     $userRegistration->getPassword(), 
                     $userRegistration->getRole(),
-                    $userRegistration->getID_USER()]) ;
+                    $userRegistration->getID_USER()]);
     }
         
-    public function updateExchanges($exchanges) {
+    public function updateExchanges(Exchange $exchanges) {
         $query = "UPDATE FINAL_EXCHANGES SET id = ?, name = ?, year_established = ?, 
         country = ?, image = ?, trust_score = ?, trade_volume_24h_btc = ? WHERE ID_EXCHANGE = ?";
         return $this->executeQuery($query, 
