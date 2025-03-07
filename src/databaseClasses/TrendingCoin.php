@@ -21,10 +21,13 @@ class TrendingCoin
     }
 
     public static function constructList($result){
-        for($i = 0; $i < count($result); $i++){
-            $line = $result[$i];
-            //obtener los parametros de $line
-            $trendingCoin = new TrendingCoin(/*poner los parametros de $line*/);
+        $elementos = $result["coins"];
+        for($i = 0; $i < count($elementos); $i++){
+            $line = $result[$i]["item"];
+            $trendingCoin = new TrendingCoin($line["id"],$line["name"],
+            $line["thumb"],$line["data"]["price"],
+            $line["data"]["PriceChangePercentage_24h"]["usd"],
+             null);
             $list[$i] = $trendingCoin;
         }
         return $list;

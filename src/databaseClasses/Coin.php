@@ -27,8 +27,9 @@ class Coin
     public static function constructList($result){
         for($i = 0; $i < count($result); $i++){
             $line = $result[$i];
-            //obtener los parametros de $line
-            $coin = new Coin(/*poner los parametros de $line*/);
+            $coin = new Coin($line["id"],$line["symbol"],$line["name"],
+            $line["image"],$line["current_price"],$line["market_cap"],
+            $line["price_change_percentage_24h"], null);
             $list[$i] = $coin;
         }
         return $list;
