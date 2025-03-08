@@ -1,20 +1,21 @@
 <?php
+const TABLES_TO_DELETE = [
+    "FINAL_EXCHANGE_RATE",
+    "FINAL_SUPPORTED_COINS",
+    "FINAL_TRENDING_COINS",
+    "FINAL_COINS",
+    "FINAL_EXCHANGES"
+];
 
 class DBDeletor extends DBHandler {
-    public function deleteAll() {
-        $query = "DELETE FROM FINAL_ADMIN_LOG";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_EXCHANGE_RATE";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_SUPPORTED_COINS";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_TRENDING_COINS";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_COINS";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_USER_REGISTRATION";
-        $this->executeQuery($query);
-        $query = "DELETE FROM FINAL_EXCHANGES";
-        $this->executeQuery($query);
+
+    public function deleteAllIntormationFromTables(): bool {
+        foreach (TABLES_TO_DELETE as $table) {
+            $query = "DELETE FROM $table";
+            $queryResponse = $this->executeQuery($query);
+            if (!$queryResponse) { return false; }
+        }
+        return true;
     }
+    
 }

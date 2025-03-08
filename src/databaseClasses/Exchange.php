@@ -10,8 +10,8 @@ class Exchange
     private float $TradeVolume24hBtc;
     private int $ID_EXCHANGE;
     public function __construct(string $Id, string $Name, int $YearEstablished,
-    string $Country, string $Image, int $TrustScore, 
-    float $TradeVolume24hBtc, int|null $ID_EXCHANGE)  
+                                string $Country, string $Image, int $TrustScore, 
+                                float $TradeVolume24hBtc, ?int $ID_EXCHANGE = null)  
     {
         $this->$Id = $Id;
         $this->$Name = $Name;
@@ -23,38 +23,48 @@ class Exchange
         $this->$ID_EXCHANGE = $ID_EXCHANGE;
     }
 
-    public static function constructList($result){
-        for($i = 0; $i < count($result); $i++){
-            $line = $result[$i];
-            //obtener los parametros de $line
-            $exchange = new Exchange(/*poner los parametros de $line*/);
-            $list[$i] = $exchange;
+    public static function constructList(array $responseArray): array{
+        $exchangeList = [];
+        $numExchanges = count($responseArray);
+        for($i = 0; $i < $numExchanges; $i++) {
+            $exchangeLine = $responseArray[$i];
+            $exchange = new Exchange( $exchangeLine["id"],$exchangeLine["name"],$exchangeLine["year_established"],
+            $exchangeLine["country"],$exchangeLine["image"],$exchangeLine["trust_score"],
+            $exchangeLine["trade_volume_24h_btc"] );
+            $exchangeList[$i] = $exchange;
         }
-        return $list;
+        return $exchangeList;
     }
     
-    public function getId() {
+    public function getId(): string {
         return $this->Id;
     }
-    public function getName() {
+
+    public function getName(): string {
         return $this->Name;
     }
-    public function getYearEstablished() {
+
+    public function getYearEstablished(): int {
         return $this->YearEstablished;
     }
-    public function getCountry() {
+
+    public function getCountry(): string {
         return $this->Country;
     }
-    public function getImage() {
+
+    public function getImage(): string {
         return $this->Image;
     }
-    public function getTrustScore() {
+
+    public function getTrustScore(): int {
         return $this->TrustScore;
     }
-    public function getTradeVolume24hBtc() {
+
+    public function getTradeVolume24hBtc(): float {
         return $this->TradeVolume24hBtc;
     }
-    public function getID_EXCHANGE() {
+
+    public function getID_EXCHANGE(): int {
         return $this->ID_EXCHANGE;
     }
 }   

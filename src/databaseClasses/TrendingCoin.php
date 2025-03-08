@@ -8,9 +8,8 @@ class TrendingCoin
     private float $PriceChangePercentage24h;
     private int $ID_TRENDING_COIN;
 
-    public function __construct(string $Id, string $Name,
-    string $Thumbnail, float $Price, 
-    float $PriceChangePercentage24h, int|null $ID_TRENDING_COIN)  
+    public function __construct( string $Id, string $Name, string $Thumbnail, float $Price, 
+                                float $PriceChangePercentage24h, ?int $ID_TRENDING_COIN = null)  
     {
         $this->$Id = $Id;
         $this->$Name = $Name;
@@ -20,34 +19,35 @@ class TrendingCoin
         $this->$ID_TRENDING_COIN = $ID_TRENDING_COIN;
     }
 
-    public static function constructList($result){
-        $elementos = $result["coins"];
-        for($i = 0; $i < count($elementos); $i++){
-            $line = $result[$i]["item"];
-            $trendingCoin = new TrendingCoin($line["id"],$line["name"],
-            $line["thumb"],$line["data"]["price"],
-            $line["data"]["PriceChangePercentage_24h"]["usd"],
-             null);
-            $list[$i] = $trendingCoin;
+    public static function constructList(array $responseArray): array{
+        $coinArray = $responseArray["coins"];
+        $numOfTrendingCoins = count($coinArray);
+        $trendingCoinList = [];
+        for($i = 0; $i < $numOfTrendingCoins; $i++){
+            $trendingCoinLine = $responseArray[$i]["item"];
+            $trendingCoin = new TrendingCoin( $trendingCoinLine["id"], $trendingCoinLine["name"],
+            $trendingCoinLine["thumb"],$trendingCoinLine["data"]["price"],
+            $trendingCoinLine["data"]["PriceChangePercentage_24h"]["usd"] );
+            $trendingCoinList[$i] = $trendingCoin;
         }
-        return $list;
+        return $trendingCoinList;
     }
-    public function getId() {
+    public function getId(): string {
         return $this->Id;
     }
-    public function getName() {
+    public function getName(): string {
         return $this->Name;
     }
-    public function getThumbnail() {
+    public function getThumbnail(): string {
         return $this->Thumbnail;
     }
-    public function getPrice() {
+    public function getPrice(): float {
         return $this->Price;
     }
-    public function getPriceChangePercentage24h() {
+    public function getPriceChangePercentage24h(): float {
         return $this->PriceChangePercentage24h;
     }
-    public function getID_TRENDING_COIN() {
+    public function getID_TRENDING_COIN(): int {
         return $this->ID_TRENDING_COIN;
     }
 }   

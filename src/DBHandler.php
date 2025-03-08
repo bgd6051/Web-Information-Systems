@@ -22,4 +22,13 @@ abstract class DBHandler
         $stmt->execute();
         return $stmt;
     }
+    public function isQuerySuccessful($stmt): bool 
+    {
+        if ($stmt instanceof mysqli_stmt) {
+            if ($stmt->field_count > 0) { return true; } 
+            return $stmt->affected_rows >= 0;
+        }
+        return false;
+    }
+
 }
