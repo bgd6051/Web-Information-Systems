@@ -82,7 +82,7 @@ class DBInsertor extends DBHandler {
 
     public function insertCoinChart(array $coinChart): bool {
         foreach ($coinChart as $coinChartInstance) {
-            $queryResponse = $this->insertCoinChartInstance(coinsChartInstance: $coinChartInstance);
+            $queryResponse = $this->insertCoinChartInstance($coinChartInstance);
             if (!$this->isQuerySuccessful($queryResponse)) { return false; }
         }
         return true;

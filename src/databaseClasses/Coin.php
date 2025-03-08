@@ -1,35 +1,33 @@
 <?php
 class Coin
 {
-    private string $Id;
-    private string $Symbol;
-    private string $Name;
-    private string $Image;
-    private int $CurrentPrice;
-    private int $MarketCap;
-    private float $PriceChangePercentage24h;
-    private int $ID_COIN;
+    private $Id;
+    private $Symbol;
+    private $Name;
+    private $Image;
+    private $CurrentPrice;
+    private $MarketCap;
+    private $PriceChangePercentage24h;
+    private $ID_COIN;
 
     public function __construct( string $Id, string $Symbol, string $Name,
                                 string $Image, int $CurrentPrice, int $MarketCap, 
                                 float $PriceChangePercentage24h, ?int $ID_COIN = null)
     {
-        $this->$Id = $Id;
-        $this->$Symbol = $Symbol;
-        $this->$Name = $Name;
-        $this->$Image = $Image;
-        $this->$CurrentPrice = $CurrentPrice;
-        $this->$MarketCap = $MarketCap;
-        $this->$PriceChangePercentage24h = $PriceChangePercentage24h;
-        $this->$ID_COIN = $ID_COIN;
+        $this->Id = $Id;
+        $this->Symbol = $Symbol;
+        $this->Name = $Name;
+        $this->Image = $Image;
+        $this->CurrentPrice = $CurrentPrice;
+        $this->MarketCap = $MarketCap;
+        $this->PriceChangePercentage24h = $PriceChangePercentage24h;
+        $this->ID_COIN = $ID_COIN;
     }
-    
 
     public static function constructCoinArray(array $responseArray): array {
         $coinList = [];
-        $numCoins = count($responseArray);
-        for ($i = 0; $i < $numCoins; $i++) {
-            $coinLine = $responseArray[$i];
+        foreach ($responseArray as $iValue) {
+            $coinLine = $iValue;
             if (in_array($coinLine["id"], MAIN_COINS_ID)) {
                 $coin = new Coin(
                     $coinLine["id"],
@@ -45,7 +43,6 @@ class Coin
         }
         return $coinList;
     }
-    
     
     public function getId(): string {
         return $this->Id;
@@ -78,4 +75,4 @@ class Coin
     public function getID_COIN(): int {
         return $this->ID_COIN;
     }
-}   
+}

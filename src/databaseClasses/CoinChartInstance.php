@@ -3,23 +3,23 @@
 const UNIX_TIME_POSITION = 1;
 class CoinChartInstance
 {
-    private int $ID_COIN;
-    private int $UnixTime;
-    private float $Price;
-    private float $MarketCap;
-    private float $TotalVolume;
-    private int $ID_COINS_CHART;
+    private $ID_COIN;
+    private $UnixTime;
+    private $Price;
+    private $MarketCap;
+    private $TotalVolume;
+    private $ID_COINS_CHART;
 
     public function __construct( int $ID_COIN, int $UnixTime, float $Price,
                                 float $MarketCap, float $TotalVolume, 
                                 ?int $ID_COINS_CHART = null )  
     {
-        $this->$ID_COIN = $ID_COIN;
-        $this->$UnixTime = $UnixTime;
-        $this->$Price = $Price;
-        $this->$MarketCap = $MarketCap;
-        $this->$TotalVolume = $TotalVolume;
-        $this->$ID_COINS_CHART = $ID_COINS_CHART;
+        $this->ID_COIN = $ID_COIN;
+        $this->UnixTime = $UnixTime;
+        $this->Price = $Price;
+        $this->MarketCap = $MarketCap;
+        $this->TotalVolume = $TotalVolume;
+        $this->ID_COINS_CHART = $ID_COINS_CHART;
     }
 
     public static function constructCoinChartArray(array $responseArray, int $ID_COIN): array {

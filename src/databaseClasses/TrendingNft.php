@@ -1,31 +1,32 @@
 <?php
 class TrendingNft
 {
-    private string $Id;
-    private string $Name;
-    private string $Symbol;
-    private string $Thumb;
-    private string $NativeCurrencySymbol;
-    private float $FloorPriceInNativeCurrency;
-    private float $FloorPrice24hPercentageChange;
-    private int $ID_TRENDING_NFT;
+    private $Id;
+    private $Name;
+    private $Symbol;
+    private $Thumb;
+    private $NativeCurrencySymbol;
+    private $FloorPriceInNativeCurrency;
+    private $FloorPrice24hPercentageChange;
+    private $ID_TRENDING_NFT;
 
     public function __construct( string $Id, string $Name, string $Symbol,
                                 string $Thumb, string $NativeCurrencySymbol, 
                                 float $FloorPriceInNativeCurrency, float $FloorPrice24hPercentageChange, 
                                 ?int $ID_TRENDING_NFT = null )  
     {
-        $this->$Id = $Id;
-        $this->$Name = $Name;
-        $this->$Symbol = $Symbol;
-        $this->$Thumb = $Thumb;
-        $this->$NativeCurrencySymbol = $NativeCurrencySymbol;
-        $this->$FloorPriceInNativeCurrency = $FloorPriceInNativeCurrency;
-        $this->$FloorPrice24hPercentageChange = $FloorPrice24hPercentageChange;
-        $this->$ID_TRENDING_NFT = $ID_TRENDING_NFT;
+        $this->Id = $Id;
+        $this->Name = $Name;
+        $this->Symbol = $Symbol;
+        $this->Thumb = $Thumb;
+        $this->NativeCurrencySymbol = $NativeCurrencySymbol;
+        $this->FloorPriceInNativeCurrency = $FloorPriceInNativeCurrency;
+        $this->FloorPrice24hPercentageChange = $FloorPrice24hPercentageChange;
+        $this->ID_TRENDING_NFT = $ID_TRENDING_NFT;
     }
 
-    public static function constructTrendingNftArray(array $responseArray){
+    public static function constructTrendingNftArray(array $responseArray): array
+    {
         $nftArray = $responseArray["nfts"];
         $numOfTrendingNfts = count($nftArray);
         $trendingNftList = [];

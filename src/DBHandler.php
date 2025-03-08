@@ -8,7 +8,7 @@ abstract class DBHandler
         $this->conn = DBConnection::getInstance()->getConnection();
     }
 
-    protected function executeQuery($query, $params = []) 
+    protected function executeQuery($query, $params = []): bool|mysqli_stmt 
     {
         $stmt = $this->conn->prepare($query);
         if ($stmt === false) {

@@ -1,26 +1,26 @@
 <?php
 class Exchange
 {
-    private string $Id;
-    private string $Name;
-    private int $YearEstablished;
-    private string $Country;
-    private string $Image;
-    private int $TrustScore;
-    private float $TradeVolume24hBtc;
-    private int $ID_EXCHANGE;
+    private $Id;
+    private $Name;
+    private $YearEstablished;
+    private $Country;
+    private $Image;
+    private $TrustScore;
+    private $TradeVolume24hBtc;
+    private $ID_EXCHANGE;
     public function __construct(string $Id, string $Name, int $YearEstablished,
                                 string $Country, string $Image, int $TrustScore, 
                                 float $TradeVolume24hBtc, ?int $ID_EXCHANGE = null)  
     {
-        $this->$Id = $Id;
-        $this->$Name = $Name;
-        $this->$YearEstablished = $YearEstablished;
-        $this->$Country = $Country;
-        $this->$Image = $Image;
-        $this->$TrustScore = $TrustScore;
-        $this->$TradeVolume24hBtc = $TradeVolume24hBtc;
-        $this->$ID_EXCHANGE = $ID_EXCHANGE;
+        $this->Id = $Id;
+        $this->Name = $Name;
+        $this->YearEstablished = $YearEstablished;
+        $this->Country = $Country;
+        $this->Image = $Image;
+        $this->TrustScore = $TrustScore;
+        $this->TradeVolume24hBtc = $TradeVolume24hBtc;
+        $this->ID_EXCHANGE = $ID_EXCHANGE;
     }
 
     public static function constructExchangeArray(array $responseArray): array{

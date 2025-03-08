@@ -1,22 +1,22 @@
 <?php
 class TrendingCoin
 {
-    private string $Id;
-    private string $Name;
-    private string $Thumbnail;
-    private float $Price;
-    private float $PriceChangePercentage24h;
-    private int $ID_TRENDING_COIN;
+    private $Id;
+    private $Name;
+    private $Thumbnail;
+    private $Price;
+    private $PriceChangePercentage24h;
+    private $ID_TRENDING_COIN;
 
     public function __construct( string $Id, string $Name, string $Thumbnail, float $Price, 
                                 float $PriceChangePercentage24h, ?int $ID_TRENDING_COIN = null)  
     {
-        $this->$Id = $Id;
-        $this->$Name = $Name;
-        $this->$Thumbnail = $Thumbnail;
-        $this->$Price = $Price;
-        $this->$PriceChangePercentage24h = $PriceChangePercentage24h;
-        $this->$ID_TRENDING_COIN = $ID_TRENDING_COIN;
+        $this->Id = $Id;
+        $this->Name = $Name;
+        $this->Thumbnail = $Thumbnail;
+        $this->Price = $Price;
+        $this->PriceChangePercentage24h = $PriceChangePercentage24h;
+        $this->ID_TRENDING_COIN = $ID_TRENDING_COIN;
     }
 
     public static function constructTrendingCoinArray(array $responseArray): array{
