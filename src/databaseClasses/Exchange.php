@@ -23,7 +23,7 @@ class Exchange
         $this->$ID_EXCHANGE = $ID_EXCHANGE;
     }
 
-    public static function constructList(array $responseArray): array{
+    public static function constructExchangeArray(array $responseArray): array{
         $exchangeList = [];
         $numExchanges = count($responseArray);
         for($i = 0; $i < $numExchanges; $i++) {

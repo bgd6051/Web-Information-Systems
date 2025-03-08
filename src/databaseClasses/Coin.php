@@ -25,7 +25,7 @@ class Coin
     }
     
 
-    public static function constructCoinList(array $responseArray): array {
+    public static function constructCoinArray(array $responseArray): array {
         $coinList = [];
         $numCoins = count($responseArray);
         for ($i = 0; $i < $numCoins; $i++) {

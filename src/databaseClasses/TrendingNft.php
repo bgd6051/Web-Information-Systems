@@ -25,7 +25,7 @@ class TrendingNft
         $this->$ID_TRENDING_NFT = $ID_TRENDING_NFT;
     }
 
-    public static function constructList(array $responseArray){
+    public static function constructTrendingNftArray(array $responseArray){
         $nftArray = $responseArray["nfts"];
         $numOfTrendingNfts = count($nftArray);
         $trendingNftList = [];

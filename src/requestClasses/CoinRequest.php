@@ -2,7 +2,7 @@
 
 class CoinRequest extends RequestController 
 {
-    public static function getCoinResponseContent() 
+    public static function getCoinResponseContent() : array 
     {
         $urlFirstCall = URL_COINS_INFO_FIRST_CALL;
         $urlSecondCall = URL_COINS_INFO_SECOND_CALL;

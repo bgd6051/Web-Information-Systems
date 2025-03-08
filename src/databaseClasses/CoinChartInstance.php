@@ -22,7 +22,7 @@ class CoinChartInstance
         $this->$ID_COINS_CHART = $ID_COINS_CHART;
     }
 
-    public static function constructList(array $responseArray, int $ID_COIN): array {
+    public static function constructCoinChartArray(array $responseArray, int $ID_COIN): array {
         $coinPricesArray = $responseArray["prices"];
         $coinMcapArray = $responseArray["market_caps"];
         $coinVolumeArray = $responseArray["total_volumes"];
@@ -36,9 +36,9 @@ class CoinChartInstance
             $coinMcapUnixInstance = $coinMcapArray[$i];
             $coinVolumeUnixInstance = $coinVolumeArray[$i];
             
-            $coinChart = new CoinChartInstance( $ID_COIN, $unixInstance,  $coinPriceUnixInstance,
+            $coinChartInstance = new CoinChartInstance( $ID_COIN, $unixInstance,  $coinPriceUnixInstance,
                                         $coinMcapUnixInstance, $coinVolumeUnixInstance );
-            $unixInstanceList[$i] = $coinChart;
+            $unixInstanceList[$i] = $coinChartInstance;
         }
         return $unixInstanceList;
     }

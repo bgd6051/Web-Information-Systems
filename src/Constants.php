@@ -38,10 +38,11 @@ const URL_COINS_INFO_FIRST_CALL = GECKO_URL . COINS_INFO_FIRST_CALL;
 const URL_COINS_INFO_SECOND_CALL = GECKO_URL . COINS_INFO_SECOND_CALL;
 
 // /coins/{coinId}/market_chart?vs_currency={currency}&days={numDays}
-const COIN_CHART = "/market_chart";
+const COIN_MARKET_CHART = "/market_chart";
 const CHART_DAYS = "&days=1";
 
-const URL_COIN_CHART = GECKO_URL . COIN_CHART . EUR_CURRENCY . CHART_DAYS;
+const URL_COIN_CHART_FIRST_PART = GECKO_URL;
+const URL_COIN_CHART_SECOND_PART = COIN_MARKET_CHART . EUR_CURRENCY . CHART_DAYS;
 
 
 // exchanges

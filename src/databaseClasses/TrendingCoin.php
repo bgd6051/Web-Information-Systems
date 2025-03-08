@@ -19,7 +19,7 @@ class TrendingCoin
         $this->$ID_TRENDING_COIN = $ID_TRENDING_COIN;
     }
 
-    public static function constructList(array $responseArray): array{
+    public static function constructTrendingCoinArray(array $responseArray): array{
         $coinArray = $responseArray["coins"];
         $numOfTrendingCoins = count($coinArray);
         $trendingCoinList = [];
