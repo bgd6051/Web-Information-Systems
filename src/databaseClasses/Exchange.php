@@ -9,9 +9,9 @@ class Exchange
     private $TrustScore;
     private $TradeVolume24hBtc;
     private $ID_EXCHANGE;
-    public function __construct(string $Id, string $Name, int $YearEstablished,
-                                string $Country, string $Image, int $TrustScore, 
-                                float $TradeVolume24hBtc, ?int $ID_EXCHANGE = null)  
+    public function __construct(string $Id, string $Name, ?int $YearEstablished = null,
+                                ?string $Country = null, ?string $Image = null, ?int $TrustScore = null, 
+                                ?float $TradeVolume24hBtc = null, ?int $ID_EXCHANGE = null)  
     {
         $this->Id = $Id;
         $this->Name = $Name;
@@ -25,8 +25,7 @@ class Exchange
 
     public static function constructExchangeArray(array $responseArray): array{
         $exchangeList = [];
-        $numExchanges = count($responseArray);
-        for($i = 0; $i < $numExchanges; $i++) {
+        for($i = 0; $i < 10; $i++) {
             $exchangeLine = $responseArray[$i];
             $exchange = new Exchange( $exchangeLine["id"],$exchangeLine["name"],$exchangeLine["year_established"],
             $exchangeLine["country"],$exchangeLine["image"],$exchangeLine["trust_score"],

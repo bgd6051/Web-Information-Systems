@@ -1,6 +1,7 @@
 <?php
 
-const UNIX_TIME_POSITION = 1;
+const UNIX_TIME_POSITION = 0;
+const CONTENT_POSITION = 1;
 class CoinChartInstance
 {
     private $ID_COIN;
@@ -12,7 +13,7 @@ class CoinChartInstance
 
     public function __construct( int $ID_COIN, int $UnixTime, float $Price,
                                 float $MarketCap, float $TotalVolume, 
-                                ?int $ID_COINS_CHART = null )  
+                                ?int $ID_COINS_CHART = null)  
     {
         $this->ID_COIN = $ID_COIN;
         $this->UnixTime = $UnixTime;
@@ -32,9 +33,9 @@ class CoinChartInstance
 
         for($i = 0; $i < $numberOfRows; $i++) {
             $unixInstance = $coinPricesArray[$i][UNIX_TIME_POSITION];
-            $coinPriceUnixInstance = $coinPricesArray[$i];
-            $coinMcapUnixInstance = $coinMcapArray[$i];
-            $coinVolumeUnixInstance = $coinVolumeArray[$i];
+            $coinPriceUnixInstance = $coinPricesArray[$i][CONTENT_POSITION];
+            $coinMcapUnixInstance = $coinMcapArray[$i][CONTENT_POSITION];
+            $coinVolumeUnixInstance = $coinVolumeArray[$i][CONTENT_POSITION];
             
             $coinChartInstance = new CoinChartInstance( $ID_COIN, $unixInstance,  $coinPriceUnixInstance,
                                         $coinMcapUnixInstance, $coinVolumeUnixInstance );

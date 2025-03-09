@@ -8,8 +8,8 @@ class TrendingCoin
     private $PriceChangePercentage24h;
     private $ID_TRENDING_COIN;
 
-    public function __construct( string $Id, string $Name, string $Thumbnail, float $Price, 
-                                float $PriceChangePercentage24h, ?int $ID_TRENDING_COIN = null)  
+    public function __construct( string $Id, string $Name, ?string $Thumbnail = null, ?float $Price = null,
+                                 ?float $PriceChangePercentage24h = null, ?int $ID_TRENDING_COIN = null)  
     {
         $this->Id = $Id;
         $this->Name = $Name;
@@ -23,11 +23,12 @@ class TrendingCoin
         $coinArray = $responseArray["coins"];
         $numOfTrendingCoins = count($coinArray);
         $trendingCoinList = [];
+        
         for($i = 0; $i < $numOfTrendingCoins; $i++){
-            $trendingCoinLine = $responseArray[$i]["item"];
+            $trendingCoinLine = $coinArray[$i]["item"];
             $trendingCoin = new TrendingCoin( $trendingCoinLine["id"], $trendingCoinLine["name"],
             $trendingCoinLine["thumb"],$trendingCoinLine["data"]["price"],
-            $trendingCoinLine["data"]["PriceChangePercentage_24h"]["usd"] );
+            $trendingCoinLine["data"]["price_change_percentage_24h"]["usd"] );
             $trendingCoinList[$i] = $trendingCoin;
         }
         return $trendingCoinList;

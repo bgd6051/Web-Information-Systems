@@ -10,9 +10,10 @@ class TrendingNft
     private $FloorPrice24hPercentageChange;
     private $ID_TRENDING_NFT;
 
-    public function __construct( string $Id, string $Name, string $Symbol,
-                                string $Thumb, string $NativeCurrencySymbol, 
-                                float $FloorPriceInNativeCurrency, float $FloorPrice24hPercentageChange, 
+    public function __construct( string $Id, string $Name, ?string $Symbol = null,
+                                ?string $Thumb = null, ?string $NativeCurrencySymbol = null, 
+                                ?float $FloorPriceInNativeCurrency = null, 
+                                ?float $FloorPrice24hPercentageChange = null, 
                                 ?int $ID_TRENDING_NFT = null )  
     {
         $this->Id = $Id;
@@ -31,7 +32,7 @@ class TrendingNft
         $numOfTrendingNfts = count($nftArray);
         $trendingNftList = [];
         for($i = 0; $i < $numOfTrendingNfts; $i++){
-            $trendingNftLine = $responseArray[$i];
+            $trendingNftLine = $nftArray[$i];
             $trendingNft = new TrendingNft( $trendingNftLine["id"], $trendingNftLine["name"],
                                         $trendingNftLine["symbol"],$trendingNftLine["thumb"],
                                         $trendingNftLine["native_currency_symbol"],$trendingNftLine["floor_price_in_native_currency"],

@@ -7,12 +7,31 @@ const WRONG_REQUEST_CODE = 0;
 
 # COINGECKO API DOMAINS AND PATHS
 const GECKO_URL = "https://api.coingecko.com/api/v3/";
-const AUTH_HEADER = ["x-cg-demo-api-key" => API_KEY];
+const AUTH_HEADER = ["Accepts: application/json"
+                    ,"x-cg-demo-api-key:" . API_KEY];
 
 # COINGECKO ENDPOINTS
-const MAIN_COINS_ID = ["bitcoin", "ethereum", "xrp", "tether", "litecoin",
+const MAIN_COINS_ID = ["bitcoin", "ethereum", "ripple", "tether", "litecoin",
                         "bitcoin-cash", "eos", "tezos", "stellar", "cardano",
                         "dogecoin", "polkadot", "usd-coin", "uniswap", "binancecoin"];
+
+const MAIN_COINS_ID_INT = [
+    "bitcoin" => 1, 
+    "ethereum" => 2, 
+    "ripple" => 3, 
+    "tether" => 4, 
+    "litecoin" => 5,
+    "bitcoin-cash" => 6, 
+    "eos" => 7, 
+    "tezos" => 8, 
+    "stellar" => 9, 
+    "cardano" => 10,
+    "dogecoin" => 11, 
+    "polkadot" => 12, 
+    "usd-coin" => 13, 
+    "uniswap" => 14, 
+    "binancecoin" => 15
+];
 
 const EUR_CURRENCY = "?vs_currency=eur"; 
 

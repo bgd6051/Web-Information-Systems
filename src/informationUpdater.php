@@ -19,8 +19,9 @@ $coinsArrayResponse = Coin::constructCoinArray($coinsResponse);
 
 $coinsChartsArrayResponse = [];
 foreach (MAIN_COINS_ID as $coinId) {
-    $coinChartArrayResponse = CoinChartRequest::getCoinChartResponseContent($coinId);
-    $coinsArrayResponse = CoinChartInstance::constructCoinChartArray($coinsResponse, $coinId);
+    $intCoinId = MAIN_COINS_ID_INT[$coinId];
+    $coinChartArrayResponse = CoinChartRequest::getCoinChartResponseContent( $coinId);
+    $coinsArrayResponse = CoinChartInstance::constructCoinChartArray($coinChartArrayResponse, $intCoinId);
     $coinsChartsArrayResponse[] = $coinChartArrayResponse;
 }
 
@@ -31,6 +32,7 @@ $trendingResponse = TrendingRequest::getTrendingResponseContent();
 $trendingCoinsArrayResponse = TrendingCoin::constructTrendingCoinArray($trendingResponse);
 $trendingNftArrayResponse = TrendingNft::constructTrendingNftArray($trendingResponse);
 
+exit;
 // Eliminar el contenido que ya había en la base de datos 
 $ejecucionCorrecta = true;
 try {
