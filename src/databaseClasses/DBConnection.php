@@ -20,11 +20,7 @@ class DBConnection
         }
         return self::$instance;
     }
-    public function getConnection(): bool|mysqli {
+    public function getConnection() {
         return $this->conn;
-    }
-
-    public static  function closeConnection(): void {
-        self::$conn->close();
     }
 }   

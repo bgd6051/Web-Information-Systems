@@ -8,7 +8,6 @@ class RequestController
     {
         $curl = curl_init();
         $url = trim($url);
-        echo $url . "\n";
         curl_setopt($curl,CURLOPT_POST, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_URL,  $url);

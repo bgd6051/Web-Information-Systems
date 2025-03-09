@@ -36,7 +36,7 @@ const MAIN_COINS_ID_INT = [
 const EUR_CURRENCY = "?vs_currency=eur"; 
 
 // /coins/markets?vs_currency={currency}&ids={coinId1},{coinId2},{coinId3}
-const COINS_ID_FIRST_CALL = "bitcoin,ethereum,xrp,tether,litecoin,bitcoin-cash,eos,tezos";
+const COINS_ID_FIRST_CALL = "bitcoin,ethereum,ripple,tether,litecoin,bitcoin-cash,eos,tezos";
 const COINS_ID_SECOND_CALL = "stellar,cardano,dogecoin,polkadot,usd-coin,uniswap,binancecoin";
 
 const COINS_MARKETS = "coins/markets";

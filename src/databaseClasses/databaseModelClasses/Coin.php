@@ -1,4 +1,6 @@
 <?php
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Constants.php";
 class Coin
 {
     private $Id;
@@ -36,7 +38,8 @@ class Coin
                     $coinLine["image"],
                     $coinLine["current_price"],
                     $coinLine["market_cap"],
-                    $coinLine["price_change_percentage_24h"]
+                    $coinLine["price_change_percentage_24h"],
+                    MAIN_COINS_ID_INT[$coinLine["id"]]
                 );
                 $coinList[] = $coin;
             }

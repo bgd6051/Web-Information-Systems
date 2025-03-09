@@ -2,12 +2,13 @@
 class DBInsertor extends DBHandler {
     
     public function insertCoin(Coin $coin) {
-        $query = "INSERT INTO FINAL_COINS (id, symbol, name, 
+        $query = "INSERT INTO FINAL_COINS (ID_COIN, id, symbol, name, 
                 image, current_price, market_cap, 
-                price_change_percentage_24h) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                price_change_percentage_24h) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         return $this->executeQuery($query,
-        ["ssssiid", $coin->getId(),
+        ["issssiid", $coin->getID_COIN(),
+                    $coin->getId(),
                     $coin->getSymbol(),
                     $coin->getName(),
                     $coin->getImage(),
@@ -49,7 +50,7 @@ class DBInsertor extends DBHandler {
 
     public function insertTrendingNft(TrendingNft $trendingNft) {
         $query = "INSERT INTO FINAL_TRENDING_NFTS (id, name, symbol, 
-                thumb, native_currency_symbol, floor_price_in_native_currency,
+                thumbnail, native_currency_symbol, floor_price_in_native_currency,
                 floor_price_24h_percentage_change) VALUES (?, ?, ?, ?, ?, ?, ?)";
         return $this->executeQuery($query, 
             ["sssssdd", $trendingNft->getId(), 
@@ -61,7 +62,7 @@ class DBInsertor extends DBHandler {
                     $trendingNft->getFloorPrice24hPercentageChange()]);
     }
     
-    public function insertUserRegistration(UserRegistration $userRegistration) {
+    public function insertUserRegistration(UserRegistration $userRegistration): bool {
         $query = "INSERT INTO FINAL_USER_REGISTRATION (username, password, role) VALUES (?, ?, ?)";
         return $this->executeQuery($query,
          ["sss", $userRegistration->getUsername(), 
@@ -69,7 +70,7 @@ class DBInsertor extends DBHandler {
                     $userRegistration->getRole()] );
     }
 
-    public function insertCoinChartInstance(CoinChartInstance $coinsChartInstance) {
+    public function insertCoinChartInstance(CoinChartInstance $coinsChartInstance): bool {
         $query = "INSERT INTO FINAL_COINS_CHART (ID_COIN, unix_time, price, 
                 market_cap, total_volume) VALUES (?, ?, ?, ?, ?)";
         return $this->executeQuery($query, 
@@ -83,7 +84,7 @@ class DBInsertor extends DBHandler {
     public function insertCoinChart(array $coinChart): bool {
         foreach ($coinChart as $coinChartInstance) {
             $queryResponse = $this->insertCoinChartInstance($coinChartInstance);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
@@ -91,7 +92,7 @@ class DBInsertor extends DBHandler {
     public function insertAllCoins (array $coins): bool {
         foreach ($coins as $coin) {
             $queryResponse = $this->insertCoin($coin);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
@@ -99,7 +100,7 @@ class DBInsertor extends DBHandler {
     public function insertAllCoinCharts(array $coinCharts): bool {
         foreach ($coinCharts as $coinChart) {
             $queryResponse = $this->insertCoinChart($coinChart);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
@@ -107,7 +108,7 @@ class DBInsertor extends DBHandler {
     public function insertAllExchanges (array $exchanges): bool {
         foreach ($exchanges as $exchange) {
             $queryResponse = $this->insertExchange($exchange);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
@@ -115,7 +116,7 @@ class DBInsertor extends DBHandler {
     public function insertAllTrendingCoins (array $trendingCoins): bool {
         foreach ($trendingCoins as $trendingCoin) {
             $queryResponse = $this->insertTrendingCoin($trendingCoin);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
@@ -123,41 +124,44 @@ class DBInsertor extends DBHandler {
     public function insertAllTrendingNfts (array $trendingNfts): bool {
         foreach ($trendingNfts as $trendingNft) {
             $queryResponse = $this->insertTrendingNft($trendingNft);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         }
         return true;
     }
 
     public function insertAllInformation(array $tableElements): bool {
-        
         $coins = $tableElements["coins"];
         if (isset($tableElements["coins"])) {
             $queryResponse = $this->insertAllCoins($coins);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         } else { return false; }
 
-        $coinCharts = $tableElements["coinCharts"];
+        echo "Insertando el contenido en la tabla coinCharts...<br>";
+        $coinCharts = $tableElements["coinsCharts"];
         if (isset($coinCharts)) {
             $queryResponse = $this->insertAllCoinCharts($coinCharts);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         } else { return false; }
 
+        echo "Insertando el contenido en la tabla exchanges...<br>";
         $exchanges = $tableElements["exchanges"];
         if (isset($exchanges)) {
             $queryResponse = $this->insertAllExchanges($exchanges);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         } else { return false; }
 
+        echo "Insertando el contenido en la tabla trendingCoins...<br>";
         $trendingCoins = $tableElements["trendingCoins"];
         if (isset($trendingCoins)) {
             $queryResponse = $this->insertAllTrendingCoins($trendingCoins);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         } else { return false; }
 
+        echo "Insertando el contenido en la tabla trendingNfts...<br>";
         $trendingNfts = $tableElements["trendingNfts"];
         if (isset($trendingNfts)) {
             $queryResponse = $this->insertAllTrendingNfts($trendingNfts);
-            if (!$this->isQuerySuccessful($queryResponse)) { return false; }
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
         } else { return false; }
 
         return true;

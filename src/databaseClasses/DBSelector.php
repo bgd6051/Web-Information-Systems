@@ -2,7 +2,7 @@
 
 class DBSelector extends DBHandler{
 
-    public function getAllAdminLogs() 
+    public function getAllAdminLogs()  
     {
         $query = "SELECT * FROM FINAL_ADMIN_LOG";
         $stmt = $this->executeQuery($query);

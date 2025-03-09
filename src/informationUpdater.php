@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    $directories = ['requestClasses', 'databaseClasses'];
+    $directories = ['requestClasses', 'databaseClasses', 'databaseClasses/databaseModelClasses/'];
 
     foreach ($directories as $dir) {
         $file = __DIR__ . "/$dir/$class.php";
@@ -10,19 +10,21 @@ spl_autoload_register(function ($class) {
             return;
         }
     }
+
 });
+
+echo "Contactando con la API...<br>";
 
 // Conseguir respuestas de la API y construir arrays 
 $coinsResponse = CoinRequest::getCoinResponseContent();
 $coinsArrayResponse = Coin::constructCoinArray($coinsResponse);
 
-
 $coinsChartsArrayResponse = [];
 foreach (MAIN_COINS_ID as $coinId) {
     $intCoinId = MAIN_COINS_ID_INT[$coinId];
     $coinChartArrayResponse = CoinChartRequest::getCoinChartResponseContent( $coinId);
-    $coinsArrayResponse = CoinChartInstance::constructCoinChartArray($coinChartArrayResponse, $intCoinId);
-    $coinsChartsArrayResponse[] = $coinChartArrayResponse;
+    $coinChartInstanceArrayResponse = CoinChartInstance::constructCoinChartArray($coinChartArrayResponse, $intCoinId);
+    $coinsChartsArrayResponse[] = $coinChartInstanceArrayResponse;
 }
 
 $exchangeResponse = ExchangeRequest::getExchangeResponseContent();
@@ -32,17 +34,23 @@ $trendingResponse = TrendingRequest::getTrendingResponseContent();
 $trendingCoinsArrayResponse = TrendingCoin::constructTrendingCoinArray($trendingResponse);
 $trendingNftArrayResponse = TrendingNft::constructTrendingNftArray($trendingResponse);
 
-exit;
+
+echo "Eliminando contenido de las tablas...<br>";
+
 // Eliminar el contenido que ya había en la base de datos 
 $ejecucionCorrecta = true;
+
 try {
     $dbDeletor = new DBDeletor();
+
     $responseCode = $dbDeletor->deleteAllIntormationFromTables();
-    if (!$dbDeletor->isQuerySuccessful($responseCode)) {
-        echo "Ha habido algun problema eliminando el contenido de las tablas";
+    if (!$responseCode) {
+        echo "Ha habido algun problema eliminando el contenido de las tablas<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { }
+} catch (Exception $e) { echo "Error: " . $e->getMessage(); }
+
+echo "Insertando el contenido en las tablas...<br>";
 
 // Insertar todo el contenido en las bases de datos dados los arrays
 try {
@@ -53,15 +61,18 @@ try {
     $trendingNftArrayResponse);
     
     $responseCode = $dbInsertor->insertAllInformation($fullInformationArray);
-    if (!$dbDeletor->isQuerySuccessful($responseCode)) {
-        echo "Ha habido algun problema insertando el contenido de las tablas";
+    if (!$responseCode) {
+        echo "Ha habido algun problema insertando el contenido de las tablas<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { }
+} catch (Exception $e) { echo "Error: " . $e->getMessage(); }
 
 if ($ejecucionCorrecta) {
-    echo "Información de las tablas actualizada correctamente";
-    echo "Fecha de actualización: " . date('Y-m-d H:i:s'); 
+    echo "Información de las tablas actualizada correctamente<br>";
+    echo "Fecha de actualización: " . date('Y-m-d H:i:s') . "<br>"; 
+}
+else {
+    echo "No se ha podido actualizar la información correctamente <br>";
 }
 
 function buildFullInformationArray( $coinsArrayResponse, $coinsChartsArrayResponse, 
@@ -76,6 +87,3 @@ function buildFullInformationArray( $coinsArrayResponse, $coinsChartsArrayRespon
         "trendingNfts" => $trendingNftArrayResponse,
     );
 }
-
-// Closing DB Connection
-DBConnection::closeConnection();
