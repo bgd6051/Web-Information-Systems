@@ -16,16 +16,9 @@ class DBSelector extends DBHandler{
         return $stmt->get_result();
     }
 
-    public function getAllExchangeRates() 
+    public function getAllCoinChart() 
     {
-        $query = "SELECT * FROM FINAL_EXCHANGE_RATE";
-        $stmt = $this->executeQuery($query);
-        return $stmt->get_result();
-    }
-
-    public function getAllSupportedCoins() 
-    {
-        $query = "SELECT * FROM FINAL_SUPPORTED_COINS";
+        $query = "SELECT * FROM FINAL_COINS_CHART";
         $stmt = $this->executeQuery($query);
         return $stmt->get_result();
     }
@@ -33,6 +26,13 @@ class DBSelector extends DBHandler{
     public function getAllTrendingCoins() 
     {
         $query = "SELECT * FROM FINAL_TRENDING_COINS";
+        $stmt = $this->executeQuery($query);
+        return $stmt->get_result();
+    }
+
+    public function getAllTrendingNfts() 
+    {
+        $query = "SELECT * FROM FINAL_TRENDING_NFTS";
         $stmt = $this->executeQuery($query);
         return $stmt->get_result();
     }
