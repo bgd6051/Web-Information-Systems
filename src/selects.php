@@ -13,16 +13,6 @@ spl_autoload_register(function ($class) {
 
 });
 
-function selectToArray($select){
-    $rownum = 0;
-    $Array = [];
-    while ($row = $select->fetch_array(MYSQLI_ASSOC)) {
-        $Array[$rownum] = $row;
-        $rownum += 1;
-    }
-    return $Array;
-}
-
 $ejecucionCorrecta = true;
 echo "Comienzo<br>";
 echo "Seleccionando<br>";
@@ -38,15 +28,3 @@ try {
         "coinsCharts" => $dbSelector->getAllCoinChart()
     );
 } catch (Exception $e) { echo "Error: " . $e->getMessage(); }
-
-echo "mostrando<br>";
-foreach ($arrays as $selection){
-    $coinArray = selectToArray($selection);
-    foreach ($coinArray as $row) {
-        foreach ($row as $elem) {
-            print "$elem ";
-        }
-        print "<br>";
-    }
-    print "<br><br>";
-}
