@@ -57,7 +57,7 @@ echo "Insertando el contenido en las tablas...<br>";
 try {
     $dbInsertor = new DBInsertor();
 
-    $adminlog = new AdminLog(SYSTEM_ID,"reload",date('Y-m-d'));
+    $adminlog = new AdminLog(SYSTEM_ID,"reload",date('Y-m-d H:i:s'));
     
     $fullInformationArray = buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
     $exchangeArrayResponse, $trendingCoinsArrayResponse, 

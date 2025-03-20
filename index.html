@@ -39,15 +39,16 @@
     </header>
     <a href="./src/informationUpdater.php">Actualizar contenido de las tablas</a>
     <a href="./src/selects.php">Seleccionar contenido de las tablas</a>
-    <button id="filtro1onclick" onclick="listado1()">Listado1</button>
-    <div id="resultado1">resultado1</button>
+    <button id="filtrar1" onclick="listado(1)">Listar1</button>
+    <textarea id="filtro1">Listado1</textarea>
+    <div id="resultado1">resultado1</div>
     <script>
-        function listado1(){
+        function listado(Nfiltro){
             var filtro = document.getElementById("filtro1").value;
             var resultado = document.getElementById("resultado1");
 
             var xhr = new XMLHttpRequest();
-            var url = "";//url de AJAX
+            var url = "./src/lists.php?filtro="+Nfiltro+"filtro="+filtro; //url de AJAX
             console.log("AJAX request: ", url);
             xhr.open("GET",url,true);
 
@@ -63,7 +64,7 @@
             xhr.send();
             console.log("AJAX request sent");
 
-        } 
+        }
     </script>
 </body>
 </html>
