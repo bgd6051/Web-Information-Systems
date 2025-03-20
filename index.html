@@ -48,7 +48,7 @@
             var resultado = document.getElementById("resultado1");
 
             var xhr = new XMLHttpRequest();
-            var url = "./src/lists.php?filtro="+Nfiltro+"filtro="+filtro; //url de AJAX
+            var url = "./src/lists.php?filtro="+Nfiltro+"&filtro="+filtro; //url de AJAX
             console.log("AJAX request: ", url);
             xhr.open("GET",url,true);
 

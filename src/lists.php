@@ -26,5 +26,5 @@ if($Nfiltro == 1){
                 $row[7],$row[0]);
 */    
 if(1){
-    echo "AJAX; filtro="+$Nfiltro+"&filtro="+$filtro;
+    echo "AJAX; Nfiltro=".$Nfiltro."&filtro=".$filtro;
 };
