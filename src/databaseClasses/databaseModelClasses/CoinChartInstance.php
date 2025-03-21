@@ -67,4 +67,10 @@ class CoinChartInstance
     public function getID_COINS_CHART(): int {
         return $this->ID_COINS_CHART;
     }
+
+    public function toHTML(): string {
+        $separador = ", ";
+        return "<li>".$this->UnixTime.$separador.$this->Price.$separador.
+            $this->MarketCap.$separador.$this->TotalVolume."<li/>";
+    }
 }   

@@ -64,6 +64,8 @@
                         <h3>Criptomonedas</h3>
                         <span>¿Bitcoin? ¿Ethereum? ¿A cual le está yendo mejor?</span>
                     </a>
+                    <button onclick="filtro(1)">Listar</button>
+                    <textarea id="listadoDeCriptomonedasFiltro"></textarea>
                 </div>
             <div id="listadoDeNfts" class="col-lg-4 col-sm-4 col-md-4">
                 <a href="#">
@@ -71,13 +73,17 @@
                     <h3>Criptoactivos más populares</h3>
                     <span>Sean "memecoins" o nfts a todos nos gusta el verde</span>
                 </a>
+                <button onclick="filtro(2)">Listar</button>
+                <textarea id="listadoDeNftsFiltro"></textarea>
             </div>
-            <div class="col-lg-4 col-sm-4 col-md-4">
+            <div id="listadoExchanges" class="col-lg-4 col-sm-4 col-md-4">
                 <a href="#">
                     <img src="../images/exchanges.png" alt=""/>
                     <h3>Paginas de intercambio</h3>
                     <span>¿Que otras opciones hay a parte de binance?</span>
                 </a>
+                <button onclick="filtro(3)">Listar</button>
+                <textarea id="listadoExchangesFiltro"></textarea>
             </div>
         </div>
     </div>
@@ -151,6 +157,31 @@
 <script src="../js/jquery.bxslider.js"></script>
 <script src="../js/fixed-responsive-nav.js"></script> 
 <script src="../js/waypoints.min.js"></script>
-<script src="../js/script.js"></script> 
+<script src="../js/script.js"></script>
+<script>
+function listado(Nfiltro){
+    var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
+    var filtro = document.getElementById(filtros[Nfiltro]).value;
+    //var filtro = "none"//sin filtro
+    var resultado = document.getElementById("listadoActual").children[0];
+
+    var xhr = new XMLHttpRequest();
+    var url = "./../../../src/lists.php?Nfiltro="+Nfiltro+"&filtro="+filtro; //url de AJAX
+    console.log("AJAX request: ", url);
+    xhr.open("GET",url,true);
+
+    xhr.onload = function(){
+        if(xhr.status === 200){
+            console.log("AJAX response: ", xhr);
+            resultado.innerHTML = xhr.responseText;
+        } else{
+            resultado.innerHTML = xhr.responseText = "error al cargar el listado"+Nfiltro;
+        } 
+    };
+
+    xhr.send();
+    console.log("AJAX request sent");
+}
+</script>
 </body>
 </html>

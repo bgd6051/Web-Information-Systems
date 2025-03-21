@@ -1,4 +1,5 @@
 <?php
+const SYSTEM_ID = 1;
 
 spl_autoload_register(function ($class) {
     $directories = ['requestClasses', 'databaseClasses', 'databaseClasses/databaseModelClasses/'];
@@ -42,7 +43,7 @@ $ejecucionCorrecta = true;
 
 try {
     $dbDeletor = new DBDeletor();
-
+    
     $responseCode = $dbDeletor->deleteAllIntormationFromTables();
     if (!$responseCode) {
         echo "Ha habido algun problema eliminando el contenido de las tablas<br>";
@@ -56,10 +57,18 @@ echo "Insertando el contenido en las tablas...<br>";
 try {
     $dbInsertor = new DBInsertor();
 
+    $adminlog = new AdminLog(SYSTEM_ID,"reload",date('Y-m-d H:i:s'));
+    
     $fullInformationArray = buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
     $exchangeArrayResponse, $trendingCoinsArrayResponse, 
     $trendingNftArrayResponse);
-    
+
+    $responseCode = $dbInsertor->insertAdminLog($adminlog);
+    if (!$responseCode) {
+        echo "Ha habido algun problema insertando el log del cambio<br>";
+        $ejecucionCorrecta = false;
+    }
+
     $responseCode = $dbInsertor->insertAllInformation($fullInformationArray);
     if (!$responseCode) {
         echo "Ha habido algun problema insertando el contenido de las tablas<br>";
