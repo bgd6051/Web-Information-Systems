@@ -48,7 +48,7 @@
             var resultado = document.getElementById("resultado1");
 
             var xhr = new XMLHttpRequest();
-            var url = "./src/lists.php?filtro="+Nfiltro+"&filtro="+filtro; //url de AJAX
+            var url = "./src/lists.php?Nfiltro="+Nfiltro+"&filtro="+filtro; //url de AJAX
             console.log("AJAX request: ", url);
             xhr.open("GET",url,true);
 
@@ -57,7 +57,7 @@
                     console.log("AJAX response: ", xhr);
                     resultado.innerHTML = xhr.responseText;
                 } else{
-                    resultado.innerHTML = xhr.responseText = "error al cargar el listado1";
+                    resultado.innerHTML = xhr.responseText = "error al cargar el listado"+Nfiltro;
                 } 
             };
 

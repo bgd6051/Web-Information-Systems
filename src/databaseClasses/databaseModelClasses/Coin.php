@@ -78,4 +78,14 @@ class Coin
     public function getID_COIN(): int {
         return $this->ID_COIN;
     }
+
+    public function toHTML(): string {
+        $separador = ", ";
+        $height = "50px";
+        $width = "50px";
+        $img = '<img src="'.$this->Image.'" height="'.$height.'" width="'.$width.'"/>';
+        return "<li>".$this->Id.$separador.$this->Symbol.$separador.
+            $this->Name.$separador.$img.$separador.$this->CurrentPrice.$separador.
+            $this->MarketCap.$separador.$this->PriceChangePercentage24h."<li/>";
+    }
 }
