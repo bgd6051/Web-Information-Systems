@@ -51,7 +51,7 @@ function getLista($NLista){
         return $dbSelector->getAllTrendingNfts();
     }
     if($NLista == 3){
-        return $dbSelector->getAllCoinChart();
+        return $dbSelector->getAllExchanges();
     }
     return null;
 }
@@ -65,13 +65,13 @@ function esFiltrado($elem,$filtro,$NLista): bool{
     }
 
     if($NLista == 1){
-        return ($elem->getCurrentPrice() <= (int) $filtro);
+        return ($elem->getCurrentPrice() >= (int) $filtro);
     }
     if($NLista == 2){
-        return ($elem->getFloorPrice24hPercentageChange() <= (float) $filtro);
+        return ($elem->getFloorPrice24hPercentageChange() >= (float) $filtro);
     }
     if($NLista == 3){
-        return ($elem->getPrice() <= (float) $filtro);
+        return ($elem->getCountry() == $filtro);
     }
     return True;
 } 

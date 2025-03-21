@@ -1,70 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrega 2</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            position: absolute;
-            top: 0;
-        }
-        a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: xx-large;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+<meta charset="utf-8">
+<title>Cripton | Información sobre criptoactivos</title>
+
+<!--META-->
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+
+<!--FONTS-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700" rel="stylesheet">
+<link rel="icon" type="image/png" href="./web/icons/Bitcoin.webp">
+
+<!--CSS-->
+<link rel="stylesheet" type="text/css" href="./web/css/grid.css">
+<link rel="stylesheet" type="text/css" href="./web/style.css">
+<link rel="stylesheet" type="text/css" href="./web/css/menu.css">
+<link rel="stylesheet" type="text/css" href="./web/css/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="./web/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="./web/css/animate.css">
+
 </head>
+
 <body>
-    <header>
-        <a href="https://www.coingecko.com/"><img src="./images/DataPoweredByCoingecko.png" alt="Powered by Coingecko"></a>
-    </header>
-    <a href="./src/informationUpdater.php">Actualizar contenido de las tablas</a>
-    <a href="./src/selects.php">Seleccionar contenido de las tablas</a>
-    <button id="filtrar1" onclick="listado(1)">Listar1</button>
-    <textarea id="filtro1">Listado1</textarea>
-    <div id="resultado1">resultado1</div>
-    <script>
-        function listado(Nfiltro){
-            var filtro = document.getElementById("filtro1").value;
-            var resultado = document.getElementById("resultado1");
+<div class="se-pre-con">
+<div class="wrapper">
+	<div class="cssload-loader"></div>
+</div>
+</div>
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="logo"><a href="/"><img src="./web/images/logo.png" alt=""/></a></div>
+        <nav class="nav-collapse">
+          <ul>                                                                                
+          	<li class="menu-item"><a href="#banner" data-scroll>INICIO</a></li>
+            <li class="menu-item"><a href="#poweredByCoingecko" data-scroll>COINGECKO</a></li>
+            <li class="menu-item"><a href="./web/updating/" data-scroll>ACTUALIZAR BBDD</a></li>
+            <li class="menu-item"><a href="./web/listings/" data-scroll>LISTADOS</a></li>
+            <li class="menu-item"><div class="signup"><a href="#">LOG IN</a></div></li>
+            <li class="menu-item"><div class="signup"><a href="#">SIGN UP</a></div></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
 
-            var xhr = new XMLHttpRequest();
-            var url = "./src/lists.php?Nfiltro="+Nfiltro+"&filtro="+filtro; //url de AJAX
-            console.log("AJAX request: ", url);
-            xhr.open("GET",url,true);
+<section id="banner">
+	<ul>
+        <li>
+            <img src="./web/images/stockMarketBanner.png" alt=""/>
+        </li>
+     </ul>
+    <div class="mainslide os-animation" data-os-animation="zoomIn" data-os-animation-delay="0.5s">
 
-            xhr.onload = function(){
-                if(xhr.status === 200){
-                    console.log("AJAX response: ", xhr);
-                    resultado.innerHTML = xhr.responseText;
-                } else{
-                    resultado.innerHTML = xhr.responseText = "error al cargar el listado"+Nfiltro;
-                } 
-            };
+        <h2>C R I P T O N</h2>
+        <p>El mejor comparador de criptoactivos de España</p>
+        <div class="buttons">
+            <a href="./web/updating/" class="learn">ACTUALIZAR BBDD</a>
+            <span>|</span>
+            <a id="listingsButton" href="./web/listings/" class="contact">MOSTRAR LISTADOS</a>
+        </div>
+    </div>
+     
+</section>
 
-            xhr.send();
-            console.log("AJAX request sent");
 
-        }
-    </script>
+<div class="client">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-lg-3 col-sm-6 col-md-3 os-animation" data-os-animation="zoomIn" data-os-animation-delay="0.3s">
+            	<img src="./web/images/bitcoin.webp" alt=""/>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-3 os-animation" data-os-animation="zoomIn" data-os-animation-delay="0.5s">
+            <img src="./web/images/ethereum.webp" alt=""/>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-3 os-animation" data-os-animation="zoomIn" data-os-animation-delay="0.7s">
+            <img src="./web/images/xrp.webp" alt=""/>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-3 os-animation" data-os-animation="zoomIn" data-os-animation-delay="0.9s">
+            <img src="./web/images/Tether.webp" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+	<div class="container">
+    	<div class="row">
+    		<div class="col-lg-8 col-sm-8 col-md-8">
+        		<div class="row">
+                	<div class="col-lg-4 col-sm-4 col-md-4">
+                    	<article>
+                        <h3>Creadores</h3>
+                        <a>Bogdan Razvant Sofrone</a>
+                        <a>Diego Suárez Etuláin</a>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-md-4">
+                    	<article>
+                        <h3>Grupo</h3>
+                        <a>Grupo_70</a>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-md-4">
+                    	<article>
+                        <h3>Asignatura</h3>
+                        <a>Sistemas De Información Web</a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-sm-4 col-md-4">
+        		<div class="max350">
+                	<h3 id="poweredByCoingecko">
+                        <img src="./web/images/DataPoweredByCoingecko.png" alt="coingecko">
+                        <p>Powered By <a href="https://www.coingecko.com/">Coingecko.com</a></p>
+                        <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+                        <p>Coingecko demo API <a href="https://docs.coingecko.com/v3.0.1/reference/introduction">docs.coingecko.com</a></p>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="./web/js/jquery.bxslider.js"></script>
+<script src="./web/js/fixed-responsive-nav.js"></script> 
+<script src="./web/js/waypoints.min.js"></script>
+<script src="./web/js/script.js"></script> 
+        
 </body>
 </html>

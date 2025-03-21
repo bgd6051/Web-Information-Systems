@@ -66,4 +66,14 @@ class Exchange
     public function getID_EXCHANGE(): int {
         return $this->ID_EXCHANGE;
     }
+
+    public function toHTML(): string {
+        $separador = ", ";
+        $height = "50px";
+        $width = "50px";
+        $img = '<img src="'.$this->Image.'" height="'.$height.'" width="'.$width.'"/>';
+        return "<li>".$this->Id.$separador.$this->Name.$separador.
+            $this->YearEstablished.$separador.$this->Country.$separador.$img.$separador.
+            $this->TrustScore.$separador.$this->TradeVolume24hBtc."<li/>";
+    }
 }   
