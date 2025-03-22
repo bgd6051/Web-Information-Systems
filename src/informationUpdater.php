@@ -1,19 +1,21 @@
 <?php
+const SYSTEM_ID = 1;
 
 spl_autoload_register(function ($class) {
-    $directories = ['requestClasses', 'databaseClasses', 'databaseClasses/databaseModelClasses/'];
+    $directories = ['requestClasses', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
 
     foreach ($directories as $dir) {
-        $file = __DIR__ . "/$dir/$class.php";
+        $file = __DIR__ . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $class . '.php';
         if (file_exists($file)) {
             require_once $file;
             return;
         }
     }
-
 });
 
-echo "Contactando con la API...<br>";
+$output = ''; // Inicializar variable para almacenar los mensajes
+
+$output .= "Contactando con la API...<br>";
 
 // Conseguir respuestas de la API y construir arrays 
 $coinsResponse = CoinRequest::getCoinResponseContent();
@@ -22,7 +24,7 @@ $coinsArrayResponse = Coin::constructCoinArray($coinsResponse);
 $coinsChartsArrayResponse = [];
 foreach (MAIN_COINS_ID as $coinId) {
     $intCoinId = MAIN_COINS_ID_INT[$coinId];
-    $coinChartArrayResponse = CoinChartRequest::getCoinChartResponseContent( $coinId);
+    $coinChartArrayResponse = CoinChartRequest::getCoinChartResponseContent($coinId);
     $coinChartInstanceArrayResponse = CoinChartInstance::constructCoinChartArray($coinChartArrayResponse, $intCoinId);
     $coinsChartsArrayResponse[] = $coinChartInstanceArrayResponse;
 }
@@ -34,50 +36,58 @@ $trendingResponse = TrendingRequest::getTrendingResponseContent();
 $trendingCoinsArrayResponse = TrendingCoin::constructTrendingCoinArray($trendingResponse);
 $trendingNftArrayResponse = TrendingNft::constructTrendingNftArray($trendingResponse);
 
-
-echo "Eliminando contenido de las tablas...<br>";
+$output .= "Eliminando contenido de las tablas...<br>";
 
 // Eliminar el contenido que ya había en la base de datos 
 $ejecucionCorrecta = true;
 
 try {
     $dbDeletor = new DBDeletor();
-
     $responseCode = $dbDeletor->deleteAllIntormationFromTables();
     if (!$responseCode) {
-        echo "Ha habido algun problema eliminando el contenido de las tablas<br>";
+        $output .= "Ha habido algún problema eliminando el contenido de las tablas<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { echo "Error: " . $e->getMessage(); }
+} catch (Exception $e) { $output .= "Error: " . $e->getMessage(); }
 
-echo "Insertando el contenido en las tablas...<br>";
+$output .= "Insertando el contenido en las tablas...<br>";
 
 // Insertar todo el contenido en las bases de datos dados los arrays
+
+$updatedDate = date('Y-m-d H:i:s');
+
 try {
     $dbInsertor = new DBInsertor();
-
+    $adminlog = new AdminLog(SYSTEM_ID,"RELOAD",$updatedDate);
     $fullInformationArray = buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
-    $exchangeArrayResponse, $trendingCoinsArrayResponse, 
-    $trendingNftArrayResponse);
-    
-    $responseCode = $dbInsertor->insertAllInformation($fullInformationArray);
+    $exchangeArrayResponse, $trendingCoinsArrayResponse, $trendingNftArrayResponse);
+
+    $responseCode = $dbInsertor->insertAdminLog($adminlog);
     if (!$responseCode) {
-        echo "Ha habido algun problema insertando el contenido de las tablas<br>";
+        $output .= "Ha habido algún problema insertando el log del cambio<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { echo "Error: " . $e->getMessage(); }
+
+    $responseCode = $dbInsertor->insertAllInformation($fullInformationArray);
+    if (!$responseCode) {
+        $output .= "Ha habido algún problema insertando el contenido de las tablas<br>";
+        $ejecucionCorrecta = false;
+    }
+} catch (Exception $e) { $output .= "Error: " . $e->getMessage(); }
+
 
 if ($ejecucionCorrecta) {
-    echo "Información de las tablas actualizada correctamente<br>";
-    echo "Fecha de actualización: " . date('Y-m-d H:i:s') . "<br>"; 
-}
-else {
-    echo "No se ha podido actualizar la información correctamente <br>";
+    $output .= "Información de las tablas actualizada correctamente<br>";
+    $output .= "Fecha de actualización: " . $updatedDate . "<br>"; 
+} else {
+    $output .= "No se ha podido actualizar la información correctamente <br>";
 }
 
-function buildFullInformationArray( $coinsArrayResponse, $coinsChartsArrayResponse, 
+echo $output; // Devolver el contenido acumulado a la respuesta AJAX
+
+function buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
                                     $exchangeArrayResponse, $trendingCoinsArrayResponse, 
-                                    $trendingNftArrayResponse ) : array 
+                                    $trendingNftArrayResponse): array 
 {
     return array (
         "coins" => $coinsArrayResponse,
@@ -87,3 +97,4 @@ function buildFullInformationArray( $coinsArrayResponse, $coinsChartsArrayRespon
         "trendingNfts" => $trendingNftArrayResponse,
     );
 }
+?>

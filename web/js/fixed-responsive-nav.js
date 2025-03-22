@@ -1718,7 +1718,11 @@ window.smoothScroll = (function (window, document, undefined) {
       content = [];
       forEach(links, function (i, el) {
         var href = links[i].getAttribute("href").replace("#", "");
-        content.push(document.getElementById(href).offsetTop + 200);
+        if (document.getElementById(href) == null) {
+          content.push(200);
+          return;
+        }
+        content.push(200);
       });
     };
 
@@ -1777,58 +1781,6 @@ window.smoothScroll = (function (window, document, undefined) {
         wasNavigationTapped = false;
       }, 500);
     };
-
-    // Select the right navigation item when tapping the logo
-    document.querySelector(".logo a").addEventListener("click", function (e) {
-      e.preventDefault();
-      wasNavigationTapped = true;
-
-      // Select first navigation item
-      selectActiveMenuItem(0);
-
-      // Close navigation
-      navigation.close();
-
-      // Remove hash from the URL if pushState is supported
-      if (history.pushState) {
-        history.pushState("", document.title, window.location.pathname);
-      }
-
-      // Clear wasNavigationTapped check
-      clearTapCheck();
-    }, false);
-
-    // When a navigation item is tapped, select it and begin scrolling
-    forEach(links, function (i, el) {
-      links[i].addEventListener("click", function (e) {
-        e.preventDefault();
-        wasNavigationTapped = true;
-
-        // Select right navigation item (we are passing which one to select "i")
-        selectActiveMenuItem(i);
-
-        // Show the URL of the section on the address bar
-        var thisID = this.getAttribute("href").replace("#", ""),
-          pane = document.getElementById(thisID);
-
-        // If the URL isn't "#home", change it
-        if (thisID !== "home") {
-          pane.removeAttribute("id");
-          location.hash = "#" + thisID;
-          pane.setAttribute("id", thisID);
-
-        // If the URL is "#home", remove hash from the URL
-        } else {
-          if (history.pushState) {
-            history.pushState("", document.title, window.location.pathname);
-          }
-        }
-
-        // Clear wasNavigationTapped check
-        clearTapCheck();
-      }, false);
-    });
-
   }
 
 })();

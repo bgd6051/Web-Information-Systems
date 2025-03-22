@@ -1,6 +1,44 @@
 <?php
 class DBInsertor extends DBHandler {
     
+    public function insertAllInformation(array $tableElements): bool {
+        $coins = $tableElements["coins"];
+        if (isset($tableElements["coins"])) {
+            $queryResponse = $this->insertAllCoins($coins);
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
+        } else { return false; }
+
+        echo "Insertando el contenido en la tabla coinCharts...<br>";
+        $coinCharts = $tableElements["coinsCharts"];
+        if (isset($coinCharts)) {
+            $queryResponse = $this->insertAllCoinCharts($coinCharts);
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
+        } else { return false; }
+
+        echo "Insertando el contenido en la tabla exchanges...<br>";
+        $exchanges = $tableElements["exchanges"];
+        if (isset($exchanges)) {
+            $queryResponse = $this->insertAllExchanges($exchanges);
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
+        } else { return false; }
+
+        echo "Insertando el contenido en la tabla trendingCoins...<br>";
+        $trendingCoins = $tableElements["trendingCoins"];
+        if (isset($trendingCoins)) {
+            $queryResponse = $this->insertAllTrendingCoins($trendingCoins);
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
+        } else { return false; }
+
+        echo "Insertando el contenido en la tabla trendingNfts...<br>";
+        $trendingNfts = $tableElements["trendingNfts"];
+        if (isset($trendingNfts)) {
+            $queryResponse = $this->insertAllTrendingNfts($trendingNfts);
+            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
+        } else { return false; }
+
+        return true;
+    }
+
     public function insertCoin(Coin $coin) {
         $query = "INSERT INTO FINAL_COINS (ID_COIN, id, symbol, name, 
                 image, current_price, market_cap, 
@@ -129,41 +167,10 @@ class DBInsertor extends DBHandler {
         return true;
     }
 
-    public function insertAllInformation(array $tableElements): bool {
-        $coins = $tableElements["coins"];
-        if (isset($tableElements["coins"])) {
-            $queryResponse = $this->insertAllCoins($coins);
-            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
-        } else { return false; }
-
-        echo "Insertando el contenido en la tabla coinCharts...<br>";
-        $coinCharts = $tableElements["coinsCharts"];
-        if (isset($coinCharts)) {
-            $queryResponse = $this->insertAllCoinCharts($coinCharts);
-            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
-        } else { return false; }
-
-        echo "Insertando el contenido en la tabla exchanges...<br>";
-        $exchanges = $tableElements["exchanges"];
-        if (isset($exchanges)) {
-            $queryResponse = $this->insertAllExchanges($exchanges);
-            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
-        } else { return false; }
-
-        echo "Insertando el contenido en la tabla trendingCoins...<br>";
-        $trendingCoins = $tableElements["trendingCoins"];
-        if (isset($trendingCoins)) {
-            $queryResponse = $this->insertAllTrendingCoins($trendingCoins);
-            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
-        } else { return false; }
-
-        echo "Insertando el contenido en la tabla trendingNfts...<br>";
-        $trendingNfts = $tableElements["trendingNfts"];
-        if (isset($trendingNfts)) {
-            $queryResponse = $this->insertAllTrendingNfts($trendingNfts);
-            if (!$this->hasQueryExecutedSuccessfully($queryResponse)) { return false; }
-        } else { return false; }
-
-        return true;
+    public function insertSystemLogForInfoUpdate (String $fecha): bool {
+        $query = "INSERT INTO FINAL_ADMIN_LOG (ID_ADMIN , action, fecha) VALUES (?, ?, ?)";
+        return $this->executeQuery($query, 
+            ["iss", 1, 'UPDATE', $fecha]);
     }
+
 }
