@@ -79,6 +79,12 @@ class Coin
         return $this->ID_COIN;
     }
 
+    public function titleHTML(): string {
+        $separador = ", ";
+        return "<li><b>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
+        "CurrentPrice".$separador."MarketCap".$separador."PriceChangePercentage24h<b/><li/>";
+    }
+
     public function toHTML(): string {
         $separador = ", ";
         $height = "50px";

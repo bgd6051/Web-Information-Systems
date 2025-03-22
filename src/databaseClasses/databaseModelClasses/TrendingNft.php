@@ -66,6 +66,13 @@ class TrendingNft
         return $this->ID_TRENDING_NFT;
     }
 
+    public function titleHTML(): string {
+        $separador = ", ";
+        return "<li><b>Id".$separador."Name".$separador.
+            "Symbol".$separador."Thumb".$separador."NativeCurrencySymbol".$separador.
+            "FloorPriceInNativeCurrency".$separador."FloorPrice24hPercentageChange<b/><li/>";
+    }
+
     public function toHTML(): string {
         $separador = ", ";
         $height = "50px";

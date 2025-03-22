@@ -26,6 +26,14 @@ class DBSelector extends DBHandler{
         return $structuredSelection; 
     }
 
+    public function getLastAdminLog()  
+    {
+        $query = "SELECT max(fecha) FROM FINAL_ADMIN_LOG";
+        $stmt = $this->executeQuery($query);
+        $selection = $this->selectToArray($stmt->get_result());
+        return $selection;
+    }
+    
     public function getAllUserRegistrations() 
     {
         $query = "SELECT * FROM FINAL_USER_REGISTRATION";

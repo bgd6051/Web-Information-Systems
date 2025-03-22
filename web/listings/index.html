@@ -57,38 +57,33 @@
             </div>
         </div>
         
-            <div id="listados" class="row">
-                <div id="listadoDeCriptomonedas" class="col-lg-4 col-sm-4 col-md-4">
-                    <a href="#listadoActual">
-                        <img src="../images/bitcoinPrice.avif" alt=""/>
-                        <h3>Criptomonedas</h3>
-                        <span>¿Bitcoin? ¿Ethereum? ¿A cual le está yendo mejor?</span>
-                    </a>
-                    <button onclick="listado(0)">Listar</button>
-                    <textarea id="listadoDeCriptomonedasFiltro"></textarea>
-                </div>
-            <div id="listadoDeNfts" class="col-lg-4 col-sm-4 col-md-4">
+        <div id="listados" class="row">
+            <div id="listadoDeCriptomonedas" class="col-lg-4 col-sm-4 col-md-4" onclick="listado(0)">
+                <a href="#listadoActual">
+                    <img src="../images/bitcoinPrice.avif" alt=""/>
+                    <h3>Criptomonedas</h3>
+                    <span>¿Bitcoin? ¿Ethereum? ¿A cual le está yendo mejor?</span>
+                </a>
+            </div>
+            <div id="listadoDeNfts" class="col-lg-4 col-sm-4 col-md-4" onclick="listado(1)">
                 <a href="#listadoActual">
                     <img src="../images/bestPerforming.jpeg" alt=""/>
                     <h3>Criptoactivos más populares</h3>
                     <span>Sean "memecoins" o nfts a todos nos gusta el verde</span>
                 </a>
-                <button onclick="listado(1)">Listar</button>
-                <textarea id="listadoDeNftsFiltro"></textarea>
             </div>
-            <div id="listadoExchanges" class="col-lg-4 col-sm-4 col-md-4">
+            <div id="listadoExchanges" class="col-lg-4 col-sm-4 col-md-4" onclick="listado(2)">
                 <a href="#listadoActual">
                     <img src="../images/exchanges.png" alt=""/>
                     <h3>Paginas de intercambio</h3>
                     <span>¿Que otras opciones hay a parte de binance?</span>
                 </a>
-                <button onclick="listado(2)">Listar</button>
-                <textarea id="listadoExchangesFiltro"></textarea>
             </div>
         </div>
     </div>
 </section>
 <section id="listadoActual" style="display: none; visibility: hidden;">
+    <textarea id="filtro"></textarea>
     <ul>
 
     </ul>
@@ -159,12 +154,17 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script>
 <script>
-
+    var filtroAnt = -1;
     function listado(Nfiltro) {
-        var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
-        var filtro = document.getElementById(filtros[Nfiltro]).value;
+        //var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
+        var filtro = document.getElementById("filtro").value;
         //var filtro = "none"//sin filtro
-        var resultado = document.getElementById("listadoActual").children[0];
+        var resultado = document.getElementById("listadoActual").children[1];
+        
+        if(Nfiltro != filtroAnt){
+            filtroAnt = Nfiltro;
+            filtro = "none"
+        } 
 
         var xhr = new XMLHttpRequest();
         var url = "../../src/listings?Nfiltro="+Nfiltro+"&filtro="+filtro; //url de AJAX

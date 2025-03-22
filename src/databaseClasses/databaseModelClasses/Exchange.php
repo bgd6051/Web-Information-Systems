@@ -67,6 +67,13 @@ class Exchange
         return $this->ID_EXCHANGE;
     }
 
+    public function titleHTML(): string {
+        $separador = ", ";
+        return "<li><b>Id".$separador."Name".$separador.
+            "YearEstablished".$separador."Country".$separador."Image".$separador.
+            "TrustScore".$separador."TradeVolume24hBtc<b/><li/>";
+    }
+
     public function toHTML(): string {
         $separador = ", ";
         $height = "50px";
