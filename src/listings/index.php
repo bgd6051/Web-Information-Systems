@@ -87,5 +87,5 @@ function getUltimaAtualizacion(){
     if($actualizaciones == null){
         return "Ultima actualizacion no guardada";
     }
-    return "Ultima actualizacion fue guardada en ".$actualizaciones[0];
+    return "Ultima actualizacion fue guardada en ".$actualizaciones[0][0];
 } 
