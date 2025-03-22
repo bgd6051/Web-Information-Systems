@@ -124,7 +124,7 @@ class DBSelector extends DBHandler{
     public function getAllExchanges($orderBy,$orderReversed) 
     {
         $query = "SELECT * FROM FINAL_EXCHANGES";
-        $query .= $this->orderBy($orderBy,null);
+        $query .= $this->orderBy($orderBy,$orderReversed);
         $stmt = $this->executeQuery($query);
         $selection = $this->selectToArray($stmt->get_result());
         $rownum = 0;

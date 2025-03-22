@@ -181,16 +181,17 @@
         var textoOrden = document.getElementById("textoOrden");
         textoOrden.innerHTML = textosDeOrden[Nfiltro];
 
-        var filtro = document.getElementById("filtro").value;
+        var filtro = document.getElementById("filtroTextarea").value;
         //var filtro = "none"//sin filtro
         var resultado = document.getElementById("contenidoActual");
         if(Nfiltro != filtroAnt){
             filtroAnt = Nfiltro;
             filtro = "none"
         }
-        //ToDo ¿esta ordenado? -> obtener del filtroOrden
-        var filtroOrden = "no";
-        //var filtroOrden = document.getElementById("filtroOrden");
+        
+        //var filtroOrden = "no";//sin orden
+        var elemFiltroOrden = document.getElementById("filtroOrden");
+	    var filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
 
         var params = "?Nfiltro="+Nfiltro;
         if(filtroOrden != "no"){
