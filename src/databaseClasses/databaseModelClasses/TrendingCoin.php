@@ -51,4 +51,20 @@ class TrendingCoin
     public function getID_TRENDING_COIN(): int {
         return $this->ID_TRENDING_COIN;
     }
+
+    public function titleHTML(): string {
+        $separador = ", ";
+        return "<li><b>Id".$separador."Name".$separador.
+            "Thumbnail".$separador."Price".$separador.
+            $separador."PriceChangePercentage24h</b></li>";
+    }
+
+    public function toHTML(): string {
+        $separador = ", ";
+        $height = "50px";
+        $width = "50px";
+        $img = '<img src="'.$this->Thumbnail.'" height="'.$height.'" width="'.$width.'"/>';
+        return "<li>".$this->Id.$separador.$this->Name.$separador.$img.$separador.
+            $this->Price.$separador.$this->PriceChangePercentage24h."</li>";
+    }
 }   

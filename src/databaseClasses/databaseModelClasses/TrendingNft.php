@@ -69,7 +69,7 @@ class TrendingNft
     public function titleHTML(): string {
         $separador = ", ";
         return "<li><b>Id".$separador."Name".$separador.
-            "Symbol".$separador."Thumb".$separador."NativeCurrencySymbol".$separador.
+            "Symbol".$separador."Thumbnail".$separador."NativeCurrencySymbol".$separador.
             "FloorPriceInNativeCurrency".$separador."FloorPrice24hPercentageChange</b></li>";
     }
 

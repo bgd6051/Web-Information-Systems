@@ -75,7 +75,7 @@
             <div id="listadoExchanges" class="col-lg-4 col-sm-4 col-md-4" onclick="listado(2)">
                 <a href="#listadoActual">
                     <img src="../images/exchanges.png" alt=""/>
-                    <h3>Paginas de intercambio</h3>
+                    <h3>Páginas de intercambio</h3>
                     <span>¿Que otras opciones hay a parte de binance?</span>
                 </a>
             </div>
@@ -85,7 +85,13 @@
 <section id="listadoActual" style="display: none; visibility: hidden;" class="row">
     <div id="seleccionDeFiltro" class="col-lg-4 col-sm-4 col-md-4">
         <p id="textoFiltro"></p>
-        <textarea id="filtro"></textarea>
+        <textarea id="filtroTextarea"></textarea>
+        <p id="textoOrden"></p>
+        <select id="filtroOrden">
+            <option value="no">no ordenar</option>
+            <option value="asc">ascendiente</option>
+            <option value="desc">descendiente</option>
+        </select>
     </div>
     <ul id="contenidoActual" class="col-lg-8 col-sm-8 col-md-8">
 
@@ -162,22 +168,37 @@
         var textosDeFiltro = [
             "Precios mayores o iguales al dado.",
             "Precios mayores o iguales al dado.",
-            "Pais."
+            "Pais a filtrar."
+        ];
+        var textosDeOrden = [
+            "Ordenar por precios descendentes?",
+            "Ordenar por precios descendentes?",
+            "Ordenar por antiguedad ascendente?"
         ];
         //var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
         var textoFiltro = document.getElementById("textoFiltro");
         textoFiltro.innerHTML = textosDeFiltro[Nfiltro]; 
+        var textoOrden = document.getElementById("textoOrden");
+        textoOrden.innerHTML = textosDeOrden[Nfiltro];
+
         var filtro = document.getElementById("filtro").value;
         //var filtro = "none"//sin filtro
         var resultado = document.getElementById("contenidoActual");
-        
         if(Nfiltro != filtroAnt){
             filtroAnt = Nfiltro;
             filtro = "none"
-        } 
+        }
+        //ToDo ¿esta ordenado? -> obtener del filtroOrden
+        var filtroOrden = "no";
+        //var filtroOrden = document.getElementById("filtroOrden");
 
+        var params = "?Nfiltro="+Nfiltro;
+        if(filtroOrden != "no"){
+            params += "&filtroOrden="+filtroOrden;
+        }
+        params += "&filtro="+filtro;
         var xhr = new XMLHttpRequest();
-        var url = "../../src/listings?Nfiltro="+Nfiltro+"&filtro="+filtro; //url de AJAX
+        var url = "../../src/listings"+params; //url de AJAX
         console.log("AJAX request: ", url);
         xhr.open("GET", url, true);
 
