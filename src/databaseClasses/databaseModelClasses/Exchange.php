@@ -71,7 +71,7 @@ class Exchange
         $separador = ", ";
         return "<li><b>Id".$separador."Name".$separador.
             "YearEstablished".$separador."Country".$separador."Image".$separador.
-            "TrustScore".$separador."TradeVolume24hBtc<b/><li/>";
+            "TrustScore".$separador."TradeVolume24hBtc</b></li>";
     }
 
     public function toHTML(): string {
@@ -81,6 +81,6 @@ class Exchange
         $img = '<img src="'.$this->Image.'" height="'.$height.'" width="'.$width.'"/>';
         return "<li>".$this->Id.$separador.$this->Name.$separador.
             $this->YearEstablished.$separador.$this->Country.$separador.$img.$separador.
-            $this->TrustScore.$separador.$this->TradeVolume24hBtc."<li/>";
+            $this->TrustScore.$separador.$this->TradeVolume24hBtc."</li>";
     }
 }   

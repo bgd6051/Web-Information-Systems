@@ -17,7 +17,7 @@ $Nfiltro = isset($_GET["Nfiltro"]) ? $_GET["Nfiltro"] : null;
 $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : null;
 
 $listaHTMLFiltrada = filtrarLista($Nfiltro,$filtro);
-$fechaActualizacion = "<li>".getUltimaAtualizacion()."<li>";
+$fechaActualizacion = "<li>".getUltimaAtualizacion()."</li>";
 
 if($listaHTMLFiltrada == null){
     echo $fechaActualizacion;

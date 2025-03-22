@@ -82,7 +82,7 @@ class Coin
     public function titleHTML(): string {
         $separador = ", ";
         return "<li><b>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
-        "CurrentPrice".$separador."MarketCap".$separador."PriceChangePercentage24h<b/><li/>";
+        "CurrentPrice".$separador."MarketCap".$separador."PriceChangePercentage24h</b></li>";
     }
 
     public function toHTML(): string {
@@ -92,6 +92,6 @@ class Coin
         $img = '<img src="'.$this->Image.'" height="'.$height.'" width="'.$width.'"/>';
         return "<li>".$this->Id.$separador.$this->Symbol.$separador.
             $this->Name.$separador.$img.$separador.$this->CurrentPrice.$separador.
-            $this->MarketCap.$separador.$this->PriceChangePercentage24h."<li/>";
+            $this->MarketCap.$separador.$this->PriceChangePercentage24h."</li>";
     }
 }

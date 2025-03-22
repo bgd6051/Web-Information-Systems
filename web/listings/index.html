@@ -82,9 +82,12 @@
         </div>
     </div>
 </section>
-<section id="listadoActual" style="display: none; visibility: hidden;">
-    <textarea id="filtro"></textarea>
-    <ul>
+<section id="listadoActual" style="display: none; visibility: hidden;" class="row">
+    <div id="seleccionDeFiltro" class="col-lg-4 col-sm-4 col-md-4">
+        <p id="textoFiltro"></p>
+        <textarea id="filtro"></textarea>
+    </div>
+    <ul id="contenidoActual" class="col-lg-8 col-sm-8 col-md-8">
 
     </ul>
 </section>
@@ -156,10 +159,17 @@
 <script>
     var filtroAnt = -1;
     function listado(Nfiltro) {
+        var textosDeFiltro = [
+            "Precions mayores o iguales al dado.",
+            "Precions mayores o iguales al dado.",
+            "Pais."
+        ];
         //var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
+        var textoFiltro = document.getElementById("textoFiltro");
+        textoFiltro.innerHTML = textosDeFiltro[Nfiltro]; 
         var filtro = document.getElementById("filtro").value;
         //var filtro = "none"//sin filtro
-        var resultado = document.getElementById("listadoActual").children[1];
+        var resultado = document.getElementById("contenidoActual");
         
         if(Nfiltro != filtroAnt){
             filtroAnt = Nfiltro;

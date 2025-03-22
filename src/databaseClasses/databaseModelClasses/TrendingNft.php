@@ -70,7 +70,7 @@ class TrendingNft
         $separador = ", ";
         return "<li><b>Id".$separador."Name".$separador.
             "Symbol".$separador."Thumb".$separador."NativeCurrencySymbol".$separador.
-            "FloorPriceInNativeCurrency".$separador."FloorPrice24hPercentageChange<b/><li/>";
+            "FloorPriceInNativeCurrency".$separador."FloorPrice24hPercentageChange</b></li>";
     }
 
     public function toHTML(): string {
@@ -80,6 +80,6 @@ class TrendingNft
         $img = '<img src="'.$this->Thumb.'" height="'.$height.'" width="'.$width.'"/>';
         return "<li>".$this->Id.$separador.$this->Name.$separador.
             $this->Symbol.$separador.$img.$separador.$this->NativeCurrencySymbol.$separador.
-            $this->FloorPriceInNativeCurrency.$separador.$this->FloorPrice24hPercentageChange."<li/>";
+            $this->FloorPriceInNativeCurrency.$separador.$this->FloorPrice24hPercentageChange."</li>";
     }
 }   
