@@ -26,7 +26,7 @@ if($listaHTMLFiltrada == null){
     echo $fechaActualizacion.$listaHTMLFiltrada;
 };
 
-function filtrarLista($NLista,$filtro,$orderReversed){
+function filtrarLista($NLista, $filtro, $orderReversed){
     $listas = getLista($NLista,$orderReversed);
     if($listas == null){
         return null;
@@ -53,7 +53,7 @@ function filtrarLista($NLista,$filtro,$orderReversed){
     }
     return $HTML;
 } 
-function getLista($NLista,$orderReversed){
+function getLista($NLista, $orderReversed){
     if($NLista == null){
         return null;
     }
@@ -71,7 +71,7 @@ function getLista($NLista,$orderReversed){
     return null;
 }
 
-function esFiltrado($elem,$filtro,$NLista,$count): bool{
+function esFiltrado($elem, $filtro, $NLista, $count): bool{
     if($filtro == null){
         return True;
     }

@@ -69,9 +69,9 @@ class Exchange
 
     public function titleHTML(): string {
         $separador = ", ";
-        return "<li><b>Id".$separador."Name".$separador.
+        return "<li>Id".$separador."Name".$separador.
             "YearEstablished".$separador."Country".$separador."Image".$separador.
-            "TrustScore".$separador."TradeVolume24hBtc</b></li>";
+            "TrustScore".$separador."TradeVolume24hBtc</li>";
     }
 
     public function toHTML(): string {

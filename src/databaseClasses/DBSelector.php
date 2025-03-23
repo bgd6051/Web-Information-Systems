@@ -29,7 +29,7 @@ class DBSelector extends DBHandler{
 
     public function getLastAdminLog()  
     {
-        $query = "SELECT max(fecha) FROM FINAL_ADMIN_LOG";
+        $query = "SELECT max(fecha) FROM FINAL_ADMIN_LOG WHERE action = 'RELOAD'";
         $stmt = $this->executeQuery($query);
         $selection = $this->selectToArray($stmt->get_result());
         return $selection;

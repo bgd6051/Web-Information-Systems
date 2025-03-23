@@ -22,7 +22,6 @@ abstract class DBHandler
         $responseCode = $stmt->execute();
        
         if ($stmt->field_count > 0) {
-            echo "stmt->field_count = $stmt->field_count <br>";
             return $stmt;
         }
         

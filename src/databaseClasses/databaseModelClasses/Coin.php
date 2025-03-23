@@ -81,8 +81,8 @@ class Coin
 
     public function titleHTML(): string {
         $separador = ", ";
-        return "<li><b>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
-        "CurrentPrice".$separador."MarketCap".$separador."PriceChangePercentage24h</b></li>";
+        return "<li>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
+        "CurrentPrice (dollars)".$separador."MarketCap".$separador."PriceChangePercentage24h (%)</li>";
     }
 
     public function toHTML(): string {

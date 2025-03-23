@@ -54,9 +54,10 @@ class TrendingCoin
 
     public function titleHTML(): string {
         $separador = ", ";
-        return "<li><b>Id".$separador."Name".$separador.
-            "Thumbnail".$separador."Price".$separador.
-            $separador."PriceChangePercentage24h</b></li>";
+        return "<li>
+            Id".$separador."Name".$separador.
+            "Thumbnail".$separador."Price (dollars)".$separador.
+            $separador."PriceChangePercentage24h (%)</li>";
     }
 
     public function toHTML(): string {

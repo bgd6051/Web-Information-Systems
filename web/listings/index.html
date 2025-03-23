@@ -92,6 +92,7 @@
             <option value="asc">ascendiente</option>
             <option value="desc">descendiente</option>
         </select>
+        <button id="confirmarFiltros" onclick="confirmarFiltros()">Confirmar filtros</button>
     </div>
     <ul id="contenidoActual" class="col-lg-8 col-sm-8 col-md-8">
 
@@ -219,6 +220,18 @@
         listadoActual.style.visibility = "visible";
         listadoActual.style.display = "flex";
     }
+    function confirmarFiltros() {
+            var filtro = document.getElementById("filtroTextarea").value;
+            var elemFiltroOrden = document.getElementById("filtroOrden");
+            var filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
+
+            console.log("Filtro aplicado:", filtro);
+            console.log("Orden seleccionado:", filtroOrden);
+
+            if (filtroAnt !== -1) {
+                listado(filtroAnt);
+            }
+        }
 </script>
 </body>
 </html>
