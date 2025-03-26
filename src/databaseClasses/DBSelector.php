@@ -11,7 +11,7 @@ class DBSelector extends DBHandler{
         }
         return $Array;
     }
-    public function getAllAdminLogs($orderBy,$orderReversed)  
+    public function getAllAdminLogs($orderBy, $orderReversed)  
     {
         $query = "SELECT * FROM FINAL_ADMIN_LOG";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -35,7 +35,7 @@ class DBSelector extends DBHandler{
         return $selection;
     }
 
-    public function getAllUserRegistrations($orderBy,$orderReversed) 
+    public function getAllUserRegistrations($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_USER_REGISTRATION";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -51,7 +51,23 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    public function getAllCoinChart($orderBy,$orderReversed) 
+    public function getRegisteredUser($username) 
+    {
+        $query = "SELECT * FROM FINAL_USER_REGISTRATION";
+        $query .= " WHERE Username=".$username;
+        $stmt = $this->executeQuery($query);
+        $selection = $this->selectToArray($stmt->get_result());
+        $rownum = 0;
+        $structuredSelection = [];
+        foreach ($selection as $row) {
+            $structuredSelection[$rownum] = new UserRegistration(
+                $row[1],$row[2],$row[3],$row[0]);
+            $rownum += 1;
+        }
+        return $structuredSelection;
+    }
+
+    public function getAllCoinChart($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_COINS_CHART";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -68,7 +84,7 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    public function getAllTrendingCoins($orderBy,$orderReversed) 
+    public function getAllTrendingCoins($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_TRENDING_COINS";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -85,7 +101,7 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    public function getAllTrendingNfts($orderBy,$orderReversed) 
+    public function getAllTrendingNfts($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_TRENDING_NFTS";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -103,7 +119,7 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    public function getAllCoins($orderBy,$orderReversed) 
+    public function getAllCoins($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_COINS";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -121,7 +137,7 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    public function getAllExchanges($orderBy,$orderReversed) 
+    public function getAllExchanges($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_EXCHANGES";
         $query .= $this->orderBy($orderBy,$orderReversed);
@@ -139,7 +155,7 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
-    private function orderBy($orderBy,$orderReversed): string{
+    private function orderBy($orderBy, $orderReversed): string{
         if($orderBy == null){
             return "";
         }

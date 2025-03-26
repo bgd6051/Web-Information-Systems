@@ -22,9 +22,10 @@ $fechaActualizacion = "<li>".getUltimaAtualizacion()."</li>";
 
 if($listaHTMLFiltrada == null){
     echo $fechaActualizacion;
-}else{
-    echo $fechaActualizacion.$listaHTMLFiltrada;
-};
+    exit;
+}
+echo $fechaActualizacion.$listaHTMLFiltrada;
+
 
 function filtrarLista($NLista, $filtro, $orderReversed){
     $listas = getLista($NLista,$orderReversed);
