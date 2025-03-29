@@ -14,6 +14,7 @@ spl_autoload_register(function ($class) {
 });
 
 const MAX_PASSWORD_LENGTH = 32;
+const RUTA_LOGIN = "Location: ./../login/";
 
 $username = isset($_GET["Username"]) ? $_GET["Username"] : null;
 $password = isset($_GET["Password"]) ? $_GET["Password"] : null;
@@ -38,7 +39,7 @@ if(!registrarUsuario($username, $password)){
     echo "err: error en insercion";
     exit;
 }
-echo "Register completado";
+redireccionar();Location: 
 
 function isRegistered($username): bool{
     $dbSelector = new DBSelector();
@@ -58,4 +59,8 @@ function registrarUsuario($username, $password): bool{
     $dbInsertor = new DBInsertor();
     $userRegistration = new UserRegistration($username,$password,$role);
     return $dbInsertor->insertUserRegistration($userRegistration);
+} 
+
+function redireccionar(){
+    header("Location: ".RUTA_LOGIN);
 } 

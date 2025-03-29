@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    $directories = ['databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
+    $directories = ['auth', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
 
     foreach ($directories as $dir) {
         $file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $class . '.php';
@@ -13,25 +13,31 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$oldUsername = isset($_GET["OldUsername"]) ? $_GET["OldUsername"] : null;
+session_start();
+
+$auth = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : null;
 $newUsername = isset($_GET["NewUsername"]) ? $_GET["NewUsername"] : null;
-$oldPassword = isset($_GET["OldPassword"]) ? $_GET["OldPassword"] : null;
 $newPassword = isset($_GET["NewPassword"]) ? $_GET["NewPassword"] : null;
 
-if($oldUsername==null){
-    echo "err: este usuario es nulo";
+if($auth==null){
+    echo "err: no logeado";
     exit;
 }
-if(!isRegistered($username)){
-    echo "err: este usuario no existe";
+if($auth->authenticate()){
+    echo "err: no logeado";
+    exit;
+}
+
+if(isRegistered($newUsername)){
+    echo "err: este usuario ya existe";
     exit;
 }
 
 if($newUsername!=null){
-    editUsername($username, $newUsername);
+    $auth->editUsername($newUsername);
 }
 if($newPassword!=null){
-    editPassword($password, $newPassword);
+    $auth->editPassword($newPassword);
 }
 echo "Updates completado";
 
