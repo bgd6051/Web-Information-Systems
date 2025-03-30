@@ -128,6 +128,52 @@ nav ul li a:hover {
 	color: rgb(140, 219, 255);
 }
 
+.filaContenedorCentrado {
+	display: flex; 
+	justify-content: center; 
+	margin: 200px 0 150px;
+}
+
+#contenedorRegistro {
+	color: black;
+	padding: 16px;
+	border-radius: 8px;
+	box-shadow: 0px 3px 10px 5px rgb(0, 0, 0, 0.5);
+}
+
+#contenedorRegistro form {
+    display: grid;
+    grid-template-columns: auto 1fr; 
+    gap: 8px; 
+    align-items: center; 
+    margin: 20px 15px 15px 15px;
+    padding: 5px;
+}
+
+#contenedorRegistro form label {
+	font-size: 16px;
+    text-align: right; 
+    margin: 8px;
+    padding: 5px;
+}
+
+#contenedorRegistro form input {
+    width: 88%;
+	border-radius: 8px;
+}
+
+.contenedorBotones {
+	display: flex;
+	justify-content: space-between;
+	margin: 30px 20px 10px 20px;
+	font-weight: bolder;
+}
+
+.contenedorBotones button:hover {
+	box-shadow: 1px 3px 5px black;
+	transform: translateY(-3px);
+}
+
 .signup a {
 	font-family: 'Montserrat', sans-serif;
 	width: 76px;
