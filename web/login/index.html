@@ -32,9 +32,9 @@
             <ul>                                                                                
                 <li class="menu-item"><a href="../../" data-scroll>INICIO</a></li>
                 <li class="menu-item"><a href="#poweredByCoingecko" data-scroll>COINGECKO</a></li>
-                <li class="menu-item"><a href="#" data-scroll>ACTUALIZAR BBDD</a></li>
+                <li class="menu-item"><a href="../updating/" data-scroll>ACTUALIZAR BBDD</a></li>
                 <li class="menu-item"><a href="../listings/" data-scroll>LISTADOS</a></li>
-                <li class="menu-item"><div class="signup"><a href="../login/">LOG IN</a></div></li>
+                <li class="menu-item"><div class="signup"><a href="#">LOG IN</a></div></li>
                 <li class="menu-item"><div class="signup"><a href="../register/">SIGN UP</a></div></li>
             </ul>
             </nav>
@@ -44,29 +44,25 @@
 </header>
 <section id="team" style="padding-bottom: 30px">
     <div class="container os-animation">
-        <div class="row">
-            <div class="col-lg-12" style="margin-top: 100px;">
-                <h2>Actualización de tablas de la base de datos</h2>
-                <p style="padding-bottom: 50px;"> Para actualizar el contenido de la base de datos 
-                    deberás clicar el botón que sale aqui abajo y esperar unos 30 segundos.
-                </p>
-                <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown">
-                <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown">
-                <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown">
-                <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown">
+        <div class="row filaContenedorCentrado">
+            <div id="contenedorRegistro" class="col-lg-6 col-sm-6 col-md-3">
+                <h2>LOGIN</h2>
+                <form>
+                    <label for="campoUsuario">Usuario</label>
+                    <input id="campoUsuario" maxlength="32" type="text" required>
                 
+                    <label for="campoContrasena">Contraseña</label>
+                    <input id="campoContrasena" maxlength="32" type="password" required>
+                </form>
+                <div class="contenedorBotones">
+                    <button onclick="limpiarCampos()">Limpiar información</button>
+                    <button onclick="">Continuar</button>
+                </div>
             </div>
         </div>
     </div>
-    <div style="display: flex; justify-content: center; gap: 30px; margin: 50px 0 50px;">
-        <button id="deleteButton">Eliminar contenido de las tablas</button>
-        <button id="updateButton">Actualizar contenido de las tablas</button>
+        
     </div>
-
-    <div id="updateMessages">
-
-    </div>
-    *al clicar "actualizar contenido de las tablas", se eliminará el anterior contenido automáticamente
 </section>
 
 <div class="client">
@@ -133,41 +129,10 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script> 
 <script>
-    $(document).ready(function() {
-        $('#updateButton').on('click', function(e) {
-            e.preventDefault(); 
-
-            $('#updateMessages').html('<p>Actualizando base de datos, por favor espere...</p>');
-
-            $.ajax({
-                url: '../../src/informationUpdater.php', 
-                type: 'GET', 
-                success: function(response) {
-                    $('#updateMessages').html(response);
-                },
-                error: function(xhr, status, error) {
-                    $('#updateMessages').html('<p>Ocurrió un error al actualizar la base de datos. Intenta nuevamente.</p>');
-                }
-            });
-        });
-
-        $('#deleteButton').on('click', function(e) {
-            e.preventDefault(); 
-
-            $('#updateMessages').html('<p>Eliminando tablas de la base de datos, por favor espere...</p>');
-
-            $.ajax({
-                url: '../../src/informationDeletor.php', 
-                type: 'GET', 
-                success: function(response) {
-                    $('#updateMessages').html(response);
-                },
-                error: function(xhr, status, error) {
-                    $('#updateMessages').html('<p>Ocurrió un error al eliminando las tablas. Intenta nuevamente.</p>');
-                }
-            });
-        });
-    });
+    function limpiarCampos() {
+        document.getElementById("campoUsuario").value = "";
+        document.getElementById("campoContrasena").value = "";
+    }
 </script>
 </body>
 </html>
