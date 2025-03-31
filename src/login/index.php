@@ -23,7 +23,8 @@ if($username==null || $password==null ){
     exit;
 }
 
-$auth = new Auth($username,$password);
+$auth = new Auth($username);
+$auth->setPassword($password);
 $loginCorrect = $auth->authenticate();
 
 
@@ -35,7 +36,10 @@ if(session_start()){
     echo "Login no completado";
     exit;
 }
-$_SESSION['usuario'] = $auth;
+
+$_SESSION["Username"] = $user->getUsername();
+$_SESSION["Role"] = $user->getRole();
+
 redireccionar();
 
 function redireccionar(){

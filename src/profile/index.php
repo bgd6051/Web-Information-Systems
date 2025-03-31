@@ -15,15 +15,11 @@ spl_autoload_register(function ($class) {
 
 session_start();
 
-$auth = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : null;
+$username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 $newUsername = isset($_GET["NewUsername"]) ? $_GET["NewUsername"] : null;
 $newPassword = isset($_GET["NewPassword"]) ? $_GET["NewPassword"] : null;
 
-if($auth==null){
-    echo "err: no logeado";
-    exit;
-}
-if($auth->authenticate()){
+if($Username==null){
     echo "err: no logeado";
     exit;
 }
@@ -32,7 +28,7 @@ if(isRegistered($newUsername)){
     echo "err: este usuario ya existe";
     exit;
 }
-
+$auth = new Auth($username);
 if($newUsername!=null){
     $auth->editUsername($newUsername);
 }

@@ -17,7 +17,7 @@ const RUTA_INICIO = "Location: ./../../";
 
 session_start();
 
-$_SESSION = [];
+session_unset();
 
 if(session_destroy()){
     echo "Logout completado";

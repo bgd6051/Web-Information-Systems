@@ -5,8 +5,11 @@ class Auth
     private $username;
     private $password;
 
-    public function __construct($username,$password){
+    public function __construct($username){
         $this->username = $username;
+    } 
+
+    public function setPassword($password){
         $this->password = $password;
     } 
 
@@ -53,7 +56,7 @@ class Auth
         } 
     } 
 
-    private function getFromDB(){
+    public function getFromDB(){
         $dbSelector = new DBSelector();
         $user = $dbSelector->getRegisteredUser($this->username);
         if(empty($user)){
