@@ -58,11 +58,14 @@
             </div>
         </div>
     </div>
-    <div id="updateMessages" style="display: flex; justify-content: center; gap: 30px; margin: 50px 0 50px;">
-        <button onclick="">Eliminar contenido de las tablas</button>
+    <div style="display: flex; justify-content: center; gap: 30px; margin: 50px 0 50px;">
+        <button id="deleteButton">Eliminar contenido de las tablas</button>
         <button id="updateButton">Actualizar contenido de las tablas</button>
     </div>
-    
+
+    <div id="updateMessages">
+
+    </div>
     *al clicar "actualizar contenido de las tablas", se eliminará el anterior contenido automáticamente
 </section>
 
@@ -144,6 +147,23 @@
                 },
                 error: function(xhr, status, error) {
                     $('#updateMessages').html('<p>Ocurrió un error al actualizar la base de datos. Intenta nuevamente.</p>');
+                }
+            });
+        });
+
+        $('#deleteButton').on('click', function(e) {
+            e.preventDefault(); 
+
+            $('#updateMessages').html('<p>Eliminando tablas de la base de datos, por favor espere...</p>');
+
+            $.ajax({
+                url: '../../src/informationDeletor.php', 
+                type: 'GET', 
+                success: function(response) {
+                    $('#updateMessages').html(response);
+                },
+                error: function(xhr, status, error) {
+                    $('#updateMessages').html('<p>Ocurrió un error al eliminando las tablas. Intenta nuevamente.</p>');
                 }
             });
         });
