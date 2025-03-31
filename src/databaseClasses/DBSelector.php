@@ -54,7 +54,7 @@ class DBSelector extends DBHandler{
     public function getRegisteredUser($username) 
     {
         $query = "SELECT * FROM FINAL_USER_REGISTRATION";
-        $query .= " WHERE Username=".$username;
+        $query .= " WHERE Username='".$username."'";
         $stmt = $this->executeQuery($query);
         $selection = $this->selectToArray($stmt->get_result());
         $rownum = 0;
