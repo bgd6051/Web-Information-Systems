@@ -50,22 +50,25 @@
                 <h2>Información de usuario</h2>
                 <form>
                     <label for="nombreUsuario">Nombre de usuario</label>
-                    <input id="nombreUsuario" type="text" maxlength="32" value="XD">
+                    <input id="nombreUsuario" type="text" maxlength="32" value="mi nombre de usuario" disabled>
                 </form>
                 
                 <form id="formulario" action="" style="visibility: hidden; display: none" >
                     <label for="nuevaContrasena">Nueva contraseña</label>
-                    <input id="nuevaContrasena" type="password" maxlength="32">
+                    <input id="nuevaContrasena" type="password" maxlength="32" required>
 
                     <label for="repetirContrasena">Repetir contraseña</label>
-                    <input id="repetirContrasena" type="password" maxlength="32">
+                    <input id="repetirContrasena" type="password" maxlength="32" required>
                 </form>
+
+                <div class="contenedorBotones" >
+                    <button onclick="" style="background-color: rgba(214, 2, 2, 0.993); color: white;">Cerrar sesión</button>
+                    <button id="cambioContrasena" onclick="mostrarContenidoParaElCambio()">Cambiar contraseña</button>
+                </div>
                 
-                <button id="cambioContrasena" onclick="mostrarContenidoParaElCambio()" style="margin-top: 30px;">Cambiar contraseña</button>
-            
                 <div id="botonesCambio" class="contenedorBotones" style="visibility: hidden; display: none">
                     <button onclick="limpiarCampos()">Limpiar información</button>
-                    <button onclick="">Continuar</button>
+                    <button onclick="" style="background-color: rgba(105, 255, 46, 0.993);">Continuar</button>
                 </div>
             
             </div>
