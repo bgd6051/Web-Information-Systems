@@ -15,6 +15,8 @@ spl_autoload_register(function ($class) {
 
 const RUTA_INICIO = "Location: ./../../";
 
+session_start();
+
 $username = isset($_GET["Username"]) ? $_GET["Username"] : null;
 $password = isset($_GET["Password"]) ? $_GET["Password"] : null;
 
@@ -26,13 +28,9 @@ if($username==null || $password==null ){
 $auth = new Auth($username);
 $auth->setPassword($password);
 $loginCorrect = $auth->authenticate();
-
+$user = $auth->getFromDB();
 
 if(!$loginCorrect){
-    echo "Login no completado";
-    exit;
-}
-if(session_start()){
     echo "Login no completado";
     exit;
 }
