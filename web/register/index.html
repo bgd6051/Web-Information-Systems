@@ -61,7 +61,7 @@
                 </form>
                 <div class="contenedorBotones">
                     <button onclick="limpiarCampos()">Limpiar información</button>
-                    <button onclick="">Continuar</button>
+                    <button onclick="registrarse()">Continuar</button>
                 </div>
             </div>
         </div>
@@ -139,6 +139,74 @@
         document.getElementById("campoContrasena").value = "";
         document.getElementById("campoRepetirContrasena").value = "";
         document.getElementById("campoAdmin").checked = false;
+    }
+    function registroFallido() {
+        limpiarCampos();
+    }
+    function tieneTexto(text){
+        if(text == null){
+            return false;
+        }
+        if(text == ""){
+            return false;
+        }
+        return true;
+    }
+    function success(response){
+        return;
+    } 
+    function registrarse() {
+        var usuario = document.getElementById("campoUsuario").value;
+        var contrasena = document.getElementById("campoContrasena").value;
+        var repetirContrasena = document.getElementById("campoRepetirContrasena").value;
+        var isAdmin = document.getElementById("campoAdmin").checked;
+        
+        if(tieneTexto(usuario)){
+            registroFallido();
+            return;
+        }
+        if(tieneTexto(contrasena)){
+            registroFallido();
+            return;
+        }
+        if(tieneTexto(repetirContrasena)){
+            registroFallido();
+            return;
+        }
+
+        if(contrasena != repetirContrasena){
+            registroFallido();
+            return;
+        }
+
+        var admin = "REGISTERED";
+        if(isAdmin){
+            admin = "ADMIN";
+        }
+
+        var postObj = { 
+            username: usuario, 
+            password: contrasena, 
+            role: admin
+        }
+
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/register"+params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+
+        xhr.onload = function(){
+            if(xhr.status === 201){
+                console.log("AJAX response: ", xhr);
+                success(xhr.responseText);
+            } else{
+                registroFallido(xhr.responseText);
+            } 
+        };
+
+        xhr.send(post);
+        console.log("AJAX request sent");
     }
 </script>
 </body>

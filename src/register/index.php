@@ -14,13 +14,22 @@ spl_autoload_register(function ($class) {
 });
 
 const MAX_PASSWORD_LENGTH = 32;
-const RUTA_LOGIN = "Location: ./../login/";
+const RUTA_LOGIN = "Location: ./../web/login/intdex.html";
 
-$username = isset($_GET["Username"]) ? $_GET["Username"] : null;
-$password = isset($_GET["Password"]) ? $_GET["Password"] : null;
+$username = isset($_POST["username"]) ? $_POST["username"] : null;
+$password = isset($_POST["password"]) ? $_POST["password"] : null;
+$role = isset($_POST["role"]) ? $_POST["role"] : "REGISTERED";
+
+if($role != "ADMIN"){
+    $role = "REGISTERED";
+} 
 
 if($username==null || $password==null ){
     echo "err: valores nulos";
+    exit;
+}
+if($username=="" || $password=="" ){
+    echo "err: valores vacios";
     exit;
 }
 
@@ -35,11 +44,11 @@ if(!$validPassword){
     echo "err: password no valido";
     exit;
 }
-if(!registrarUsuario($username, $password)){
+if(!registrarUsuario($username, $password,$role)){
     echo "err: error en insercion";
     exit;
 }
-redireccionar();Location: 
+redireccionar(); 
 
 function isRegistered($username): bool{
     $dbSelector = new DBSelector();
@@ -54,8 +63,7 @@ function isPasswordValid($password): bool{
     return !(strlen($password) > MAX_PASSWORD_LENGTH);
 } 
 
-function registrarUsuario($username, $password): bool{
-    $role = "REGISTERED";
+function registrarUsuario($username, $password, $role): bool{
     $dbInsertor = new DBInsertor();
     $userRegistration = new UserRegistration($username,$password,$role);
     return $dbInsertor->insertUserRegistration($userRegistration);

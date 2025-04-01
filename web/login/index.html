@@ -56,7 +56,7 @@
                 </form>
                 <div class="contenedorBotones">
                     <button onclick="limpiarCampos()">Limpiar información</button>
-                    <button onclick="">Continuar</button>
+                    <button onclick="login()">Continuar</button>
                 </div>
             </div>
         </div>
@@ -132,6 +132,54 @@
     function limpiarCampos() {
         document.getElementById("campoUsuario").value = "";
         document.getElementById("campoContrasena").value = "";
+    }
+    function loginFallido() {
+        limpiarCampos();
+    }
+    function tieneTexto(text){
+        if(text == null){
+            return false;
+        }
+        if(text == ""){
+            return false;
+        }
+        return true;
+    }
+    function success(response){
+        return;
+    } 
+    function login() {
+        var usuario = document.getElementById("campoUsuario").value;
+        var contrasena = document.getElementById("campoContrasena").value;
+        
+        if(tieneTexto(usuario)){
+            loginFallido();
+            return;
+        }
+        if(tieneTexto(contrasena)){
+            loginFallido();
+            return;
+        }
+
+        var params = "?Username="+usuario;
+        params += "&Password="+contrasena;
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/login"+params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                success(xhr.responseText);
+            } else{
+                registroFallido(xhr.responseText);
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
     }
 </script>
 </body>
