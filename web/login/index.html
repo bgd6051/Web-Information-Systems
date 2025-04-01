@@ -152,11 +152,11 @@
         var usuario = document.getElementById("campoUsuario").value;
         var contrasena = document.getElementById("campoContrasena").value;
         
-        if(tieneTexto(usuario)){
+        if(!tieneTexto(usuario)){
             loginFallido();
             return;
         }
-        if(tieneTexto(contrasena)){
+        if(!tieneTexto(contrasena)){
             loginFallido();
             return;
         }

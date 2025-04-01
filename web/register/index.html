@@ -161,15 +161,15 @@
         var repetirContrasena = document.getElementById("campoRepetirContrasena").value;
         var isAdmin = document.getElementById("campoAdmin").checked;
         
-        if(tieneTexto(usuario)){
+        if(!tieneTexto(usuario)){
             registroFallido();
             return;
         }
-        if(tieneTexto(contrasena)){
+        if(!tieneTexto(contrasena)){
             registroFallido();
             return;
         }
-        if(tieneTexto(repetirContrasena)){
+        if(!tieneTexto(repetirContrasena)){
             registroFallido();
             return;
         }
@@ -189,15 +189,15 @@
             password: contrasena, 
             role: admin
         }
-
+        let post = JSON.stringify(postObj);
         var xhr = new XMLHttpRequest();
-        var url = "../../src/register"+params; //url de AJAX
+        var url = "../../src/register/"; //url de AJAX
         console.log("AJAX request: ", url);
         xhr.open("POST", url, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 
         xhr.onload = function(){
-            if(xhr.status === 201){
+            if(xhr.status === 200){
                 console.log("AJAX response: ", xhr);
                 success(xhr.responseText);
             } else{
