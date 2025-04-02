@@ -13,21 +13,32 @@ spl_autoload_register(function ($class) {
     }
 });
 
+const RUTA_INICIO = "./../../";
+
+$response = [
+    'estado' => 'error',
+    'mensaje' => 'no iniciado',
+    'ruta' => ''
+];
+
 session_start();
 
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 $newUsername = isset($_GET["NewUsername"]) ? $_GET["NewUsername"] : null;
 $newPassword = isset($_GET["NewPassword"]) ? $_GET["NewPassword"] : null;
 
-if($Username==null){
-    echo "err: no logeado";
+if($username==null){
+    $response["mensaje"] = "no estas logeado";
+    echo json_encode($response);
     exit;
 }
 
 if(isRegistered($newUsername)){
-    echo "err: este usuario ya existe";
+    $response["mensaje"] = "no estas registrado";
+    echo json_encode($response);
     exit;
 }
+
 $auth = new Auth($username);
 if($newUsername!=null){
     $auth->editUsername($newUsername);
@@ -35,7 +46,11 @@ if($newUsername!=null){
 if($newPassword!=null){
     $auth->editPassword($newPassword);
 }
-echo "Updates completado";
+
+$response["estado"] = "exito";
+$response["mensaje"] = "actualizado";
+$response["ruta"] = RUTA_INICIO;
+echo json_encode($response);
 
 function isRegistered($username): bool{
     $dbSelector = new DBSelector();

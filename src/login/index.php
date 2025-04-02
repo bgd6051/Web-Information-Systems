@@ -17,7 +17,7 @@ const RUTA_INICIO = "./../../";
 
 $response = [
     'estado' => 'error',
-    'mensaje' => 'err: no iniciado',
+    'mensaje' => 'no iniciado',
     'ruta' => ''
 ];
 

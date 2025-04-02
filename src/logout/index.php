@@ -13,18 +13,26 @@ spl_autoload_register(function ($class) {
     }
 });
 
-const RUTA_INICIO = "Location: ./../../intdex.html";
+const RUTA_INICIO = "./../../";
+
+$response = [
+    'estado' => 'error',
+    'mensaje' => 'no iniciado',
+    'ruta' => ''
+];
 
 session_start();
 
 session_unset();
 
 if(session_destroy()){
-    echo "Logout completado";
+    $response["estado"] = "exito";
+    $response["mensaje"] = "redireccionando";
+    $response["ruta"] = RUTA_INICIO;
+    echo json_encode($response);
     exit;
 }
-echo "Logout no completado";
 
-function redireccionar(){
-    header("Location: ".RUTA_INICIO);
-} 
+$response["mensaje"] = "Logout no completado";
+
+ echo json_encode($response);
