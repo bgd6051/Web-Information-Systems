@@ -14,22 +14,30 @@ spl_autoload_register(function ($class) {
 });
 
 const MAX_PASSWORD_LENGTH = 32;
-const RUTA_LOGIN = "Location: ./../web/login";
+const RUTA_LOGIN = "./../login";
 
-$username = isset($_POST["username"]) ? $_POST["username"] : null;
-$password = isset($_POST["password"]) ? $_POST["password"] : null;
-$role = isset($_POST["role"]) ? $_POST["role"] : "REGISTERED";
+$response = [
+    'estado' => 'error',
+    'mensaje' => 'no iniciado',
+    'ruta' => ''
+];
+
+$username = isset($_GET["username"]) ? $_GET["username"] : null;
+$password = isset($_GET["password"]) ? $_GET["password"] : null;
+$role = isset($_GET["role"]) ? $_GET["role"] : "REGISTERED";
 
 if($role != "ADMIN"){
     $role = "REGISTERED";
 } 
 
 if($username==null || $password==null ){
-    echo "err: valores nulos";
+    $response["mensaje"] = "valores nulos";
+    echo json_encode($response);
     exit;
 }
 if($username=="" || $password=="" ){
-    echo "err: valores vacios";
+    $response["mensaje"] = "valores vacios";
+    echo json_encode($response);
     exit;
 }
 
@@ -37,18 +45,26 @@ $registered = isRegistered($username);
 $validPassword = isPasswordValid($password);
 
 if($registered){
-    echo "err: username no disponible";
+    $response["mensaje"] = "username no disponible";
+    echo json_encode($response);
     exit;
 }
 if(!$validPassword){
-    echo "err: password no valido";
+    $response["mensaje"] = "password no valido";
+    echo json_encode($response);
     exit;
 }
 if(!registrarUsuario($username, $password,$role)){
-    echo "err: error en insercion";
+    $response["mensaje"] = "error en insercion";
+    echo json_encode($response);
     exit;
 }
-redireccionar(); 
+
+$response["estado"] = "exito";
+$response["mensaje"] = "redireccionando";
+$response["ruta"] = RUTA_LOGIN;
+
+echo json_encode($response); 
 
 function isRegistered($username): bool{
     $dbSelector = new DBSelector();
@@ -67,8 +83,4 @@ function registrarUsuario($username, $password, $role): bool{
     $dbInsertor = new DBInsertor();
     $userRegistration = new UserRegistration($username,$password,$role);
     return $dbInsertor->insertUserRegistration($userRegistration);
-} 
-
-function redireccionar(){
-    header("Location: ".RUTA_LOGIN);
 } 

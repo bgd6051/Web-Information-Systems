@@ -56,8 +56,6 @@
                 
                     <label for="campoRepetirContrasena">Repetir contraseña</label>
                     <input id="campoRepetirContrasena" maxlength="32" type="password" required>
-                    
-                    <label>admin</label><input id="campoAdmin" type="checkbox">
                 </form>
                 <div class="contenedorBotones">
                     <button onclick="limpiarCampos()">Limpiar información</button>
@@ -138,10 +136,11 @@
         document.getElementById("campoUsuario").value = "";
         document.getElementById("campoContrasena").value = "";
         document.getElementById("campoRepetirContrasena").value = "";
-        document.getElementById("campoAdmin").checked = false;
     }
-    function registroFallido() {
-        limpiarCampos();
+    function registroFallido(msg) {
+        document.getElementById("campoContrasena").value = "";
+        document.getElementById("campoRepetirContrasena").value = "";
+        alert(msg);
     }
     function tieneTexto(text){
         if(text == null){
@@ -152,60 +151,57 @@
         }
         return true;
     }
-    function success(response){
+    function success(redir){
+        window.location.href = redir;
         return;
     } 
     function registrarse() {
         var usuario = document.getElementById("campoUsuario").value;
         var contrasena = document.getElementById("campoContrasena").value;
         var repetirContrasena = document.getElementById("campoRepetirContrasena").value;
-        var isAdmin = document.getElementById("campoAdmin").checked;
         
         if(!tieneTexto(usuario)){
-            registroFallido();
+            registroFallido("rellena el campo usuario");
             return;
         }
         if(!tieneTexto(contrasena)){
-            registroFallido();
+            registroFallido("rellena el campo contrasena");
             return;
         }
         if(!tieneTexto(repetirContrasena)){
-            registroFallido();
+            registroFallido("rellena el campo repetirContrasena");
             return;
         }
 
         if(contrasena != repetirContrasena){
-            registroFallido();
+            registroFallido("las contraseñas no coinciden");
             return;
         }
 
-        var admin = "REGISTERED";
-        if(isAdmin){
-            admin = "ADMIN";
-        }
-
-        var postObj = { 
-            username: usuario, 
-            password: contrasena, 
-            role: admin
-        }
-        let post = JSON.stringify(postObj);
+        var params = "?username="+usuario;
+        params += "&password="+contrasena;
+        params += "&role=REGISTERED";
+        
         var xhr = new XMLHttpRequest();
-        var url = "../../src/register/"; //url de AJAX
+        var url = "../../src/register" + params; //url de AJAX
         console.log("AJAX request: ", url);
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+        xhr.open("GET", url, true);
 
         xhr.onload = function(){
             if(xhr.status === 200){
                 console.log("AJAX response: ", xhr);
-                success(xhr.responseText);
+                var response = JSON.parse(xhr.responseText);
+                if(response.estado === "exito"){
+                    success(response.ruta);
+                }else{
+                    registroFallido(response.mensaje);
+                }
             } else{
                 registroFallido(xhr.responseText);
             } 
         };
 
-        xhr.send(post);
+        xhr.send();
         console.log("AJAX request sent");
     }
 </script>
