@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
-const RUTA_INICIO = "Location: ./../../intdex.html";
+const RUTA_INICIO = "Location: ./../../";
 
 session_start();
 

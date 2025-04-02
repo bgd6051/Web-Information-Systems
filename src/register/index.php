@@ -14,7 +14,7 @@ spl_autoload_register(function ($class) {
 });
 
 const MAX_PASSWORD_LENGTH = 32;
-const RUTA_LOGIN = "Location: ./../web/login/intdex.html";
+const RUTA_LOGIN = "Location: ./../web/login";
 
 $username = isset($_POST["username"]) ? $_POST["username"] : null;
 $password = isset($_POST["password"]) ? $_POST["password"] : null;
