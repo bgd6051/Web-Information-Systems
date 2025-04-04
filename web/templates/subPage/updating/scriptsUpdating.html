@@ -1,0 +1,44 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script> 
+<script>
+    $(document).ready(function() {
+        $('#updateButton').on('click', function(e) {
+            e.preventDefault(); 
+
+            $('#updateMessages').html('<p>Actualizando base de datos, por favor espere...</p>');
+
+            $.ajax({
+                url: '../../src/informationUpdater.php', 
+                type: 'GET', 
+                success: function(response) {
+                    $('#updateMessages').html(response);
+                },
+                error: function(xhr, status, error) {
+                    $('#updateMessages').html('<p>Ocurrió un error al actualizar la base de datos. Intenta nuevamente.</p>');
+                }
+            });
+        });
+
+        $('#deleteButton').on('click', function(e) {
+            e.preventDefault(); 
+
+            $('#updateMessages').html('<p>Eliminando tablas de la base de datos, por favor espere...</p>');
+
+            $.ajax({
+                url: '../../src/informationDeletor.php', 
+                type: 'GET', 
+                success: function(response) {
+                    $('#updateMessages').html(response);
+                },
+                error: function(xhr, status, error) {
+                    $('#updateMessages').html('<p>Ocurrió un error al eliminando las tablas. Intenta nuevamente.</p>');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

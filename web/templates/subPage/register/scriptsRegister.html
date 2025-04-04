@@ -1,0 +1,81 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script> 
+<script>
+    function limpiarCampos() {
+        document.getElementById("campoUsuario").value = "";
+        document.getElementById("campoContrasena").value = "";
+        document.getElementById("campoRepetirContrasena").value = "";
+    }
+    function registroFallido(msg) {
+        document.getElementById("campoContrasena").value = "";
+        document.getElementById("campoRepetirContrasena").value = "";
+        alert(msg);
+    }
+    function tieneTexto(text){
+        if(text == null){
+            return false;
+        }
+        if(text == ""){
+            return false;
+        }
+        return true;
+    }
+    function success(redir){
+        window.location.href = redir;
+        return;
+    } 
+    function registrarse() {
+        var usuario = document.getElementById("campoUsuario").value;
+        var contrasena = document.getElementById("campoContrasena").value;
+        var repetirContrasena = document.getElementById("campoRepetirContrasena").value;
+        
+        if(!tieneTexto(usuario)){
+            registroFallido("rellena el campo usuario");
+            return;
+        }
+        if(!tieneTexto(contrasena)){
+            registroFallido("rellena el campo contrasena");
+            return;
+        }
+        if(!tieneTexto(repetirContrasena)){
+            registroFallido("rellena el campo repetirContrasena");
+            return;
+        }
+
+        if(contrasena != repetirContrasena){
+            registroFallido("las contraseñas no coinciden");
+            return;
+        }
+
+        var params = "?username="+usuario;
+        params += "&password="+contrasena;
+        params += "&role=REGISTERED";
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/register" + params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                var response = JSON.parse(xhr.responseText);
+                if(response.estado === "exito"){
+                    success(response.ruta);
+                }else{
+                    registroFallido(response.mensaje);
+                }
+            } else{
+                registroFallido(xhr.responseText);
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
+    }
+</script>
+</body>
+</html>

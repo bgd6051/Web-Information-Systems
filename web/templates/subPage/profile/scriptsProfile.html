@@ -1,0 +1,121 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script> 
+<script>
+    function mostrarContenidoParaElCambio() {
+        let formulario = document.getElementById("formulario");
+        let botonesCambio = document.getElementById("botonesCambio");
+        let botonCambio = document.getElementById("cambioContrasena");
+
+        formulario.style.display = "";
+        formulario.style.visibility = "visible";
+        botonesCambio.style.display = "";
+        botonesCambio.style.visibility = "visible";
+
+        botonCambio.innerText = "Cancelar";
+
+        botonCambio.onclick = () => {
+            formulario.style.display = "none";
+            formulario.style.visibility = "hidden";
+            botonesCambio.style.display = "none";
+            botonesCambio.style.visibility = "hidden";
+            botonCambio.innerText = "Cambiar contraseña";
+
+            botonCambio.onclick = mostrarContenidoParaElCambio;
+        };
+    }
+
+    function limpiarCampos() {
+        document.getElementById("nuevaContrasena").value = "";
+        document.getElementById("repetirContrasena").value = "";
+    }
+
+    function accionFallida(msg) {
+        document.getElementById("nuevaContrasena").value = "";
+        document.getElementById("repetirContrasena").value = "";
+        alert(msg);
+    }
+    function tieneTexto(text){
+        if(text == null){
+            return false;
+        }
+        if(text == ""){
+            return false;
+        }
+        return true;
+    }
+    function success(redir){
+        window.location.href = redir;
+        return;
+    } 
+    function logout() {
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/logout"; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                var response = JSON.parse(xhr.responseText);
+                if(response.estado === "exito"){
+                    success(response.ruta);
+                }else{
+                    accionFallida(response.mensaje);
+                }
+            } else{
+                accionFallida(xhr.responseText);
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
+    }
+
+    function editProfile() {
+        var contrasena = document.getElementById("nuevaContrasena").value;
+        var repetirContrasena = document.getElementById("repetirContrasena").value;
+        
+        if(!tieneTexto(contrasena)){
+            accionFallida("rellena el campo nuevaContrasena");
+            return;
+        }
+        if(!tieneTexto(repetirContrasena)){
+            accionFallida("rellena el campo repetirContrasena");
+            return;
+        }
+        if(contrasena != repetirContrasena){
+            accionFallida("las contraseñas no coinciden");
+            return;
+        }
+
+        var params = "?NewPassword="+contrasena;
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/profile"+params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                var response = JSON.parse(xhr.responseText);
+                if(response.estado === "exito"){
+                    success(response.ruta);
+                }else{
+                    accionFallida(response.mensaje);
+                }
+            } else{
+                accionFallida(xhr.responseText);
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
+    }
+</script>
+</body>
+</html>
