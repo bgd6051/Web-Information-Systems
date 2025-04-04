@@ -1,25 +1,31 @@
 <section id="team" style="padding-bottom: 30px">
-    <div class="container os-animation">
-        <div class="row filaContenedorCentrado">
-            <div id="contenedorRegistro" class="col-lg-6 col-sm-6 col-md-6">
-                <h2>REGISTRO</h2>
-                <form>
-                    <label for="campoUsuario">Usuario</label>
-                    <input id="campoUsuario" maxlength="32" type="text" required>
-                
-                    <label for="campoContrasena">Contraseña</label>
-                    <input id="campoContrasena" maxlength="32" type="password" required>
-                
-                    <label for="campoRepetirContrasena">Repetir contraseña</label>
-                    <input id="campoRepetirContrasena" maxlength="32" type="password" required>
-                </form>
-                <div class="contenedorBotones">
-                    <button onclick="limpiarCampos()">Limpiar información</button>
-                    <button onclick="registrarse()">Continuar</button>
-                </div>
-            </div>
-        </div>
+  <div class="container os-animation">
+    <div class="row">
+      <div class="col-lg-12" style="margin-top: 100px">
+        <h2>Actualización de tablas de la base de datos</h2>
+        <p style="padding-bottom: 50px">
+          Para actualizar el contenido de la base de datos deberás clicar el
+          botón que sale aqui abajo y esperar unos 30 segundos.
+        </p>
+        <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown" />
+        <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown" />
+        <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown" />
+        <img src="../images/arrowDown.jpg" width="150px" alt="arrowDown" />
+      </div>
     </div>
-        
-    </div>
+  </div>
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 50px 0 50px;
+    ">
+    <button id="deleteButton">Eliminar contenido de las tablas</button>
+    <button id="updateButton">Actualizar contenido de las tablas</button>
+  </div>
+
+  <div id="updateMessages"></div>
+  *al clicar "actualizar contenido de las tablas", se eliminará el anterior
+  contenido automáticamente
 </section>

@@ -1,11 +1,24 @@
-<section id="team" style="padding-bottom: 30px">
+<?php
+
+session_start();
+
+CONST SUBPAGE_TEMPLATE_PATH = "../templates/subPage/";
+CONST PROFILE_TEMPLATE_PATH = "../templates/subPage/profile/";
+
+if (isset($_SESSION["Username"])) {
+    $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "loggedHeadAndHeaderSubpage.html");
+} else {
+    $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unloggedHeadAndHeaderSubpage.html");
+}
+
+$content = '<section id="team" style="padding-bottom: 30px">
     <div class="container os-animation">
         <div class="row filaContenedorCentrado">
             <div id="contenedorRegistro" class="col-lg-6 col-sm-6 col-md-3">
                 <h2>Información de usuario</h2>
                 <form>
                     <label for="nombreUsuario">Nombre de usuario</label>
-                    <input id="nombreUsuario" type="text" maxlength="32" value="mi nombre de usuario" disabled>
+                    <input id="nombreUsuario" type="text" maxlength="32" value=' . $_SESSION["Username"] . ' disabled>
                 </form>
                 
                 <form id="formulario" action="" style="visibility: hidden; display: none" >
@@ -31,4 +44,12 @@
     </div>
         
     </div>
-</section>
+</section>';
+
+$footer = file_get_contents(SUBPAGE_TEMPLATE_PATH . "footerSubpage.html");
+
+$scripts = file_get_contents(PROFILE_TEMPLATE_PATH . "scriptsProfile.html");
+
+$builtHtmlFile = $headAndHeader . $content . $footer . $scripts;
+
+echo $builtHtmlFile;

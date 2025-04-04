@@ -4,78 +4,41 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script> 
 <script>
-    function limpiarCampos() {
-        document.getElementById("campoUsuario").value = "";
-        document.getElementById("campoContrasena").value = "";
-        document.getElementById("campoRepetirContrasena").value = "";
-    }
-    function registroFallido(msg) {
-        document.getElementById("campoContrasena").value = "";
-        document.getElementById("campoRepetirContrasena").value = "";
-        alert(msg);
-    }
-    function tieneTexto(text){
-        if(text == null){
-            return false;
-        }
-        if(text == ""){
-            return false;
-        }
-        return true;
-    }
-    function success(redir){
-        window.location.href = redir;
-        return;
-    } 
-    function registrarse() {
-        var usuario = document.getElementById("campoUsuario").value;
-        var contrasena = document.getElementById("campoContrasena").value;
-        var repetirContrasena = document.getElementById("campoRepetirContrasena").value;
-        
-        if(!tieneTexto(usuario)){
-            registroFallido("rellena el campo usuario");
-            return;
-        }
-        if(!tieneTexto(contrasena)){
-            registroFallido("rellena el campo contrasena");
-            return;
-        }
-        if(!tieneTexto(repetirContrasena)){
-            registroFallido("rellena el campo repetirContrasena");
-            return;
-        }
+    $(document).ready(function() {
+        $('#updateButton').on('click', function(e) {
+            e.preventDefault(); 
 
-        if(contrasena != repetirContrasena){
-            registroFallido("las contraseñas no coinciden");
-            return;
-        }
+            $('#updateMessages').html('<p>Actualizando base de datos, por favor espere...</p>');
 
-        var params = "?username="+usuario;
-        params += "&password="+contrasena;
-        params += "&role=REGISTERED";
-        
-        var xhr = new XMLHttpRequest();
-        var url = "../../src/register" + params; //url de AJAX
-        console.log("AJAX request: ", url);
-        xhr.open("GET", url, true);
-
-        xhr.onload = function(){
-            if(xhr.status === 200){
-                console.log("AJAX response: ", xhr);
-                var response = JSON.parse(xhr.responseText);
-                if(response.estado === "exito"){
-                    success(response.ruta);
-                }else{
-                    registroFallido(response.mensaje);
+            $.ajax({
+                url: '../../src/informationUpdater.php', 
+                type: 'GET', 
+                success: function(response) {
+                    $('#updateMessages').html(response);
+                },
+                error: function(xhr, status, error) {
+                    $('#updateMessages').html('<p>Ocurrió un error al actualizar la base de datos. Intenta nuevamente.</p>');
                 }
-            } else{
-                registroFallido(xhr.responseText);
-            } 
-        };
+            });
+        });
 
-        xhr.send();
-        console.log("AJAX request sent");
-    }
+        $('#deleteButton').on('click', function(e) {
+            e.preventDefault(); 
+
+            $('#updateMessages').html('<p>Eliminando tablas de la base de datos, por favor espere...</p>');
+
+            $.ajax({
+                url: '../../src/informationDeletor.php', 
+                type: 'GET', 
+                success: function(response) {
+                    $('#updateMessages').html(response);
+                },
+                error: function(xhr, status, error) {
+                    $('#updateMessages').html('<p>Ocurrió un error al eliminando las tablas. Intenta nuevamente.</p>');
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
