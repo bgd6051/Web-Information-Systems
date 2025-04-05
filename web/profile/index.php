@@ -19,8 +19,9 @@ $content = '<section id="team" style="padding-bottom: 30px">
                 <form>
                     <label for="nombreUsuario">Nombre de usuario</label>
                     <input id="nombreUsuario" type="text" maxlength="32" value=' . $_SESSION["Username"] . ' disabled>
+                    <label for="nombreRol">Rol de usuario</label>
+                    <input id="nombreRol" type="text" maxlength="32" value=' . $_SESSION["Role"] . ' disabled>
                 </form>
-                
                 <form id="formulario" action="" style="visibility: hidden; display: none" >
                     <label for="nuevaContrasena">Nueva contraseña</label>
                     <input id="nuevaContrasena" type="password" maxlength="32" required>
