@@ -25,4 +25,15 @@ class UserRegistration
     public function getID_USER(): int {
         return $this->ID_USER;
     }
+
+    public function titleHTML(): string {
+        $separador = "</th><th>";
+        return "<tr><th>Username".$separador."Password".$separador."Role</th></tr>";
+    }
+
+    public function toHTML(): string {
+        $separador = "</td><td>";
+        return "<tr><td>".$this->Username.$separador.$this->Password.$separador.
+            $this->Role."</td></tr>";
+    }
 }   

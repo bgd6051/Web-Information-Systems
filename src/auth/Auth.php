@@ -40,6 +40,7 @@ class Auth
             $this->username = $newUsername;
             return true;
         } 
+        return false;
     } 
 
     public function editPassword($newPassword){
@@ -54,6 +55,7 @@ class Auth
             $this->password = $newPassword;
             return true;
         } 
+        return false;
     } 
 
     public function getFromDB(){
@@ -64,4 +66,12 @@ class Auth
         }
         return $user[0];
     }
+
+    public function existInDB(){
+        if($this->getFromDB() == null){
+            return false;
+        } 
+
+        return true;
+    } 
 } 
