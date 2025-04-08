@@ -46,13 +46,13 @@ if($role != "ADMIN"){
 $listaHTMLFiltrada = filtrarLista($filtroUser);
 
 if($listaHTMLFiltrada == null){
-    $response["mensaje"] = "listado vacio, pude que el filtrado sea muy estricto";
+    $response["mensaje"] = "listado vacio, puede que el filtrado sea muy estricto";
     echo "";
     exit;
 }
 
 $response["estado"] = "exito";
-$response["mensaje"] = "<table>".$listaHTMLFiltrada."</table>";
+$response["mensaje"] = $listaHTMLFiltrada;
 echo json_encode($response);
 
 
@@ -67,8 +67,6 @@ function filtrarLista($filtroUser){
     if($lista[0] == null){
         return "";
     }
-    $elemTitleHTML = $lista[0]->titleHTML();
-    $HTML .= $elemTitleHTML;
     foreach($lista as $elem){
         $elemHTML = $elem->toHTML();
         $HTML .= $elemHTML;

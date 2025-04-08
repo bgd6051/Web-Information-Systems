@@ -1,0 +1,102 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script> 
+<script>
+    function cambiarUsuario() {
+        getUserList();
+        return;
+    }
+    function updateFallido(msg) {
+        alert(msg);
+        getUserList();
+        return;
+    }
+    function tieneTexto(text){
+        if(text == null){
+            return false;
+        }
+        if(text == ""){
+            return false;
+        }
+        return true;
+    }
+    function saveSuccess(){
+        getUserList();
+        return;
+    } 
+    function saveChanges(username) {
+        var usuario = document.getElementById("nombreUsuario "+username).value;
+        var contrasena = document.getElementById("Contrasena "+username).value;
+        var rol = document.getElementById("nombreRol "+username).value;
+        
+        if(!tieneTexto(usuario)){
+            updateFallido("rellena el campo usuario");
+            return;
+        }
+        if(!tieneTexto(contrasena)){
+            updateFallido("rellena el campo contrasena");
+            return;
+        }
+        if(!tieneTexto(rol)){
+            updateFallido("rellena el campo rol");
+            return;
+        }
+
+        var params = "?OldUsername="+username;
+        params += "&NewUsername="+usuario;
+        params += "&NewPassword="+contrasena;
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/editUser" + params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                var response = JSON.parse(xhr.responseText);
+                if(response.estado === "exito"){
+                    saveSuccess();
+                }else{
+                    updateFallido(response.mensaje);
+                }
+            } else{
+                updateFallido(xhr.responseText);
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
+    }
+    function getUserList(){
+        var resultado = document.getElementById("contenidoActual");
+        
+        var filtroUser = document.getElementById("filtroUser").value;
+
+        var params = "";
+        if(tieneTexto(filtroUser)){
+            params += "&filtroUser="+filtroUser;
+        }
+        
+        var xhr = new XMLHttpRequest();
+        var url = "../../src/userList"+params; //url de AJAX
+        console.log("AJAX request: ", url);
+        xhr.open("GET", url, true);
+
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("AJAX response: ", xhr);
+                resultado.innerHTML = xhr.responseText;
+            } else{
+                resultado.innerHTML = xhr.responseText = "error al cargar el listado de usuarios";
+            } 
+        };
+
+        xhr.send();
+        console.log("AJAX request sent");
+    } 
+</script>
+</body>
+</html>

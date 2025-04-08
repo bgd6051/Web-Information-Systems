@@ -15,7 +15,10 @@ spl_autoload_register(function ($class) {
 
 $response = [
     'estado' => 'error',
-    'mensaje' => 'no iniciado'
+    'mensaje' => 'no iniciado',
+    'username' => '',
+    'password' => '',
+    'role' => ''
 ];
 
 session_start();
@@ -56,17 +59,21 @@ if($auth->existInDB()){
     echo json_encode($response);
     exit;
 } 
+$response["estado"] = "exito";
 $msg = "";
 if($newUsername!=null){
-    $auth->editUsername($newUsername);
-    $msg .= "[actualizado username]";
+    if($auth->editUsername($newUsername)){
+        $response["username"] = $newUsername;
+        $msg .= "[actualizado username]";
+    } 
 }
 if($newPassword!=null){
-    $auth->editPassword($newPassword);
-    $msg .= "[actualizado password]";
+    if($auth->editPassword($newPassword)){
+        $response["password"] = $newPassword;
+        $msg .= "[actualizado password]";
+    } 
 }
 
-$response["estado"] = "exito";
 $response["mensaje"] = $msg;
 echo json_encode($response);
 

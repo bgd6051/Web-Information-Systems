@@ -27,13 +27,21 @@ class UserRegistration
     }
 
     public function titleHTML(): string {
-        $separador = "</th><th>";
-        return "<tr><th>Username".$separador."Password".$separador."Role</th></tr>";
+        $separador = ",";
+        return "<li>Username".$separador."Password".$separador."Role".$separador."Save changes</li>";
     }
 
     public function toHTML(): string {
-        $separador = "</td><td>";
-        return "<tr><td>".$this->Username.$separador.$this->Password.$separador.
-            $this->Role."</td></tr>";
+        $usernameL = '<label for="nombreUsuario '.$this->Username.'">Nombre de usuario</label>';
+        $usernameI = '<input id="nombreUsuario '.$this->Username.'" type="text" maxlength="32" value='.$this->Username.'>';
+        $username = $usernameL.$usernameI;
+        $passwordL = '<label for="Contrasena '.$this->Password.'">Contraseña de usuario</label>';
+        $passwordI = '<input id="Contrasena '.$this->Password.'" type="text" maxlength="32" value='.$this->Password.'>';
+        $password = $passwordL.$passwordI;
+        $nombreRolL = '<label for="nombreRol '.$this->Role.'">Rol de usuario</label>';
+        $nombreRolI = '<input id="nombreRol '.$this->Role.'" type="text" maxlength="32" value='.$this->Role.' disabled>';
+        $nombreRol = $nombreRolL.$nombreRolI;
+        $saveChanges = '<button onclick="saveChanges("'.$this->Username.'")">Save changes</button>';
+        return "<form>".$username.$password.$nombreRol.$saveChanges."<form>";
     }
 }   
