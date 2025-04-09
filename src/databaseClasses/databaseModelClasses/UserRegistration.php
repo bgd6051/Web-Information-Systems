@@ -32,16 +32,16 @@ class UserRegistration
     }
 
     public function toHTML(): string {
-        $usernameL = '<label for="nombreUsuario '.$this->Username.'">Nombre de usuario</label>';
-        $usernameI = '<input id="nombreUsuario '.$this->Username.'" type="text" maxlength="32" value='.$this->Username.'>';
+        $usernameL = "<label for='nombreUsuario ".$this->Username."'>Nombre de usuario</label>";
+        $usernameI = "<input id='nombreUsuario ".$this->Username."' type=text maxlength=32 value=".$this->Username.'>';
         $username = $usernameL.$usernameI;
-        $passwordL = '<label for="Contrasena '.$this->Password.'">Contraseña de usuario</label>';
-        $passwordI = '<input id="Contrasena '.$this->Password.'" type="text" maxlength="32" value='.$this->Password.'>';
+        $passwordL = "<label for='Contrasena ".$this->Username."'>Contraseña de usuario</label>";
+        $passwordI = "<input id='Contrasena ".$this->Username."' type=text maxlength=32 value=".$this->Password.'>';
         $password = $passwordL.$passwordI;
-        $nombreRolL = '<label for="nombreRol '.$this->Role.'">Rol de usuario</label>';
-        $nombreRolI = '<input id="nombreRol '.$this->Role.'" type="text" maxlength="32" value='.$this->Role.' disabled>';
+        $nombreRolL = "<label for='nombreRol ".$this->Username."'>Rol de usuario</label>";
+        $nombreRolI = "<input id='nombreRol ".$this->Username."' type=text maxlength=32 value=".$this->Role.' disabled>';
         $nombreRol = $nombreRolL.$nombreRolI;
-        $saveChanges = '<button onclick="saveChanges("'.$this->Username.'")">Save changes</button>';
-        return "<form>".$username.$password.$nombreRol.$saveChanges."<form>";
+        $saveChanges = "<button onclick='saveChanges(".$this->Username.")'>Save changes</button>";
+        return "<li><form>".$username.$password.$nombreRol.$saveChanges."</form></li>";
     }
 }   

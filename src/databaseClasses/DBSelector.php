@@ -174,6 +174,6 @@ class DBSelector extends DBHandler{
         if($filtrado == null || $filtro == null){
             return "";
         } 
-        return " WHERE ".$filtrado." LIKE ".$filtro;
+        return " WHERE '".$filtrado."' LIKE '".$filtro."%'";
     } 
 }

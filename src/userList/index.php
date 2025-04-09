@@ -47,7 +47,7 @@ $listaHTMLFiltrada = filtrarLista($filtroUser);
 
 if($listaHTMLFiltrada == null){
     $response["mensaje"] = "listado vacio, puede que el filtrado sea muy estricto";
-    echo "";
+    echo json_encode($response);
     exit;
 }
 
@@ -84,7 +84,7 @@ function filtrado($filtro){
         return null;
     }
     
-    return $filtro."%";
+    return $filtro;
 } 
 
 function isRegistered($username): bool{
