@@ -74,4 +74,16 @@ class Auth
 
         return true;
     } 
+
+    public function deleteUser() {
+        $dbDeletor = new DBDeletor();
+        $user = $this->getFromDB();
+        if($user == null){
+            return false;
+        }
+        if($dbDeletor->deleteUserRegistrationByUsername($user)){
+            return true;
+        }
+        return false;
+    }
 } 

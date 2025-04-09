@@ -21,4 +21,8 @@ class DBDeletor extends DBHandler {
         return true;
     }
     
+    public function deleteUserRegistrationByUsername(UserRegistration $userRegistration): bool {
+        $query = 'DELETE FROM `FINAL_USER_REGISTRATION` WHERE Username = ?';
+        return $this->executeQuery($query, ["s", $userRegistration->getUsername()]);
+    }
 }

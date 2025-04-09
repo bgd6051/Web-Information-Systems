@@ -23,8 +23,6 @@ session_start();
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 $role = isset($_SESSION["Role"]) ? $_SESSION["Role"] : null;
 
-$filtroUser = isset($_GET["filtroUser"]) ? $_GET["filtroUser"] : null;
-
 if($username==null|| $role==null){
     $response["mensaje"] = "no estas logeado";
     echo json_encode($response);
@@ -42,11 +40,11 @@ if($role != "ADMIN"){
     echo json_encode($response);
     exit;
 }
-
-$listaHTMLFiltrada = filtrarLista($filtroUser);
+//
+$listaHTMLFiltrada = listar();
 
 if($listaHTMLFiltrada == null){
-    $response["mensaje"] = "listado vacio, puede que el filtrado sea muy estricto";
+    $response["mensaje"] = "listado vacio, error inesperado";
     echo "";
     exit;
 }
@@ -56,33 +54,22 @@ $response["mensaje"] = $listaHTMLFiltrada;
 echo json_encode($response);
 
 
-function filtrarLista($filtroUser){
-    $filtro = filtrado($filtroUser);
-    $lista = getLista($filtro);
-    if($lista == null){
-        return null;
-    }
-    
-    $HTML = "";
-    if($lista[0] == null){
-        return "";
-    }
-    foreach($lista as $elem){
-        $elemHTML = $elem->toHTML();
-        $HTML .= $elemHTML;
-    }
+function listar(){
+    $dbSelector = new DBSelector();
+
+    $HTML = "<p>Usuarios Registrados: ";
+    $HTML .= count($dbSelector->getAllUserRegistrations(null,null,null));
+    $HTML = "</p><p>CoinChart Registrados: ";
+    $HTML .= count($dbSelector->getAllCoinChart(null,null));
+    $HTML = "</p><p>TrendingCoins Registrados: ";
+    $HTML .= count($dbSelector->getAllTrendingCoins(null,null));
+    $HTML = "</p><p>TrendingNfts Registrados: ";
+    $HTML .= count($dbSelector->getAllTrendingNfts(null,null));
+    $HTML = "</p><p>Coins Registrados: ";
+    $HTML .= count($dbSelector->getAllCoins(null,null));
+    $HTML = "</p><p>Exchanges Registrados: ";
+    $HTML .= count($dbSelector->getAllExchanges(null,null));
+    $HTML .= "</p>";
     
     return $HTML;
-} 
-function getLista($filtro){
-    $dbSelector = new DBSelector();
-    return $dbSelector->getAllUserRegistrations(null,null,$filtro);
 }
-
-function filtrado($filtro): string{
-    if($filtro == null){
-        return null;
-    }
-    
-    return $filtro."%";
-} 
