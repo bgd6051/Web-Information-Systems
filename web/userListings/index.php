@@ -3,12 +3,12 @@
 session_start();
 
 CONST SUBPAGE_TEMPLATE_PATH = "../templates/subPage/";
-CONST LISTINGS_TEMPLATE_PATH = "../templates/subPage/userListings/";
+CONST USER_LISTINGS_TEMPLATE_PATH = "../templates/subPage/userListings/";
 
 if (isset($_SESSION["Role"])) {
     if(isset($_SESSION["Role"]) && $_SESSION["Role"] == "ADMIN") {
         $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "adminHeadAndHeaderSubpage.html");
-        $content = file_get_contents(LISTINGS_TEMPLATE_PATH . "contentUserListings.html");
+        $content = file_get_contents(USER_LISTINGS_TEMPLATE_PATH . "contentUserListings.html");
     } else {
         $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "registeredHeadAndHeaderSubpage.html");
         $content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedContentSubpage.html");
@@ -20,7 +20,7 @@ if (isset($_SESSION["Role"])) {
 
 $footer = file_get_contents(SUBPAGE_TEMPLATE_PATH . "footerSubpage.html");
 
-$scripts = file_get_contents(LISTINGS_TEMPLATE_PATH . "scriptsListings.html");
+$scripts = file_get_contents(USER_LISTINGS_TEMPLATE_PATH . "scriptsUserListings.html");
 
 $builtHtmlFile = $headAndHeader . $content . $footer . $scripts;
 
