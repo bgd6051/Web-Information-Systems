@@ -30,7 +30,7 @@ if($username==null|| $role==null){
     exit;
 }
 
-if(isRegistered($username)){
+if(!isRegistered($username)){
     $response["mensaje"] = "no estas registrado";
     echo json_encode($response);
     exit;

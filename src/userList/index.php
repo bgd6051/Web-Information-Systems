@@ -31,8 +31,8 @@ if($username==null|| $role==null){
     exit;
 }
 
-if(isRegistered($username)){
-    $response["mensaje"] = "no estas registrado";
+if(!isRegistered($username)){
+    $response["mensaje"] = "no estas registrado: ".$username;
     echo json_encode($response);
     exit;
 }
@@ -79,10 +79,19 @@ function getLista($filtro){
     return $dbSelector->getAllUserRegistrations(null,null,$filtro);
 }
 
-function filtrado($filtro): string{
+function filtrado($filtro){
     if($filtro == null){
         return null;
     }
     
     return $filtro."%";
+} 
+
+function isRegistered($username): bool{
+    $dbSelector = new DBSelector();
+    $user = $dbSelector->getRegisteredUser($username);
+    if(empty($user)){
+        return false;
+    }
+    return true;
 } 

@@ -29,7 +29,7 @@ if($username==null|| $role==null){
     exit;
 }
 
-if(isRegistered($username)){
+if(!isRegistered($username)){
     $response["mensaje"] = "no estas registrado";
     echo json_encode($response);
     exit;
@@ -57,19 +57,19 @@ echo json_encode($response);
 function listar(){
     $dbSelector = new DBSelector();
 
-    $HTML = "<p>Usuarios Registrados: ";
+    $HTML = "<ul><li>Usuarios Registrados: ";
     $HTML .= count($dbSelector->getAllUserRegistrations(null,null,null));
-    $HTML = "</p><p>CoinChart Registrados: ";
+    $HTML = "</li><li>CoinChart Registrados: ";
     $HTML .= count($dbSelector->getAllCoinChart(null,null));
-    $HTML = "</p><p>TrendingCoins Registrados: ";
+    $HTML = "</li><li>TrendingCoins Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingCoins(null,null));
-    $HTML = "</p><p>TrendingNfts Registrados: ";
+    $HTML = "</li><li>TrendingNfts Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingNfts(null,null));
-    $HTML = "</p><p>Coins Registrados: ";
+    $HTML = "</li><li>Coins Registrados: ";
     $HTML .= count($dbSelector->getAllCoins(null,null));
-    $HTML = "</p><p>Exchanges Registrados: ";
+    $HTML = "</li><li>Exchanges Registrados: ";
     $HTML .= count($dbSelector->getAllExchanges(null,null));
-    $HTML .= "</p>";
+    $HTML .= "</li></ul>";
     
     return $HTML;
 }
