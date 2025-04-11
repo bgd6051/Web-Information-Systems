@@ -41,7 +41,7 @@ class UserRegistration
         $nombreRolL = "<label for='nombreRol ".$this->Username."'>Rol de usuario</label>";
         $nombreRolI = "<input id='nombreRol ".$this->Username."' type=text maxlength=32 value=".$this->Role.' disabled>';
         $nombreRol = $nombreRolL.$nombreRolI;
-        $saveChanges = "<button onclick='saveChanges(".$this->Username.")'>Save changes</button>";
-        return "<li><form>".$username.$password.$nombreRol.$saveChanges."</form></li>";
+        $saveChanges = "<button onclick='saveChanges(\"".$this->Username."\"')'>Save changes</button>";
+        return "<li>".$username.$password.$nombreRol.$saveChanges."</li>";
     }
 }   

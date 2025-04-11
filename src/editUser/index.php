@@ -54,7 +54,7 @@ if($oldUsername == null){
 } 
 
 $auth = new Auth($oldUsername);
-if($auth->existInDB()){
+if(!$auth->existInDB()){
     $response["mensaje"] = "usuario a editar no encontrado, revisa el nombre";
     echo json_encode($response);
     exit;
