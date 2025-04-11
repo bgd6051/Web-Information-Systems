@@ -1,0 +1,32 @@
+<section
+  id="listadoActual"
+  style="
+    display: flex;
+    visibility: visible;
+    text-align: center;
+    margin-top: 180px;
+    margin-bottom: 80px;
+  "
+  class="row">
+  <div
+    id="seleccionDeFiltro"
+    class="col-lg-4 col-sm-4 col-md-4"
+    style="height: 180px">
+    <p id="textoFiltro" style="margin-bottom: 8px">
+      Filtrar por nombre de usuario
+    </p>
+    <textarea
+      id="filtroTextarea"
+      placeholder="Ingrese el nombre de usuario"></textarea>
+    <p id="textoOrden"></p>
+    <button
+      id="confirmarFiltros"
+      style="margin-top: 8px"
+      onclick="confirmarFiltros()">
+      Confirmar filtros
+    </button>
+  </div>
+  <ul
+    id="contenidoActual"
+    style="width: 100%; max-width: 850px; margin-left: 100px"></ul>
+</section>
