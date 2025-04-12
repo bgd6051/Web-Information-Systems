@@ -59,6 +59,12 @@ if(!$auth->existInDB()){
     echo json_encode($response);
     exit;
 } 
+if($auth->getFromDB()->getRole() == "ADMIN"){
+    $response["mensaje"] = "usuario a eliminar es un administrador, no es posible eliminarlo";
+    echo json_encode($response);
+    exit;
+} 
+
 $response["estado"] = "exito";
 
 $response = prepareResponse($auth, $response);

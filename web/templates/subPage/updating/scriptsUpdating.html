@@ -38,6 +38,22 @@
                 }
             });
         });
+
+        $.ajax({
+            url: '../../src/summaryView', //url de AJAX
+            type: 'GET', 
+            success: function(Jresponse) {
+                var response = JSON.parse(Jresponse);
+                if(response.estado == "exito"){
+                    $('#contenidoActual').html(response.mensaje);
+                }else{
+                    $('#contenidoActual').html("fallo :: "+response.mensaje);
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#contenidoActual').html('<p>Ocurrió un error al obtener el estado de la base de datos. Intenta nuevamente.</p>');
+            }
+        });
     });
 </script>
 </body>

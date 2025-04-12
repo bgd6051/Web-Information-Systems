@@ -57,7 +57,7 @@ echo json_encode($response);
 function listar(){
     $dbSelector = new DBSelector();
 
-    $HTML = "<ul><li>Usuarios Registrados: ";
+    $HTML = "<li>Usuarios Registrados: ";
     $HTML .= count($dbSelector->getAllUserRegistrations(null,null,null));
     $HTML .= "</li><li>CoinChart Registrados: ";
     $HTML .= count($dbSelector->getAllCoinChart(null,null));
@@ -69,7 +69,7 @@ function listar(){
     $HTML .= count($dbSelector->getAllCoins(null,null));
     $HTML .= "</li><li>Exchanges Registrados: ";
     $HTML .= count($dbSelector->getAllExchanges(null,null));
-    $HTML .= "</li></ul>";
+    $HTML .= "</li>";
     
     return $HTML;
 }

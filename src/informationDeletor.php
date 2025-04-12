@@ -1,7 +1,5 @@
 <?php
 
-const SYSTEM_ID = 1;
-
 spl_autoload_register(function ($class) {
     $directories = ['requestClasses', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
 
@@ -13,6 +11,28 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
+session_start();
+
+$username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
+$role = isset($_SESSION["Role"]) ? $_SESSION["Role"] : null;
+
+if($username==null|| $role==null){
+    echo "no estas logeado";
+    exit;
+}
+
+$auth = new Auth($username);
+if(!$auth->existInDB()){
+    echo "no estas registrado";
+    exit;
+} 
+$admin = $auth->getFromDB();
+if($admin->getRole() != "ADMIN"){
+    echo "no estas autorizado";
+    exit;
+} 
+$adminId = $admin->getID_USER();
 
 $output = '';
 
@@ -33,7 +53,7 @@ try {
 
 try {
     $dbInsertor = new DBInsertor();
-    $adminlog = new AdminLog(SYSTEM_ID,"DELETE",$deleteDate);
+    $adminlog = new AdminLog($adminId,"DELETE",$deleteDate);
     
     $responseCode = $dbInsertor->insertAdminLog($adminlog);
     if (!$responseCode) {
