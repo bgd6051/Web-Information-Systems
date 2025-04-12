@@ -35,9 +35,10 @@ class DBSelector extends DBHandler{
         return $selection;
     }
 
-    public function getAllUserRegistrations($orderBy, $orderReversed) 
+    public function getAllUserRegistrations($orderBy, $orderReversed,$filtro) 
     {
         $query = "SELECT * FROM FINAL_USER_REGISTRATION";
+        $query .= $this->filterLike("username",$filtro);
         $query .= $this->orderBy($orderBy,$orderReversed);
         $stmt = $this->executeQuery($query);
         $selection = $this->selectToArray($stmt->get_result());
@@ -167,5 +168,12 @@ class DBSelector extends DBHandler{
             return $query." DESC";
         } 
         return $query." ASC";
+    } 
+
+    private function filterLike($filtrado,$filtro){
+        if($filtrado == null || $filtro == null){
+            return "";
+        } 
+        return " WHERE ".$filtrado." LIKE '".$filtro."%'";
     } 
 }

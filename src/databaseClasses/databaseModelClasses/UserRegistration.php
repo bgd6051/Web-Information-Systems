@@ -25,4 +25,24 @@ class UserRegistration
     public function getID_USER(): int {
         return $this->ID_USER;
     }
+
+    public function titleHTML(): string {
+        $separador = ",";
+        return "<li>Username".$separador."Password".$separador."Role".$separador."Save changes</li>";
+    }
+
+    public function toHTML(): string {
+        $usernameL = "<label for='nombreUsuario ".$this->Username."'>Nombre de usuario</label>";
+        $usernameI = "<input id='nombreUsuario ".$this->Username."' type=text maxlength=32 value=".$this->Username.'>';
+        $username = $usernameL.$usernameI;
+        $passwordL = "<label for='Contrasena ".$this->Username."'>Contraseña de usuario</label>";
+        $passwordI = "<input id='Contrasena ".$this->Username."' type=text maxlength=32 value=".$this->Password.'>';
+        $password = $passwordL.$passwordI;
+        $nombreRolL = "<label for='nombreRol ".$this->Username."'>Rol de usuario</label>";
+        $nombreRolI = "<input id='nombreRol ".$this->Username."' type=text maxlength=32 value=".$this->Role.' disabled>';
+        $nombreRol = $nombreRolL.$nombreRolI;
+        $saveChanges = "<button onclick='saveChanges(\"".$this->Username."\")'>Save changes</button>";
+        $deleteUser = "<button onclick='deleteUser(\"".$this->Username."\")'>Delete User</button>";
+        return "<li>".$username.$password.$nombreRol.$saveChanges.$deleteUser."</li>";
+    }
 }   
