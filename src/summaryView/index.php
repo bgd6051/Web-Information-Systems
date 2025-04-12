@@ -59,17 +59,26 @@ function listar(){
 
     $HTML = "<ul><li>Usuarios Registrados: ";
     $HTML .= count($dbSelector->getAllUserRegistrations(null,null,null));
-    $HTML = "</li><li>CoinChart Registrados: ";
+    $HTML .= "</li><li>CoinChart Registrados: ";
     $HTML .= count($dbSelector->getAllCoinChart(null,null));
-    $HTML = "</li><li>TrendingCoins Registrados: ";
+    $HTML .= "</li><li>TrendingCoins Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingCoins(null,null));
-    $HTML = "</li><li>TrendingNfts Registrados: ";
+    $HTML .= "</li><li>TrendingNfts Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingNfts(null,null));
-    $HTML = "</li><li>Coins Registrados: ";
+    $HTML .= "</li><li>Coins Registrados: ";
     $HTML .= count($dbSelector->getAllCoins(null,null));
-    $HTML = "</li><li>Exchanges Registrados: ";
+    $HTML .= "</li><li>Exchanges Registrados: ";
     $HTML .= count($dbSelector->getAllExchanges(null,null));
     $HTML .= "</li></ul>";
     
     return $HTML;
 }
+
+function isRegistered($username): bool{
+    $dbSelector = new DBSelector();
+    $user = $dbSelector->getRegisteredUser($username);
+    if(empty($user)){
+        return false;
+    }
+    return true;
+} 
