@@ -2,11 +2,11 @@
 
 session_start();
 
-CONST SUBPAGE_TEMPLATE_PATH = "../templates/subPage/";
-CONST UPDATING_TEMPLATE_PATH = "../templates/subPage/updating/";
+const SUBPAGE_TEMPLATE_PATH = "../templates/subPage/";
+const UPDATING_TEMPLATE_PATH = "../templates/subPage/updating/";
 
 if (isset($_SESSION["Role"])) {
-    if(isset($_SESSION["Role"]) && $_SESSION["Role"] == "ADMIN") {
+    if ($_SESSION["Role"] == "ADMIN") {
         $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "adminHeadAndHeaderSubpage.html");
         $content = file_get_contents(UPDATING_TEMPLATE_PATH . "contentUpdating.html");
     } else {

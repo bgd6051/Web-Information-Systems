@@ -5,7 +5,7 @@ session_start();
 const MAIN_PAGE_TEMPLATE_PATH = "./web/templates/mainPage/";
 
 if (isset($_SESSION["Role"])) {
-    if (isset($_SESSION["Role"]) && $_SESSION["Role"] == "ADMIN") {
+    if ($_SESSION["Role"] == "ADMIN") {
         $headAndHeader = file_get_contents(MAIN_PAGE_TEMPLATE_PATH . "adminHeadAndHeaderMainPage.html");
         $content = file_get_contents(MAIN_PAGE_TEMPLATE_PATH . "adminContentMainPage.html");
     } else {
