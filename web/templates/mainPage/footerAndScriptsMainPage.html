@@ -89,5 +89,23 @@
     <script src="./web/js/fixed-responsive-nav.js"></script>
     <script src="./web/js/waypoints.min.js"></script>
     <script src="./web/js/script.js"></script>
+    <script>
+      $(document).ready(function() {
+        obtenerUltimaActualizacion();
+    });
+
+    function obtenerUltimaActualizacion() {
+      $.ajax({
+            url: '../../src/lastUpdate', //url de AJAX
+            type: 'GET', 
+            success: function(response) {
+                $('#ultimaActualizacion').html(response);
+            },
+            error: function(xhr, status, error) {
+                $('#ultimaActualizacion').html('<p>Ocurrió un error al obtener la fecha de actualizacion de la base de datos. Intenta nuevamente.</p>');
+            }
+        });
+    }
+    </script>
   </body>
 </html>
