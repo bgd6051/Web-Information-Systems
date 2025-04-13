@@ -25,21 +25,20 @@ $role = isset($_SESSION["Role"]) ? $_SESSION["Role"] : null;
 
 $filtroUser = isset($_GET["filtroUser"]) ? $_GET["filtroUser"] : null;
 
+const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
+$content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedDirectAccessContentSubpage.html");
 if($username==null|| $role==null){
-    $response["mensaje"] = "no estas logeado";
-    echo json_encode($response);
+    echo $content;
     exit;
 }
 
 if(!isRegistered($username)){
-    $response["mensaje"] = "no estas registrado: ".$username;
-    echo json_encode($response);
+    echo $content;
     exit;
 }
 
 if($role != "ADMIN"){
-    $response["mensaje"] = "no estas autorizado";
-    echo json_encode($response);
+    echo $content;
     exit;
 }
 
