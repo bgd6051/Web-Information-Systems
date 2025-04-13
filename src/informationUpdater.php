@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    $directories = ['requestClasses', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
+    $directories = ['requestClasses', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses', 'auth'];
 
     foreach ($directories as $dir) {
         $file = __DIR__ . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $class . '.php';
@@ -17,21 +17,21 @@ session_start();
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 $role = isset($_SESSION["Role"]) ? $_SESSION["Role"] : null;
 
-if($username==null|| $role==null){
+if ($username == null || $role == null) {
     echo "no estas logeado";
     exit;
 }
 
 $auth = new Auth($username);
-if(!$auth->existInDB()){
+if (!$auth->existInDB()) {
     echo "no estas registrado";
     exit;
-} 
+}
 $admin = $auth->getFromDB();
-if($admin->getRole() != "ADMIN"){
+if ($admin->getRole() != "ADMIN") {
     echo "no estas autorizado";
     exit;
-} 
+}
 $adminId = $admin->getID_USER();
 
 $output = ''; // Inicializar variable para almacenar los mensajes
@@ -69,7 +69,9 @@ try {
         $output .= "Ha habido algún problema eliminando el contenido de las tablas<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { $output .= "Error: " . $e->getMessage(); }
+} catch (Exception $e) {
+    $output .= "Error: " . $e->getMessage();
+}
 
 $output .= "Insertando el contenido en las tablas...<br>";
 
@@ -79,9 +81,14 @@ $updatedDate = date('Y-m-d H:i:s');
 
 try {
     $dbInsertor = new DBInsertor();
-    $adminlog = new AdminLog($adminId,"RELOAD",$updatedDate);
-    $fullInformationArray = buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
-    $exchangeArrayResponse, $trendingCoinsArrayResponse, $trendingNftArrayResponse);
+    $adminlog = new AdminLog($adminId, "RELOAD", $updatedDate);
+    $fullInformationArray = buildFullInformationArray(
+        $coinsArrayResponse,
+        $coinsChartsArrayResponse,
+        $exchangeArrayResponse,
+        $trendingCoinsArrayResponse,
+        $trendingNftArrayResponse
+    );
 
     $responseCode = $dbInsertor->insertAdminLog($adminlog);
     if (!$responseCode) {
@@ -94,23 +101,28 @@ try {
         $output .= "Ha habido algún problema insertando el contenido de las tablas<br>";
         $ejecucionCorrecta = false;
     }
-} catch (Exception $e) { $output .= "Error: " . $e->getMessage(); }
+} catch (Exception $e) {
+    $output .= "Error: " . $e->getMessage();
+}
 
 
 if ($ejecucionCorrecta) {
     $output .= "Información de las tablas actualizada correctamente<br>";
-    $output .= "Fecha de actualización: " . $updatedDate . "<br>"; 
+    $output .= "Fecha de actualización: " . $updatedDate . "<br>";
 } else {
     $output .= "No se ha podido actualizar la información correctamente <br>";
 }
 
 echo $output; // Devolver el contenido acumulado a la respuesta AJAX
 
-function buildFullInformationArray($coinsArrayResponse, $coinsChartsArrayResponse, 
-                                    $exchangeArrayResponse, $trendingCoinsArrayResponse, 
-                                    $trendingNftArrayResponse): array 
-{
-    return array (
+function buildFullInformationArray(
+    $coinsArrayResponse,
+    $coinsChartsArrayResponse,
+    $exchangeArrayResponse,
+    $trendingCoinsArrayResponse,
+    $trendingNftArrayResponse
+): array {
+    return array(
         "coins" => $coinsArrayResponse,
         "coinsCharts" => $coinsChartsArrayResponse,
         "exchanges" => $exchangeArrayResponse,

@@ -15,6 +15,7 @@
                 type: 'GET', 
                 success: function(response) {
                     $('#updateMessages').html(response);
+                    cargarVistaResumida();
                 },
                 error: function(xhr, status, error) {
                     $('#updateMessages').html('<p>Ocurrió un error al actualizar la base de datos. Intenta nuevamente.</p>');
@@ -24,7 +25,6 @@
 
         $('#deleteButton').on('click', function(e) {
             e.preventDefault(); 
-
             $('#updateMessages').html('<p>Eliminando tablas de la base de datos, por favor espere...</p>');
 
             $.ajax({
@@ -32,6 +32,7 @@
                 type: 'GET', 
                 success: function(response) {
                     $('#updateMessages').html(response);
+                    cargarVistaResumida();
                 },
                 error: function(xhr, status, error) {
                     $('#updateMessages').html('<p>Ocurrió un error al eliminando las tablas. Intenta nuevamente.</p>');
@@ -39,7 +40,11 @@
             });
         });
 
-        $.ajax({
+        cargarVistaResumida();
+    });
+
+    function cargarVistaResumida() {
+       $.ajax({
             url: '../../src/summaryView', //url de AJAX
             type: 'GET', 
             success: function(Jresponse) {
@@ -47,14 +52,14 @@
                 if(response.estado == "exito"){
                     $('#contenidoActual').html(response.mensaje);
                 }else{
-                    $('#contenidoActual').html("fallo :: "+response.mensaje);
+                    $('#contenidoActual').html("<p>Error: " + response.mensaje + "</p>");
                 }
             },
             error: function(xhr, status, error) {
                 $('#contenidoActual').html('<p>Ocurrió un error al obtener el estado de la base de datos. Intenta nuevamente.</p>');
             }
         });
-    });
+    }
 </script>
 </body>
 </html>

@@ -123,10 +123,10 @@
                 if(response.estado == "exito"){
                     resultado.innerHTML = response.mensaje;
                 }else{
-                    resultado.innerHTML = "fallo :: "+response.mensaje;
+                    resultado.innerHTML = "<li>No se ha encontrado a ningún usuario, " + response.mensaje + "</li>";
                 }
             } else{
-                resultado.innerHTML = "error al cargar el listado de usuarios";
+                resultado.innerHTML = "<p>Error al cargar el listado de usuarios</p>";
             } 
         };
 
