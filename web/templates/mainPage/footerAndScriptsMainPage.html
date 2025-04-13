@@ -96,7 +96,7 @@
 
     function obtenerUltimaActualizacion() {
       $.ajax({
-            url: '../../src/lastUpdate', //url de AJAX
+            url: '/src/lastUpdate', //url de AJAX
             type: 'GET', 
             success: function(response) {
                 $('#ultimaActualizacion').html(response);
