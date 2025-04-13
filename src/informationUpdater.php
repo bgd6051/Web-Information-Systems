@@ -17,21 +17,25 @@ session_start();
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 $role = isset($_SESSION["Role"]) ? $_SESSION["Role"] : null;
 
+const SUBPAGE_TEMPLATE_PATH = "../web/templates/subPage/";
+$content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedMainDirectAccessContentSubpage.html");
+
 if ($username == null || $role == null) {
-    echo "no estas logeado";
+    echo $content;
     exit;
 }
 
 $auth = new Auth($username);
 if (!$auth->existInDB()) {
-    echo "no estas registrado";
+    echo $content;
     exit;
 }
 $admin = $auth->getFromDB();
 if ($admin->getRole() != "ADMIN") {
-    echo "no estas autorizado";
+    echo $content;
     exit;
 }
+
 $adminId = $admin->getID_USER();
 
 $output = ''; // Inicializar variable para almacenar los mensajes
