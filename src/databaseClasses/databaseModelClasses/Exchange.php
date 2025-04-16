@@ -69,7 +69,7 @@ class Exchange
 
     public function titleHTML(): string {
         $separador = ", ";
-        return "<li>Id".$separador."Name".$separador.
+        return "<li class='listingsHeader'>Id".$separador."Name".$separador.
             "YearEstablished".$separador."Country".$separador."Image".$separador.
             "TrustScore".$separador."TradeVolume24hBtc</li>";
     }
