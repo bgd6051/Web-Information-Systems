@@ -81,7 +81,7 @@ class Coin
 
     public function titleHTML(): string {
         $separador = ", ";
-        return "<li>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
+        return "<li class='listingHeader'>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
         "CurrentPrice (dollars)".$separador."MarketCap".$separador."PriceChangePercentage24h (%)</li>";
     }
 

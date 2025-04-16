@@ -16,9 +16,11 @@ spl_autoload_register(function ($class) {
 $Nfiltro = isset($_GET["Nfiltro"]) ? $_GET["Nfiltro"] : null;
 $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : null;
 $filtroOrden = isset($_GET["filtroOrden"]) ? $_GET["filtroOrden"] : null;
+
 $orderReversed = isOrderReversed($filtroOrden);
 $listaHTMLFiltrada = filtrarLista($Nfiltro,$filtro,$orderReversed);
-$fechaActualizacion = "<li>".getUltimaAtualizacion()."</li>";
+
+$fechaActualizacion = "<li class='listingHeader'>".getUltimaAtualizacion()."</li>";
 
 if($listaHTMLFiltrada == null){
     echo $fechaActualizacion;
