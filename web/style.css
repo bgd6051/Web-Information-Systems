@@ -467,10 +467,6 @@ a.contact {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.listingHeader{
-  color: black;
-}
-
 #listadoExchanges:hover,
 #listadoDeNfts:hover,
 #listadoDeCriptomonedas:hover {

@@ -71,7 +71,7 @@ class TrendingCoin
     public function titleHTML(): string
     {
         $separador = ", ";
-        return "<li class='listingHeader'>
+        return "<li>
             Id" . $separador . "Name" . $separador .
             "Thumbnail" . $separador . "Price (dollars)" . $separador .
             "PriceChangePercentage24h (%)</li>";
