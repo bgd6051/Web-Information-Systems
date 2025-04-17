@@ -19,7 +19,11 @@ const SCRIPTS_TEMPLATE_ASSOC_MAP = [
 
 
 if (isset($_SESSION["Role"])) {
-    $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "registeredHeadAndHeaderSubpage.html");
+    if ($_SESSION["Role"] == "ADMIN") {
+        $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "adminHeadAndHeaderSubpage.html");
+    } else {
+        $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "registeredHeadAndHeaderSubpage.html");
+    }
     $template = $_GET['template'];
     $nameOfContentTemplate = CONTENT_TEMPLATE_ASSOC_MAP[$template];
     $nameOfScriptsTemplate = SCRIPTS_TEMPLATE_ASSOC_MAP[$template];
