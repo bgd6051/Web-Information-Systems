@@ -36,12 +36,12 @@
     function createGraph(canvas, chart) {
         const data = {
             datasets: [{
-            label: chart.titulo,
-            data: chart.data,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.4,
-            fill: true
+                label: chart.titulo,
+                data: chart.data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4,
+                fill: true
             }]
         };
 
@@ -49,35 +49,35 @@
             responsive: true,
             scales: {
                 x: {
-                type: 'time',
-                time: {
-                    unit: 'month',
-                    tooltipFormat: 'MMM yyyy'
-                },
-                title: {
-                    display: true,
-                    text: 'Fecha'
-                }
+                    type: 'time',
+                    time: {
+                        unit: 'month',
+                        tooltipFormat: 'MMM yyyy'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    }
                 },
                 y: {
-                beginAtZero: false,
-                title: {
-                    display: true,
-                    text: 'Precio ($)'
-                }
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Precio ($)'
+                    }
                 }
             },
             plugins: {
                 legend: {
-                position: 'top'
+                    position: 'top'
                 },
                 title: {
-                display: false
+                    display: false
                 }
             }
-            };
+        };
 
-            new Chart(canvas.getContext('2d'), {
+        new Chart(canvas.getContext('2d'), {
             type: 'line',
             data: data,
             options: options
