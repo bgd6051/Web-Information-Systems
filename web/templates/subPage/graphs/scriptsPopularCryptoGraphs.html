@@ -10,45 +10,56 @@
 
     function setPopularCryptoGraphs() {
         const graphContainer = document.getElementById("graphContainer");
-        
-        graphsData = getGraphsData();
 
-        graphsData.forEach((graph, index) => {
-            const container = document.createElement('div');
-            container.className = 'chart-container';
-            const title = document.createElement('h3');
-            title.textContent = chart.titulo;
-            const canvas = document.createElement('canvas');
-            canvas.id = `chart${index}`;
-            container.appendChild(title);
-            container.appendChild(canvas);
-            graphContainer.appendChild(container);
+        fetch('popularCryptoGraphsData.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((chart, index) => {
+                    const container = document.createElement('div');
+                    container.className = 'graphElement';
 
-            new Chart(canvas.getContext('2d'), {
-                type: 'bar',
-                data: {
-                labels: chart.labels,
-                datasets: [{
-                    label: chart.titulo,
-                    data: chart.data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.4)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-                },
-                options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-                }
+                    const title = document.createElement('h3');
+                    title.textContent = chart.titulo;
+
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart${index}`;
+
+                    container.appendChild(title);
+                    container.appendChild(canvas);
+                    graphContainer.appendChild(container);
+
+                    createGraph(canvas, chart);
+                })
             });
-        });
     }
 
-    function getGraphsData() {
-        graphsData = []
-
+    function createGraph(canvas, chart) {
+        new Chart(canvas.getContext('2d'), {
+            type: chart.tipo || 'bar',
+            data: {
+                labels: chart.labels,
+                datasets: [{
+                label: chart.titulo,
+                data: chart.data,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(153, 102, 255, 0.5)'
+                ],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: chart.tipo === 'pie' ? {} : {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            }
+        });
     }
 
 </script>
