@@ -51,22 +51,22 @@
             responsive: true,
             plugins: {
                 legend: {
-                position: 'top'
+                    position: 'top'
                 },
                 tooltip: {
-                callbacks: {
-                    label: (tooltipItem) => {
-                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                    callbacks: {
+                        label: (tooltipItem) => {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                        }
                     }
-                }
                 }
             }
         };
 
         new Chart(canvas.getContext('2d'), {
-        type: 'pie',
-        data: data,
-        options: options
+            type: 'pie',
+            data: data,
+            options: options
         });
     }
 
