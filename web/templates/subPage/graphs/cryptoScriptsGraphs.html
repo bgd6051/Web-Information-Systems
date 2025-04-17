@@ -51,8 +51,11 @@
                 x: {
                     type: 'time',
                     time: {
-                        unit: 'month',
-                        tooltipFormat: 'MMM yyyy'
+                        unit: 'day', 
+                        tooltipFormat: 'dd MMM yyyy',
+                        displayFormats: {
+                            day: 'dd MMM yyyy'
+                        }
                     },
                     title: {
                         display: true,
