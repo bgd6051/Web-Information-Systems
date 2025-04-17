@@ -442,6 +442,24 @@ a.contact {
   z-index: 10;
 }
 
+.flexGraphContainer {
+  display: flex;
+  flex: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.flexGraphElement {
+  max-width: 300px;
+  margin-bottom: 30px;
+}
+
+.gridGraphContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px;
+}
+
 #contenidoActual {
   list-style-type: none;
   padding: 0;
@@ -467,7 +485,7 @@ a.contact {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.listingsHeader{
+.listingsHeader {
   color: black;
 }
 

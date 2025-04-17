@@ -1,0 +1,56 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    $(document).ready(function() {
+        setPopularCryptoGraphs();
+    });
+
+    function setPopularCryptoGraphs() {
+        const graphContainer = document.getElementById("graphContainer");
+        
+        graphsData = getGraphsData();
+
+        graphsData.forEach((graph, index) => {
+            const container = document.createElement('div');
+            container.className = 'chart-container';
+            const title = document.createElement('h3');
+            title.textContent = chart.titulo;
+            const canvas = document.createElement('canvas');
+            canvas.id = `chart${index}`;
+            container.appendChild(title);
+            container.appendChild(canvas);
+            graphContainer.appendChild(container);
+
+            new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                labels: chart.labels,
+                datasets: [{
+                    label: chart.titulo,
+                    data: chart.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+                },
+                options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+                }
+            });
+        });
+    }
+
+    function getGraphsData() {
+        graphsData = []
+
+    }
+
+</script>
+</body>
+</html>

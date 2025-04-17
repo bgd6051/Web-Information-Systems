@@ -5,6 +5,7 @@
 <script src="../js/script.js"></script>
 <script>
     var filtroAnt = -1;
+
     function listado(Nfiltro) {
         var textosDeFiltro = [
             "Precios mayores o iguales al dado.",
@@ -60,18 +61,24 @@
         listadoActual.style.visibility = "visible";
         listadoActual.style.display = "flex";
     }
+
     function confirmarFiltros() {
-            var filtro = document.getElementById("filtroTextarea").value;
-            var elemFiltroOrden = document.getElementById("filtroOrden");
-            var filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
+        var filtro = document.getElementById("filtroTextarea").value;
+        var elemFiltroOrden = document.getElementById("filtroOrden");
+        var filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
 
-            console.log("Filtro aplicado:", filtro);
-            console.log("Orden seleccionado:", filtroOrden);
+        console.log("Filtro aplicado:", filtro);
+        console.log("Orden seleccionado:", filtroOrden);
 
-            if (filtroAnt !== -1) {
-                listado(filtroAnt);
-            }
+        if (filtroAnt !== -1) {
+            listado(filtroAnt);
         }
+    }
+
+    function redirectToGraphs() {
+        window.location.href="./graphs?template=${filtroAnt}";
+    }
+    
 </script>
 </body>
 </html>
