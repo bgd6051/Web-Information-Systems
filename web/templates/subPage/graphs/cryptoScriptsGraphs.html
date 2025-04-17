@@ -34,31 +34,53 @@
     }
 
     function createGraph(canvas, chart) {
-        new Chart(canvas.getContext('2d'), {
-            type: chart.tipo || 'bar',
-            data: {
-                labels: chart.labels,
-                datasets: [{
-                label: chart.titulo,
-                data: chart.data,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(153, 102, 255, 0.5)'
-                ],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: chart.tipo === 'pie' ? {} : {
-                y: {
-                    beginAtZero: true
+        const data = {
+            datasets: [{
+            label: chart.titulo,
+            data: chart.data,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4,
+            fill: true
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            scales: {
+                x: {
+                type: 'time',
+                time: {
+                    unit: 'month',
+                    tooltipFormat: 'MMM yyyy'
+                },
+                title: {
+                    display: true,
+                    text: 'Fecha'
                 }
+                },
+                y: {
+                beginAtZero: false,
+                title: {
+                    display: true,
+                    text: 'Precio ($)'
+                }
+                }
+            },
+            plugins: {
+                legend: {
+                position: 'top'
+                },
+                title: {
+                display: false
                 }
             }
+            };
+
+            new Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: data,
+            options: options
         });
     }
 

@@ -35,34 +35,50 @@
     }
 
     function createGraph(canvas, chart) {
-        new Chart(canvas.getContext('2d'), {
-            type: chart.tipo || 'bar',
-            data: {
-                labels: chart.labels,
-                datasets: [{
+        const colores = chart.data.map(valor => valor >= 0 ? 'rgba(75, 192, 75, 0.7)' : 'rgba(255, 99, 99, 0.7)');
+
+        const data = {
+            labels: chart.labels,
+            datasets: [{
                 label: chart.titulo,
-                data: chart.data,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(153, 102, 255, 0.5)'
-                ],
-                borderColor: 'rgba(75, 192, 192, 1)',
+                data: chart.data, 
+                backgroundColor: colores,
+                borderColor: colores.map(c => c.replace('0.7', '1')),
                 borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: chart.tipo === 'pie' ? {} : {
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Variación (%)'
+                    }
                 }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
                 }
             }
+        };
+
+        new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: data,
+            options: options
         });
     }
-
 </script>
 </body>
 </html>

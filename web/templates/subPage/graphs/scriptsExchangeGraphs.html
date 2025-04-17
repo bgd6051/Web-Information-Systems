@@ -35,32 +35,48 @@
     }
 
     function createGraph(canvas, chart) {
-        new Chart(canvas.getContext('2d'), {
-            type: chart.tipo || 'bar',
-            data: {
-                labels: chart.labels,
-                datasets: [{
+        const colors = generateColors(chart.data.length);
+
+        const data = {
+            labels: chart.labels, 
+            datasets: [{
                 label: chart.titulo,
-                data: chart.data,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(153, 102, 255, 0.5)'
-                ],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: chart.tipo === 'pie' ? {} : {
-                y: {
-                    beginAtZero: true
+                data: chart.data, 
+                backgroundColor: colors,
+                hoverOffset: 4
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                position: 'top'
+                },
+                tooltip: {
+                callbacks: {
+                    label: (tooltipItem) => {
+                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                    }
                 }
                 }
             }
+        };
+
+        new Chart(canvas.getContext('2d'), {
+        type: 'pie',
+        data: data,
+        options: options
         });
+    }
+
+    function generateColors(numColors) {
+        const colors = [];
+        for (let i = 0; i < numColors; i++) {
+            const hue = Math.floor((360 / numColors) * i); 
+            colors.push(`hsl(${hue}, 70%, 60%)`);
+        }
+        return colors;
     }
 
 </script>
