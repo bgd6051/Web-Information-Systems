@@ -13,6 +13,8 @@ spl_autoload_register(function ($class) {
     }
 });
 
+session_start();
+
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 
 const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
@@ -22,7 +24,7 @@ if($username==null){
     exit;
 }
 
-if(isRegistered($newUsername)){
+if(!isRegistered($username)){
     echo $content;
     exit;
 }
