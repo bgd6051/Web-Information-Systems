@@ -85,6 +85,23 @@ class DBSelector extends DBHandler{
         return $structuredSelection;
     }
 
+    public function getCoinChartFromCoinId($coinId) 
+    {
+        $query = "SELECT * FROM FINAL_COINS_CHART";
+        $query .= " WHERE ID_COIN='".$coinId."'";
+        $stmt = $this->executeQuery($query);
+        $selection = $this->selectToArray($stmt->get_result());
+        $rownum = 0;
+        $structuredSelection = [];
+        foreach ($selection as $row) {
+            $structuredSelection[$rownum] = new CoinChartInstance(
+                $row[1],$row[2],$row[3],$row[4],
+                $row[5],$row[0]);
+            $rownum += 1;
+        }
+        return $structuredSelection;
+    }
+
     public function getAllTrendingCoins($orderBy, $orderReversed) 
     {
         $query = "SELECT * FROM FINAL_TRENDING_COINS";
