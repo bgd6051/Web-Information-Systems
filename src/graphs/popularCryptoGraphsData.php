@@ -52,13 +52,16 @@ function getTrendingGraphData()
     foreach ($trending as $trendingElement) {
         $labels[] = $trendingElement->getName();
         $data[] = $trendingElement->getFloorPrice24hPercentageChange();
+        $roundedData = array_map(function ($valor) {
+            return round($valor, 2);
+        }, $data);
         $graph['labels'] = $labels;
-        $graph['data'] = $data;
+        $graph['data'] = $roundedData;
     }
     $graphs[] = $graph;
     $trending = $dbSelector->getAllTrendingCoins(null, null);
     $graph = [
-        'titulo' => 'Variación de precio de los NFTs más populares',
+        'titulo' => 'Variación de precio de las criptomonedas más populares',
         'labels' => [],
         'data' => []
     ];
@@ -67,8 +70,11 @@ function getTrendingGraphData()
     foreach ($trending as $trendingElement) {
         $labels[] = $trendingElement->getName();
         $data[] = $trendingElement->getPriceChangePercentage24h();
+        $roundedData = array_map(function ($valor) {
+            return round($valor, 2);
+        }, $data);
         $graph['labels'] = $labels;
-        $graph['data'] = $data;
+        $graph['data'] = $roundedData;
     }
     $graphs[] = $graph;
     return $graphs;
