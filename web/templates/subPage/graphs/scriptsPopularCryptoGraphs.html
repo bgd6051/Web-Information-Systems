@@ -1,0 +1,84 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    $(document).ready(function() {
+        setPopularCryptoGraphs();
+    });
+
+    function setPopularCryptoGraphs() {
+        const graphContainer = document.getElementById("graphContainer");
+
+        fetch('popularCryptoGraphsData.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((chart, index) => {
+                    const container = document.createElement('div');
+                    container.className = 'graphElement';
+
+                    const title = document.createElement('h3');
+                    title.textContent = chart.titulo;
+
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart${index}`;
+
+                    container.appendChild(title);
+                    container.appendChild(canvas);
+                    graphContainer.appendChild(container);
+
+                    createGraph(canvas, chart);
+                })
+            });
+    }
+
+    function createGraph(canvas, chart) {
+        const colores = chart.data.map(valor => valor >= 0 ? 'rgba(75, 192, 75, 0.7)' : 'rgba(255, 99, 99, 0.7)');
+
+        const data = {
+            labels: chart.labels,
+            datasets: [{
+                label: chart.titulo,
+                data: chart.data, 
+                backgroundColor: colores,
+                borderColor: colores.map(c => c.replace('0.7', '1')),
+                borderWidth: 1
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Variación (%)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    }
+</script>
+</body>
+</html>

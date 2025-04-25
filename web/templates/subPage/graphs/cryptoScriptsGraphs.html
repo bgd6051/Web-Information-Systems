@@ -1,0 +1,92 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/jquery.bxslider.js"></script>
+<script src="../js/fixed-responsive-nav.js"></script> 
+<script src="../js/waypoints.min.js"></script>
+<script src="../js/script.js"></script>
+<script>
+    $(document).ready(function() {
+        setExchangesGraphs();
+    });
+
+    function setExchangesGraphs() {
+        const graphContainer = document.getElementById("gridGraphContainer");
+
+        fetch('cryptoGraphsData.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((chart, index) => {
+                    const container = document.createElement('div');
+
+                    const title = document.createElement('h3');
+                    title.textContent = chart.titulo;
+
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart${index}`;
+
+                    container.appendChild(title);
+                    container.appendChild(canvas);
+                    graphContainer.appendChild(container);
+
+                    createGraph(canvas, chart);
+                })
+            });
+    }
+
+    function createGraph(canvas, chart) {
+        const data = {
+            datasets: [{
+                label: chart.titulo,
+                data: chart.data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4,
+                fill: true
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day', 
+                        tooltipFormat: 'dd MMM yyyy',
+                        displayFormats: {
+                            day: 'dd MMM yyyy'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Precio ($)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: false
+                }
+            }
+        };
+
+        new Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    }
+
+</script>
+</body>
+</html>
