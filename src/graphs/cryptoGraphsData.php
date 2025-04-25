@@ -47,17 +47,21 @@ function getCoinChartGraphData(): array
 
     foreach ($coins as $coin) {
         $coinId = $coin->getID_COIN();
-        $charts = $dbSelector->getCoinChartFromCoinId($coinId);
+        $chartInstances = $dbSelector->getCoinChartFromCoinId($coinId);
+
+        usort($chartInstances, function ($a, $b) {
+            return $a->getUnixTime() <=> $b->getUnixTime();
+        });
 
         $graph = [
-            'titulo' => $coin->getName() ?? 'Criptomoneda',
+            'titulo' => $coin->getName() ?: 'Criptomoneda',
             'labels' => [],
             'data' => []
         ];
 
-        foreach ($charts as $chart) {
-            $graph['labels'][] = date('c', $chart->getUnixTime()); // ISO 8601
-            $graph['data'][] = $chart->getPrice();
+        foreach ($chartInstances as $chartInstance) {
+            $graph['labels'][] = $chartInstance->getUnixTime();
+            $graph['data'][] = round($chartInstance->getPrice(), 2);
         }
 
         $graphs[] = $graph;
