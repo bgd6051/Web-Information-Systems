@@ -5,20 +5,24 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script>
 <script>
-    $(document).ready(function() {
+        $(document).ready(function () {
         setExchangesGraphs();
     });
 
     function setExchangesGraphs() {
         const graphContainer = document.getElementById("gridGraphContainer");
 
-        fetch('cryptoGraphsData.php')
+        fetch('../../src/graphs/cryptoGraphsData.php')
             .then(response => response.json())
             .then(data => {
                 data.forEach((chart, index) => {
                     const container = document.createElement('div');
+                    container.className ="graphElement";
 
                     const title = document.createElement('h3');
+                    title.style.fontSize = "18px";
+                    title.style.color = "black";
+                    title.style.textAlign = "center";
                     title.textContent = chart.titulo;
 
                     const canvas = document.createElement('canvas');
@@ -29,12 +33,13 @@
                     graphContainer.appendChild(container);
 
                     createGraph(canvas, chart);
-                })
+                });
             });
     }
 
     function createGraph(canvas, chart) {
         const data = {
+            labels: chart.labels,
             datasets: [{
                 label: chart.titulo,
                 data: chart.data,
@@ -51,7 +56,7 @@
                 x: {
                     type: 'time',
                     time: {
-                        unit: 'day', 
+                        unit: 'day',
                         tooltipFormat: 'dd MMM yyyy',
                         displayFormats: {
                             day: 'dd MMM yyyy'
@@ -71,12 +76,8 @@
                 }
             },
             plugins: {
-                legend: {
-                    position: 'top'
-                },
-                title: {
-                    display: false
-                }
+                legend: { position: 'top' },
+                title: { display: false }
             }
         };
 

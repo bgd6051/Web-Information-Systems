@@ -19,47 +19,52 @@ $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 
 const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
 $content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedDirectAccessContentSubpage.html");
-if($username==null){
+if ($username == null) {
     echo $content;
     exit;
 }
 
-if(!isRegistered($username)){
+if (!isRegistered($username)) {
     echo $content;
     exit;
 }
 
 $graphs = getTrendingGraphData();
 
-if($graphs == null){
+if ($graphs == null) {
     echo 'no hay graficas';
     exit;
 }
 echo json_encode($graphs);
 
-function getTrendingGraphData(){
+function getTrendingGraphData()
+{
     $dbSelector = new DBSelector();
-    $trending = $dbSelector->getAllTrendingNfts(null,null);
+    $trending = $dbSelector->getAllTrendingNfts(null, null);
     $graphs = [];
-    $graph = ['titulo'=>'Distribución de NFTs',
+    $graph = [
+        'titulo' => 'Variación de precio de los NFTs más populares',
         'labels' => [],
-        'data' => []];
-    $labels = []; 
-    $data = []; 
-    foreach($trending as $trendingElement){
+        'data' => []
+    ];
+    $labels = [];
+    $data = [];
+    foreach ($trending as $trendingElement) {
         $labels[] = $trendingElement->getName();
         $data[] = $trendingElement->getFloorPrice24hPercentageChange();
         $graph['labels'] = $labels;
         $graph['data'] = $data;
-    } 
+    }
     $graphs[] = $graph;
-    $trending = $dbSelector->getAllTrendingCoins(null,null);
-    $graph = ['titulo'=>'Distribución de Criptomonedas',
+    $trending = $dbSelector->getAllTrendingCoins(null, null);
+    $graph = [
+        'titulo' => 'Variación de precio de los NFTs más populares',
         'labels' => [],
-        'data' => []];
-    $labels = []; 
-    $data = []; 
-    foreach($trending as $trendingElement){
+        'data' => []
+    ];
+    $labels = [];
+    $data = [];
+    foreach ($trending as $trendingElement) {
         $labels[] = $trendingElement->getName();
         $data[] = $trendingElement->getPriceChangePercentage24h();
         $graph['labels'] = $labels;
@@ -67,13 +72,14 @@ function getTrendingGraphData(){
     }
     $graphs[] = $graph;
     return $graphs;
-} 
+}
 
-function isRegistered($username): bool{
+function isRegistered($username): bool
+{
     $dbSelector = new DBSelector();
     $user = $dbSelector->getRegisteredUser($username);
-    if(empty($user)){
+    if (empty($user)) {
         return false;
     }
     return true;
-} 
+}

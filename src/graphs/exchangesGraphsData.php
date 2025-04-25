@@ -19,48 +19,55 @@ $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
 
 const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
 $content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedDirectAccessContentSubpage.html");
-if($username==null){
+if ($username == null) {
     echo $content;
     exit;
 }
 
-if(!isRegistered($username)){
+if (!isRegistered($username)) {
     echo $content;
     exit;
 }
 
 $graphs = getExchangesGraphData();
 
-if($graphs == null){
+if ($graphs == null) {
     echo 'no hay graficas';
     exit;
 }
 echo json_encode($graphs);
 
-function getExchangesGraphData(){
+function getExchangesGraphData()
+{
     $dbSelector = new DBSelector();
-    $exchanges = $dbSelector->getAllExchanges(null,null);
+    $exchanges = $dbSelector->getAllExchanges(null, null);
     $graphs = [];
-    $graph = ['titulo'=>'Diestibucion de paginas de intercambio',
+    $graph = [
+        'titulo' => 'Volumen de comercio (24h) en BTC',
         'labels' => '',
-        'data' => ''];
-    $labels = []; 
-    $data = []; 
-    foreach($exchanges as $exchange){
+        'data' => ''
+    ];
+    $labels = [];
+    $data = [];
+    foreach ($exchanges as $exchange) {
         $labels[] = $exchange->getName();
         $data[] = $exchange->getTradeVolume24hBtc();
+        $roundedData = array_map(function ($valor) {
+            return round($valor, 2);
+        }, $data);
         $graph['labels'] = $labels;
-        $graph['data'] = $data;
-    } 
+        $graph['data'] = $roundedData;
+    }
     $graphs[] = $graph;
     return $graphs;
-} 
+}
 
-function isRegistered($username): bool{
+function isRegistered($username): bool
+{
     $dbSelector = new DBSelector();
     $user = $dbSelector->getRegisteredUser($username);
-    if(empty($user)){
+    if (empty($user)) {
         return false;
     }
     return true;
-} 
+}

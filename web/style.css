@@ -450,8 +450,13 @@ a.contact {
 }
 
 .graphElement {
-  max-width: 300px;
+  max-width: 500px;
   margin-bottom: 30px;
+}
+
+.graphElement canvas {
+  width: 450px;
+  height: 450px;
 }
 
 .gridGraphContainer {

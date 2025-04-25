@@ -12,7 +12,7 @@
     function setPopularCryptoGraphs() {
         const graphContainer = document.getElementById("graphContainer");
 
-        fetch('popularCryptoGraphsData.php')
+        fetch('../../src/graphs/popularCryptoGraphsData.php')
             .then(response => response.json())
             .then(data => {
                 data.forEach((chart, index) => {
@@ -20,6 +20,9 @@
                     container.className = 'graphElement';
 
                     const title = document.createElement('h3');
+                    title.style.fontSize = "18px";
+                    title.style.color = "black";
+                    title.style.textAlign = "center";
                     title.textContent = chart.titulo;
 
                     const canvas = document.createElement('canvas');
