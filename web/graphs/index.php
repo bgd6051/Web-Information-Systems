@@ -33,7 +33,7 @@ if (isset($_SESSION["Role"])) {
 } else {
     $headAndHeader = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unloggedHeadAndHeaderSubpage.html");
     $content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedContentSubpage.html");
-    $scripts = file_get_contents(GRAPHS_TEMPLATE_PATH . "scriptsDefaultGraphs.html.html");
+    $scripts = file_get_contents(GRAPHS_TEMPLATE_PATH . "scriptsDefaultGraphs.html");
 }
 
 $footer = file_get_contents(SUBPAGE_TEMPLATE_PATH . "footerSubpage.html");
