@@ -18,6 +18,8 @@
                 data.forEach((chart, index) => {
                     const container = document.createElement('div');
                     container.className = 'graphElement';
+                    container.style.maxHeight = '800px';
+                    container.style.maxWidth = '800px';
 
                     const title = document.createElement('h3');
                     title.style.fontSize = "18px";
