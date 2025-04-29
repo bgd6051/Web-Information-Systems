@@ -4,19 +4,21 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script>
 <script>
-    var filtroAnt = -1;
+    let filtroAnt = -1;
+
+    const textosDeFiltro = [
+        "Precios mayores o iguales al dado",
+        "Precios mayores o iguales al dado",
+        "Pais a filtrar"
+    ];
+    const textosDeOrden = [
+        "Ordenar por precios descendentes?",
+        "Ordenar por precios descendentes?",
+        "Ordenar por antiguedad ascendente?"
+    ];
 
     function listado(Nfiltro) {
-        var textosDeFiltro = [
-            "Precios mayores o iguales al dado",
-            "Precios mayores o iguales al dado",
-            "Pais a filtrar"
-        ];
-        var textosDeOrden = [
-            "Ordenar por precios descendentes?",
-            "Ordenar por precios descendentes?",
-            "Ordenar por antiguedad ascendente?"
-        ];
+        
         //var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
         var textoFiltro = document.getElementById("textoFiltro");
         textoFiltro.innerHTML = textosDeFiltro[Nfiltro]; 
@@ -79,6 +81,33 @@
         window.location.href="../graphs?template=" + filtroAnt;
     }
     
+</script>
+<script>
+    function generatePdf() {
+        const currentListingInHtml = $("#contenidoActual").html();
+        let filterOrder = "";
+        let filterText = "";
+
+        if (filtroAnt != -1) {
+            filterOrder = $("filtroOrden").val();
+            filterText = textosDeFiltro[filtroAnt];
+        }
+        $.ajax({
+            url: 'generatePDF.php',
+            type: 'POST',
+            data: {currentListingInHtml: currentListingInHtml,
+                filters: 
+            },
+            success: function(response) {
+                alert("PDF generado correctamente!");
+            },
+            error: function(xhr, status, error) {
+                alert("Hubo un error al generar el pdf.");
+            }
+        });
+    }
+
+
 </script>
 </body>
 </html>
