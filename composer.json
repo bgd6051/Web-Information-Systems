@@ -1,0 +1,13 @@
+{
+  "name": "cripton/cryptocurrency-explorer",
+  "description": "Descripción de tu proyecto",
+  "require": {
+    "php": "^7.2",
+    "mpdf/mpdf": "8.0.10"
+  },
+  "config": {
+    "platform": {
+      "php": "7.2.34"
+    }
+  }
+}
