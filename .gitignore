@@ -1,0 +1,9 @@
+# Ignorar la carpeta vendor de Composer
+/vendor/
+
+# Archivos de configuración de Composer
+composer.lock
+
+# Otros archivos comunes a ignorar
+*.log
+*.env
