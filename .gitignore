@@ -2,7 +2,7 @@
 /vendor/
 
 # Archivos de configuración de Composer
-composer.lock
+/composer.lock
 
 # Otros archivos comunes a ignorar
 *.log
