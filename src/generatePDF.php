@@ -24,8 +24,8 @@ $ordenacion = isset($_POST["filterOrder"]) ? $_POST["filterOrder"] : null;
 $nombreFiltro = isset($_POST["filterText"]) ? $_POST["filterText"] : null;
 $filtro = isset($_POST["filterTextContent"]) ? $_POST["filterTextContent"] : null;
 
-const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
-const LOGO = '../../web/images/logo.png';
+const SUBPAGE_TEMPLATE_PATH = "../web/templates/subPage/";
+const LOGO = '../web/images/logo.png';
 $content = file_get_contents(SUBPAGE_TEMPLATE_PATH . "unauthorizedDirectAccessContentSubpage.html");
 
 if ($username == null) {
