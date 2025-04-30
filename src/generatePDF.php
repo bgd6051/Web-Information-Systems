@@ -57,7 +57,7 @@ function createPDF($listado, $nombreListado, $ordenacion, $nombreFiltro, $filtro
     if ($listado == null) {
         return "Listado no proporcionado";
     }
-    $logoHTML = '<img src="' . LOGO . '" alt="cripton" />';
+    $logoHTML = '<img src="' . realpath(LOGO) . '" alt="cripton" />';
 
     $mpdf = new \mpdf\Mpdf();
 
