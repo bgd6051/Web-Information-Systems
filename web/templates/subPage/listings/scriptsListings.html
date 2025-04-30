@@ -4,36 +4,54 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/script.js"></script>
 <script>
-    var filtroAnt = -1;
+    let filtroAnt = -1;
+    let confirmedFilters = false;
+    let filterOrder = "";
+    let filterText = "";
+    let filterTextContent = "";
+    let currentListing = filtroAnt;
+
+    const textosDeFiltro = [
+        "Precios mayores o iguales al dado",
+        "Precios mayores o iguales al dado",
+        "Pais a filtrar"
+    ];
+    const textosDeOrden = [
+        "Ordenar por precios descendentes?",
+        "Ordenar por precios descendentes?",
+        "Ordenar por antiguedad ascendente?"
+    ];
 
     function listado(Nfiltro) {
-        var textosDeFiltro = [
-            "Precios mayores o iguales al dado",
-            "Precios mayores o iguales al dado",
-            "Pais a filtrar"
-        ];
-        var textosDeOrden = [
-            "Ordenar por precios descendentes?",
-            "Ordenar por precios descendentes?",
-            "Ordenar por antiguedad ascendente?"
-        ];
+        
         //var filtros = ["listadoDeCriptomonedasFiltro","listadoDeNftsFiltro","listadoExchangesFiltro"];
         var textoFiltro = document.getElementById("textoFiltro");
         textoFiltro.innerHTML = textosDeFiltro[Nfiltro]; 
         var textoOrden = document.getElementById("textoOrden");
         textoOrden.innerHTML = textosDeOrden[Nfiltro];
+        var elemFiltroOrden = document.getElementById("filtroOrden");
 
         var filtro = document.getElementById("filtroTextarea").value;
         //var filtro = "none"//sin filtro
         var resultado = document.getElementById("contenidoActual");
+        let filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
+        
+        currentListing = Nfiltro;
+        
         if(Nfiltro != filtroAnt){
             filtroAnt = Nfiltro;
-            filtro = "none"
+            filtro = "none";
+            filtroOrden = "no";
+            filterOrder = "";
+            filterText = "";
+            filterTextContent = "";
+        } else {
+            filterOrder = $("#filtroOrden").val();
+            filterText = textosDeFiltro[filtroAnt];
+            filterTextContent = $("#filtroTextarea").val();
         }
         
         //var filtroOrden = "no";//sin orden
-        var elemFiltroOrden = document.getElementById("filtroOrden");
-	    var filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
 
         var params = "?Nfiltro="+Nfiltro;
         if(filtroOrden != "no"){
@@ -73,12 +91,35 @@
         if (filtroAnt !== -1) {
             listado(filtroAnt);
         }
+        
     }
 
     function redirectToGraphs() {
         window.location.href="../graphs?template=" + filtroAnt;
     }
     
+</script>
+<script>
+    function generatePdf() {
+        const currentListingInHtml = $("#contenidoActual").html();
+
+        $.ajax({
+            url: 'generatePDF.php',
+            type: 'POST',
+            data: {currentListingInHtml: currentListingInHtml,
+                currentListing: currentListing,
+                filterOrder: filterOrder,
+                filterText: filterText,
+                filterTextContent: filterTextContent,
+            },
+            success: function(response) {
+                alert("PDF generado correctamente!");
+            },
+            error: function(xhr, status, error) {
+                alert("Hubo un error al generar el pdf.");
+            }
+        });
+    }
 </script>
 </body>
 </html>
