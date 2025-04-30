@@ -13,13 +13,16 @@ spl_autoload_register(function ($class) {
     }
 });
 
-//require_once __DIR__ . '/vendor/autoload.php';//??
+require_once __DIR__ . '/vendor/autoload.php';//??
 
 session_start();
 
 $username = isset($_SESSION["Username"]) ? $_SESSION["Username"] : null;
-$listado = isset($_GET["Listado"]) ? $_GET["Listado"] : null;
-$NombreListado = isset($_GET["NombreListado"]) ? $_GET["NombreListado"] : null;
+$listado = isset($_POST["currentListingInHtml"]) ? $_POST["currentListingInHtml"] : null;
+$nombreListado = isset($_POST["currentListing"]) ? $_POST["currentListing"] : null;
+$ordenacion = isset($_POST["filterOrder"]) ? $_POST["filterOrder"] : null;
+$nombreFiltro = isset($_POST["filterText"]) ? $_POST["filterText"] : null;
+$filtro = isset($_POST["filterTextContent"]) ? $_POST["filterTextContent"] : null;
 
 const SUBPAGE_TEMPLATE_PATH = "../../web/templates/subPage/";
 const LOGO = '../../web/images/logo.png';
@@ -35,7 +38,7 @@ if(!isRegistered($username)){
     exit;
 }
 
-$response = createPDF($listado,$NombreListado);
+$response = createPDF($listado,$nombreListado,$ordenacion,$nombreFiltro,$filtro);
 
 echo $response;
 
@@ -48,13 +51,13 @@ function isRegistered($username): bool{
     return true;
 } 
 
-function createPDF($listado,$NombreListado){
+function createPDF($listado,$nombreListado,$ordenacion,$nombreFiltro,$filtro){
     if($listado==null){
         return "Listado no proporcionado";
     }
     $logoHTML = '<img src="'.LOGO.'" alt="cripton" />';
 
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new \mpdf\Mpdf();
 
     $mpdf->SetHTMLHeader('
     <div style="text-align: right; font-weight: bold;">
@@ -65,11 +68,11 @@ function createPDF($listado,$NombreListado){
     <table width="100%">
         <tr>
             <td width="33%">{DATE j-m-Y}</td>
-            <td width="33%" align="center">'.$NombreListado.'</td>
+            <td width="33%" align="center">'.$nombreListado.'</td>
             <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
         </tr>
     </table>');
 
-    $mpdf->WriteHTML($listado);
+    $mpdf->WriteHTML($nombreFiltro.': '.$filtro.'<br/>ordenacion: '.$ordenacion.'<br/>'.$listado);
     $mpdf->Output();
 } 
