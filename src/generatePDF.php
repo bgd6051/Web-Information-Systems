@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
-//require_once __DIR__ . '/vendor/autoload.php';//??
+//require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . '/vendor/autoload.php';//??
 
 session_start();
 
@@ -68,7 +68,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
 
     $logoHTML = '<img src="' . realpath(LOGO) . '" alt="cripton" />';
 
-    $mpdf = new \mpdf\Mpdf();
+    $mpdf = new \Mpdf\Mpdf();
 
     $mpdf->SetHTMLHeader('
     <div style="text-align: right; font-weight: bold;">
