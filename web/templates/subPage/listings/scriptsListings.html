@@ -104,7 +104,7 @@
         const currentListingInHtml = $("#contenidoActual").html();
 
         $.ajax({
-            url: 'generatePDF.php',
+            url: '../../../src/generatePDF.php',
             type: 'POST',
             data: {currentListingInHtml: currentListingInHtml,
                 currentListing: currentListing,
