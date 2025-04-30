@@ -77,4 +77,5 @@ function createPDF($listado, $nombreListado, $ordenacion, $nombreFiltro, $filtro
 
     $mpdf->WriteHTML($nombreFiltro . ': ' . $filtro . '<br/>ordenacion: ' . $ordenacion . '<br/>' . $listado);
     $mpdf->Output();
+    exit;
 }
