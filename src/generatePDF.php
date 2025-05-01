@@ -1,7 +1,6 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+use \Mpdf\Mpdf;
 
 spl_autoload_register(function ($class) {
     $directories = ['auth', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
@@ -69,12 +68,14 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
 
     $nombreDeListado = NFILTER_LISTING_NAME[$numeroListado];
 
-    $logoHTML = '<img src="' . realpath(LOGO_PATH) . '" alt="cripton" />';
+    $logoHTML = '<img src="' . realpath(LOGO_PATH) . '" alt="cripton"/>';
 
-    $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
+    $mpdf = new Mpdf([
+        'tempDir' => sys_get_temp_dir()
+    ]);
 
     $mpdf->SetHTMLHeader('
-    <div style="text-align: right; font-weight: bold;">
+    <div style="text-align: center; font-weight: bold;">
         ' . $logoHTML . '
     </div>');
 
@@ -82,15 +83,24 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
     <table width="100%">
         <tr>
             <td width="33%">{DATE j-m-Y}</td>
-            <td width="33%" align="center">' . $nombreDeListado . '</td>
+            <td width="33%" align="center"> PDF generado desde la página del grupo70 </td>
             <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
         </tr>
     </table>');
 
-    $mpdf->WriteHTML($nombreFiltro . ': ' . $filtro . '<br/>ordenacion: ' . $ordenacion . '<br/>' . $listado);
+    $listStyle = '
+    <style>
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+    </style>';
+
+    $mpdf->WriteHTML($listStyle . ' <br><h3 style="text-align: center;">' . $nombreDeListado . '</h3> <br> <h4>' . $nombreFiltro . ': ' . $filtro . '<br>ordenacion: ' . $ordenacion . '<br></h4>' . 'awef');
 
     $mpdf->Output($nombreDeListado . ".pdf", \Mpdf\Output\Destination::INLINE);
-
-    echo "se llega";
-    exit;
 }
+

@@ -37,17 +37,16 @@
         let filtroOrden = elemFiltroOrden.options[elemFiltroOrden.selectedIndex].value;
         
         currentListing = Nfiltro;
-        
+        filterText = textosDeFiltro[Nfiltro];
+
         if(Nfiltro != filtroAnt){
             filtroAnt = Nfiltro;
             filtro = "none";
             filtroOrden = "no";
-            filterOrder = "";
-            filterText = "";
             filterTextContent = "";
+            filterOrder = "no ordenar";
         } else {
             filterOrder = $("#filtroOrden").val();
-            filterText = textosDeFiltro[filtroAnt];
             filterTextContent = $("#filtroTextarea").val();
         }
         
@@ -95,27 +94,32 @@
 </script>
 <script>
     function generatePdf() {
-        const currentListingInHtml = $("#contenidoActual").html();
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "../../src/generatePDF.php";
+        form.target = "_blank"; 
 
-        $.ajax({
-            url: '../../src/generatePDF.php',
-            type: 'POST',
-            data: {currentListingInHtml: currentListingInHtml,
-                currentListing: currentListing,
-                filterOrder: filterOrder,
-                filterText: filterText,
-                filterTextContent: filterTextContent,
-            },
-            success: function(response) {
-                alert(response);
-            },
-            error: function(xhr, status, error) {
-                alert("Hubo un error al generar el pdf." + xhr);
-                alert(error);
-                alert(status);
-            }
-        });
+        const addField = (name, value) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        };
+
+        addField("currentListingInHtml", $("#contenidoActual").html());
+        addField("currentListing", currentListing);
+        addField("filterOrder", filterOrder);
+        addField("filterText", filterText);
+        addField("filterTextContent", filterTextContent);
+        console.log($("#contenidoActual").html());
+        console.log({ currentListing, filterOrder, filterText, filterTextContent });
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
+
 </script>
 </body>
 </html>
