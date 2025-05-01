@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 spl_autoload_register(function ($class) {
     $directories = ['auth', 'databaseClasses', 'databaseClasses' . DIRECTORY_SEPARATOR . 'databaseModelClasses'];
 
@@ -25,7 +28,7 @@ $nombreFiltro = isset($_POST["filterText"]) ? $_POST["filterText"] : null;
 $filtro = isset($_POST["filterTextContent"]) ? $_POST["filterTextContent"] : null;
 
 const SUBPAGE_TEMPLATE_PATH = "../web/templates/subPage/";
-const LOGO = '../web/images/logo.png';
+const LOGO_PATH = '../web/images/logo.png';
 const NFILTER_LISTING_NAME = [
     0 => "Listado de criptomonedas",
     1 => "Listado de criptoactivos más populares",
@@ -66,9 +69,9 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
 
     $nombreDeListado = NFILTER_LISTING_NAME[$numeroListado];
 
-    $logoHTML = '<img src="' . realpath(LOGO) . '" alt="cripton" />';
+    $logoHTML = '<img src="' . realpath(LOGO_PATH) . '" alt="cripton" />';
 
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
 
     $mpdf->SetHTMLHeader('
     <div style="text-align: right; font-weight: bold;">
@@ -85,6 +88,9 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
     </table>');
 
     $mpdf->WriteHTML($nombreFiltro . ': ' . $filtro . '<br/>ordenacion: ' . $ordenacion . '<br/>' . $listado);
+
     $mpdf->Output($nombreDeListado . ".pdf", \Mpdf\Output\Destination::INLINE);
+
+    echo "se llega";
     exit;
 }
