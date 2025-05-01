@@ -65,6 +65,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
     if ($listado == null) {
         return "Listado no proporcionado";
     }
+    $listadoEstructurado = '<ul>'.$listado.'</ul>';
 
     $nombreDeListado = NFILTER_LISTING_NAME[$numeroListado];
 
@@ -99,7 +100,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
         }
     </style>';
 
-    $mpdf->WriteHTML($listStyle . ' <br><h3 style="text-align: center;">' . $nombreDeListado . '</h3> <br> <h4>' . $nombreFiltro . ': ' . $filtro . '<br>ordenacion: ' . $ordenacion . '<br></h4>' . 'awef');
+    $mpdf->WriteHTML($listStyle . ' <br><h3 style="text-align: center;">' . $nombreDeListado . '</h3> <br> <h4>' . $nombreFiltro . ': ' . $filtro . '<br>ordenacion: ' . $ordenacion . '<br></h4>' . $listadoEstructurado);
 
     $mpdf->Output($nombreDeListado . ".pdf", \Mpdf\Output\Destination::INLINE);
 }
