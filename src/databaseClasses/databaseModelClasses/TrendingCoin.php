@@ -84,6 +84,6 @@ class TrendingCoin
         $width = "50px";
         $img = '<img src="' . $this->Thumbnail . '" height="' . $height . '" width="' . $width . '"/>';
         return "<li>" . $this->Id . $separador . $this->Name . $separador . $img . $separador .
-            $this->Price . $separador . $this->PriceChangePercentage24h . "</li>";
+            round($this->Price, 2) . $separador . round($this->PriceChangePercentage24h, 2) . "</li>";
     }
 }

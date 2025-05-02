@@ -11,10 +11,14 @@ class CoinChartInstance
     private $TotalVolume;
     private $ID_COINS_CHART;
 
-    public function __construct( int $ID_COIN, int $UnixTime, float $Price,
-                                float $MarketCap, float $TotalVolume, 
-                                ?int $ID_COINS_CHART = null)  
-    {
+    public function __construct(
+        int $ID_COIN,
+        int $UnixTime,
+        float $Price,
+        float $MarketCap,
+        float $TotalVolume,
+        ?int $ID_COINS_CHART = null
+    ) {
         $this->ID_COIN = $ID_COIN;
         $this->UnixTime = $UnixTime;
         $this->Price = $Price;
@@ -23,7 +27,8 @@ class CoinChartInstance
         $this->ID_COINS_CHART = $ID_COINS_CHART;
     }
 
-    public static function constructCoinChartArray(array $responseArray, int $ID_COIN): array {
+    public static function constructCoinChartArray(array $responseArray, int $ID_COIN): array
+    {
         $coinPricesArray = $responseArray["prices"];
         $coinMcapArray = $responseArray["market_caps"];
         $coinVolumeArray = $responseArray["total_volumes"];
@@ -31,46 +36,58 @@ class CoinChartInstance
 
         $unixInstanceList = [];
 
-        for($i = 0; $i < $numberOfRows; $i++) {
+        for ($i = 0; $i < $numberOfRows; $i++) {
             $unixInstance = $coinPricesArray[$i][UNIX_TIME_POSITION];
             $coinPriceUnixInstance = $coinPricesArray[$i][CONTENT_POSITION];
             $coinMcapUnixInstance = $coinMcapArray[$i][CONTENT_POSITION];
             $coinVolumeUnixInstance = $coinVolumeArray[$i][CONTENT_POSITION];
-            
-            $coinChartInstance = new CoinChartInstance( $ID_COIN, $unixInstance,  $coinPriceUnixInstance,
-                                        $coinMcapUnixInstance, $coinVolumeUnixInstance );
+
+            $coinChartInstance = new CoinChartInstance(
+                $ID_COIN,
+                $unixInstance,
+                $coinPriceUnixInstance,
+                $coinMcapUnixInstance,
+                $coinVolumeUnixInstance
+            );
             $unixInstanceList[$i] = $coinChartInstance;
         }
         return $unixInstanceList;
     }
 
-    public function getID_COIN(): int {
+    public function getID_COIN(): int
+    {
         return $this->ID_COIN;
     }
 
-    public function getUnixTime(): int {
+    public function getUnixTime(): int
+    {
         return $this->UnixTime;
     }
 
-    public function getPrice(): float {
+    public function getPrice(): float
+    {
         return $this->Price;
     }
 
-    public function getMarketCap(): float {
+    public function getMarketCap(): float
+    {
         return $this->MarketCap;
     }
 
-    public function getTotalVolume(): float {
+    public function getTotalVolume(): float
+    {
         return $this->TotalVolume;
     }
 
-    public function getID_COINS_CHART(): int {
+    public function getID_COINS_CHART(): int
+    {
         return $this->ID_COINS_CHART;
     }
 
-    public function toHTML(): string {
+    public function toHTML(): string
+    {
         $separador = ", ";
-        return "<li>".$this->UnixTime.$separador.$this->Price.$separador.
-            $this->MarketCap.$separador.$this->TotalVolume."<li/>";
+        return "<li>" . $this->UnixTime . $separador . round($this->Price, 2) . $separador .
+            round($this->MarketCap, 2) . $separador . round($this->TotalVolume, 2) . "<li/>";
     }
-}   
+}

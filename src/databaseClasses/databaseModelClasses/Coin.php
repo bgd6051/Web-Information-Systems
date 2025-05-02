@@ -12,10 +12,16 @@ class Coin
     private $PriceChangePercentage24h;
     private $ID_COIN;
 
-    public function __construct( string $Id, string $Symbol, string $Name,
-                                string $Image, int $CurrentPrice, int $MarketCap, 
-                                float $PriceChangePercentage24h, ?int $ID_COIN = null)
-    {
+    public function __construct(
+        string $Id,
+        string $Symbol,
+        string $Name,
+        string $Image,
+        float $CurrentPrice,
+        float $MarketCap,
+        float $PriceChangePercentage24h,
+        ?int $ID_COIN = null
+    ) {
         $this->Id = $Id;
         $this->Symbol = $Symbol;
         $this->Name = $Name;
@@ -26,7 +32,8 @@ class Coin
         $this->ID_COIN = $ID_COIN;
     }
 
-    public static function constructCoinArray(array $responseArray): array {
+    public static function constructCoinArray(array $responseArray): array
+    {
         $coinList = [];
         foreach ($responseArray as $iValue) {
             $coinLine = $iValue;
@@ -46,52 +53,62 @@ class Coin
         }
         return $coinList;
     }
-    
-    public function getId(): string {
+
+    public function getId(): string
+    {
         return $this->Id;
     }
 
-    public function getSymbol(): string {
+    public function getSymbol(): string
+    {
         return $this->Symbol;
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->Name;
     }
 
-    public function getImage(): string {
+    public function getImage(): string
+    {
         return $this->Image;
     }
 
-    public function getCurrentPrice(): int {
+    public function getCurrentPrice(): float
+    {
         return $this->CurrentPrice;
     }
 
-    public function getMarketCap(): int {
+    public function getMarketCap(): float
+    {
         return $this->MarketCap;
     }
 
-    public function getPriceChangePercentage24h(): float {
+    public function getPriceChangePercentage24h(): float
+    {
         return $this->PriceChangePercentage24h;
     }
 
-    public function getID_COIN(): int {
+    public function getID_COIN(): int
+    {
         return $this->ID_COIN;
     }
 
-    public function titleHTML(): string {
+    public function titleHTML(): string
+    {
         $separador = ", ";
-        return "<li class='listingsHeader'>Id".$separador."Symbol".$separador."Name".$separador."Image".$separador.
-        "CurrentPrice (dollars)".$separador."MarketCap".$separador."PriceChangePercentage24h (%)</li>";
+        return "<li class='listingsHeader'>Id" . $separador . "Symbol" . $separador . "Name" . $separador . "Image" . $separador .
+            "CurrentPrice (dollars)" . $separador . "MarketCap" . $separador . "PriceChangePercentage24h (%)</li>";
     }
 
-    public function toHTML(): string {
+    public function toHTML(): string
+    {
         $separador = ", ";
         $height = "50px";
         $width = "50px";
-        $img = '<img src="'.$this->Image.'" height="'.$height.'" width="'.$width.'"/>';
-        return "<li>".$this->Id.$separador.$this->Symbol.$separador.
-            $this->Name.$separador.$img.$separador.$this->CurrentPrice.$separador.
-            $this->MarketCap.$separador.$this->PriceChangePercentage24h."</li>";
+        $img = '<img src="' . $this->Image . '" height="' . $height . '" width="' . $width . '"/>';
+        return "<li>" . $this->Id . $separador . $this->Symbol . $separador .
+            $this->Name . $separador . $img . $separador . round($this->CurrentPrice, 2) . $separador .
+            round($this->MarketCap, 2) . $separador . round($this->PriceChangePercentage24h, 2) . "</li>";
     }
 }
