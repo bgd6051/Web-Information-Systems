@@ -65,7 +65,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
     if ($listado == null) {
         return "Listado no proporcionado";
     }
-    $listadoEstructurado = '<ul>'.$listado.'</ul>';
+    $listadoEstructurado = '<ul>' . $listado . '</ul>';
 
     $nombreDeListado = NFILTER_LISTING_NAME[$numeroListado];
 
@@ -84,7 +84,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
     <table width="100%">
         <tr>
             <td width="33%">{DATE j-m-Y}</td>
-            <td width="33%" align="center"> PDF generado desde la página del grupo70 </td>
+            <td width="33%" align="center"> PDF generado desde la página Cripton</td>
             <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
         </tr>
     </table>');
@@ -94,6 +94,7 @@ function createPDF($listado, $numeroListado, $ordenacion, $nombreFiltro, $filtro
         ul {
             list-style-type: disc;
             margin-left: 20px;
+            list-style: none;
         }
         li {
             margin-bottom: 4px;
