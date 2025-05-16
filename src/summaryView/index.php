@@ -58,17 +58,18 @@ function listar()
 {
     $dbSelector = new DBSelector();
 
-    $HTML = "<li>Usuarios Registrados: ";
+    $class = "class='blackText'";
+    $HTML = "<li ".$class.">Usuarios Registrados: ";
     $HTML .= count($dbSelector->getAllUserRegistrations(null, null, null));
-    $HTML .= "</li><li>CoinChart Registrados: ";
+    $HTML .= "</li><li ".$class.">CoinChart Registrados: ";
     $HTML .= count($dbSelector->getAllCoinChart(null, null));
-    $HTML .= "</li><li>TrendingCoins Registrados: ";
+    $HTML .= "</li><li ".$class.">TrendingCoins Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingCoins(null, null));
-    $HTML .= "</li><li>TrendingNfts Registrados: ";
+    $HTML .= "</li><li ".$class.">TrendingNfts Registrados: ";
     $HTML .= count($dbSelector->getAllTrendingNfts(null, null));
-    $HTML .= "</li><li>Coins Registrados: ";
+    $HTML .= "</li><li ".$class.">Coins Registrados: ";
     $HTML .= count($dbSelector->getAllCoins(null, null));
-    $HTML .= "</li><li>Exchanges Registrados: ";
+    $HTML .= "</li><li ".$class.">Exchanges Registrados: ";
     $HTML .= count($dbSelector->getAllExchanges(null, null));
     $HTML .= "</li>";
 

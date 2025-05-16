@@ -38,13 +38,14 @@ class UserRegistration
 
     public function toHTML(): string
     {
-        $usernameL = "<label for='nombreUsuario " . $this->Username . "'>Usuario</label>";
+        $class = "class='blackText'";
+        $usernameL = "<label ".$class." for='nombreUsuario " . $this->Username . "'>Usuario</label>";
         $usernameI = "<input id='nombreUsuario " . $this->Username . "' type=text maxlength=32 value=" . $this->Username . '>';
         $username = $usernameL . $usernameI;
-        $passwordL = "<label for='Contrasena " . $this->Username . "'>Contraseña</label>";
+        $passwordL = "<label ".$class." for='Contrasena " . $this->Username . "'>Contraseña</label>";
         $passwordI = "<input id='Contrasena " . $this->Username . "' type=text maxlength=32 value=" . $this->Password . '>';
         $password = $passwordL . $passwordI;
-        $nombreRolL = "<label for='nombreRol " . $this->Username . "'>Rol</label>";
+        $nombreRolL = "<label ".$class." for='nombreRol " . $this->Username . "'>Rol</label>";
         $nombreRolI = "<input id='nombreRol " . $this->Username . "' type=text maxlength=32 value=" . $this->Role . ' disabled>';
         $nombreRol = $nombreRolL . $nombreRolI;
         $saveChanges = "<button onclick='saveChanges(\"" . $this->Username . "\")'>Save changes</button>";

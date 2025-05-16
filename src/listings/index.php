@@ -19,9 +19,10 @@ $filtroOrden = isset($_GET["filtroOrden"]) ? $_GET["filtroOrden"] : null;
 $orderReversed = isOrderReversed($filtroOrden);
 $listaHTMLFiltrada = filtrarLista($Nfiltro,$filtro,$orderReversed);
 $fechaActualizacion = "<li class='listingsHeader'>".getUltimaAtualizacion()."</li>";
+$mensajeListaVacia = "<li class='listingsHeader'>La lista esta vacia</li>";
 
 if($listaHTMLFiltrada == null){
-    echo $fechaActualizacion;
+    echo $fechaActualizacion.$mensajeListaVacia;
     exit;
 }
 echo $fechaActualizacion.$listaHTMLFiltrada;
@@ -36,6 +37,7 @@ function filtrarLista($NLista, $filtro, $orderReversed){
     $HTML = "";
     $count = 0;
     foreach($listas as $lista){
+        $thisHTML = "";
         if($lista == null){
             continue;
         }
@@ -43,14 +45,20 @@ function filtrarLista($NLista, $filtro, $orderReversed){
             continue;
         }
         $elemTitleHTML = $lista[0]->titleHTML();
-        $HTML .= $elemTitleHTML;
+        $esVacio = true;
         foreach($lista as $elem){
             if(esFiltrado($elem,$filtro,$NLista,$count)){
                 $elemHTML = $elem->toHTML();
-                $HTML .= $elemHTML;
+                $thisHTML .= $elemHTML;
+                $esVacio = false;
             } 
         }
         $count += 1;
+        if($esVacio){
+            continue;
+        }
+        $HTML .= $elemTitleHTML;
+        $HTML .= $thisHTML;
     }
     return $HTML;
 } 
